@@ -10,7 +10,6 @@ main_menu(){
     echo ""
     echo "(1) Setup Grub                    (2) Fix KDE GDrive"      
     echo "(3) Setup Corectrl                (4) Game Profiles"
-    echo "(5)"
     echo "(0) Exit"
     printf "Option: "
     read -r input
