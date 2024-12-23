@@ -6,7 +6,7 @@ PCI_GPU_AUDIO="pci_0000_0a_00_1"
 sudo dnf install -y driverctl
 
 # copy over custom dracut config
-cd "configs" || exit
+cd "$TOOLS_FOLDER/configs" || exit
 sudo cp "dracut_local.conf" "/etc/dracut.conf.d/local.conf"
 
 # set permissions to root
