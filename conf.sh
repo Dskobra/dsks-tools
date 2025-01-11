@@ -1,4 +1,4 @@
-grub(){
+old_grub(){
     # backup the default fedora provided grub and kde google provider configurations
     sudo mv "/etc/default/grub" "/etc/default/grub.default.bak"
 
@@ -12,6 +12,38 @@ grub(){
 
     # rebuild grub with the new changes
     sudo grub2-mkconfig -o /etc/grub2.cfg
+}
+
+grub(){
+    echo "(1) AMD                    (2) NVIDIA"      
+    echo "(0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff acpi_enforce_resources=lax rhgb quiet'
+            ;;
+
+        2)
+            sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt  rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset acpi_enforce_resources=lax rhgb quiet'
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            grub
+            ;;
+
+        esac
+        unset input
+        grub
 }
 
 
