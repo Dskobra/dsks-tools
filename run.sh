@@ -10,7 +10,7 @@ main_menu(){
     echo ""
     echo "(1) Setup Grub                    (2) Fix KDE GDrive"      
     echo "(3) Setup Corectrl                (4) Game Profiles"
-    echo "(5) Security setup"
+    echo "(5) Security                      (6) Nvidia gsk fix"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -36,6 +36,10 @@ main_menu(){
 
         5)
             "$TOOLS_FOLDER"/conf.sh "security"
+            ;;
+
+        6)
+            "$TOOLS_FOLDER"/conf.sh "nvidia_fix"
             ;;
 
         0)

@@ -43,7 +43,6 @@ grub(){
 
         esac
         unset input
-        grub
 }
 
 
@@ -93,6 +92,13 @@ security(){
     sudo semanage boolean -m -1 antivirus_can_scan_system
 }
 
+nvidia_fix(){
+    # this fixes an issue with wayland/x11 where an application fails to launch
+    # with a protocol dispatching to wayland error
+    mkdir /home/$USER/.config/environment.d
+    echo "GSK_RENDERER=gl" > /home/$USER/.config/environment.d/gsk.conf
+}
+
 if [ "$1" == "grub" ]
 then
 
@@ -109,6 +115,9 @@ then
 elif [ "$1" == "security" ]
 then
     security
+elif [ "$1" == "nvidia_fix" ]
+then
+    nvidia_fix
 else
     echo "error"
 fi
