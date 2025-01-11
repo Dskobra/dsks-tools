@@ -8,6 +8,6 @@ rm -r ~/config/WowUpCf/GPUCache/
 
 rm -r ~/.config/RaiderIO/GPUCache/
 
-rm -r ~/.config/Warcraft Logs Uploader/GPUCache/
+rm -r ~/.config/"Warcraft Logs Uploader"/GPUCache/
 
 
