@@ -17,5 +17,6 @@ distro_updater(){
 
 DISTRO=$(source /etc/os-release ; echo $ID)
 flatpak update -y
-flatpak remove --unused -y                                                
+flatpak remove --unused -y  
+sudo -v ; curl https://rclone.org/install.sh | sudo bash
 distro_updater
