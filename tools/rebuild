@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+sudo akmods --rebuild --force
+sudo dracut --regenerate-all --force
