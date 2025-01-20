@@ -45,21 +45,6 @@ grub(){
         unset input
 }
 
-
-kde_gdrive_fix(){
-    # backup the default fedora provided grub and kde google provider configurations
-    sudo mv "/usr/share/accounts/providers/kde/google.provider" "/usr/share/accounts/providers/kde/google.provider.bak"
-
-    # copy my custom grub and selinux changes into their folders
-    cd "configs" || exit
-
-    ## issue with kde atm where google blocks connecting plasma to your account.
-    # switching to the gnome provider seems to work
-    sudo cp "google.provider" "/usr/share/accounts/providers/kde/google.provider"
-    sudo chown root:root "/usr/share/accounts/providers/kde/google.provider"
-
-}
-
 corectrl(){
     ## setup corectrl by running the corectrl.py script
     cd "configs" || exit
@@ -101,11 +86,7 @@ nvidia_fix(){
 
 if [ "$1" == "grub" ]
 then
-
     grub
-elif [ "$1" == "kde_gdrive_fix" ]
-then
-    kde_gdrive_fix
 elif [ "$1" == "corectrl" ]
 then
     corectrl

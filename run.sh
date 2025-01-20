@@ -8,9 +8,9 @@ main_menu(){
     echo "Released under the MIT license"
     echo ""
     echo ""
-    echo "(1) Setup Grub                    (2) Fix KDE GDrive"      
-    echo "(3) Setup Corectrl                (4) Game Profiles"
-    echo "(5) Security                      (6) Nvidia gsk fix"
+    echo "(1) Setup Grub                    (2) Setup Corectrl    "      
+    echo "(3) Game Profiles                 (4) Security"
+    echo "(5) Nvidia gsk fix"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -23,22 +23,18 @@ main_menu(){
             ;;
 
         2)
-            "$TOOLS_FOLDER"/conf.sh "kde_gdrive_fix"
-            ;;
-
-        3)
             "$TOOLS_FOLDER"/conf.sh "corectrl"
             ;;
         
-        4)  
+        3)  
             "$TOOLS_FOLDER"/conf.sh "game_profiles"
             ;;
 
-        5)
+        4)
             "$TOOLS_FOLDER"/conf.sh "security"
             ;;
 
-        6)
+        5)
             "$TOOLS_FOLDER"/conf.sh "nvidia_fix"
             ;;
 
@@ -58,7 +54,7 @@ main_menu(){
 }
 
 export TOOLS_FOLDER                          # stores full path for dsks-tools
-export COPYRIGHT="Copyright (c) 2024 Jordan Bottoms"
+export COPYRIGHT="Copyright (c) 2024-2025 Jordan Bottoms"
 export VERSION=""
 TOOLS_FOLDER=$(pwd)
 main_menu
