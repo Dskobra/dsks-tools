@@ -1,6 +1,6 @@
 import getpass
 username = getpass.getuser()
-def create_config():
+def configure_config():
     templateFile = "corectrl.rules"
     newFile = "90-corectrl.rules"
 
@@ -16,4 +16,4 @@ def create_config():
       file.write(filedata)
 
 
-create_config()
+configure_config()
