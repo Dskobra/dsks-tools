@@ -6,10 +6,10 @@ gdrive_fix(){
 
     printf "Insert client secret: "
     read -r CLIENT_SECRET
-    cp google.provider.bak google.provider
+    cp gdrive.provider.bak gdrive.provider
     
     python3 "gdrive.py" "$CLIENT_ID" "$CLIENT_SECRET"
-    sudo cp google.provider /usr/share/accounts/providers/kde/google.provider
+    sudo cp gdrive.provider /usr/share/accounts/providers/kde/gdrive.provider
     
 }
 

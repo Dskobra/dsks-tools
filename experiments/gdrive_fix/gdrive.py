@@ -3,8 +3,8 @@ USER_CLIENT_ID=sys.argv[1]
 USER_SECRET=sys.argv[2]
 print(USER_CLIENT_ID)
 print(USER_SECRET)
-templateFile = "google.provider"
-newFile = "google.provider"
+templateFile = "gdrive.provider"
+newFile = "gdrive.provider"
 KDE_CLIENT_ID="317066460457-pkpkedrvt2ldq6g2hj1egfka2n7vpuoo.apps.googleusercontent.com"
 KDE_SECRET="Y8eFAaWfcanV3amZdDvtbYUq"
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <provider id="google">
-  <name>Google</name>
+  <name>Google Drive (only)</name>
   
-  <description>Includes GMail, Google Drive and YouTube</description>
+  <description>Google Drive integration</description>
   <icon>im-google</icon>
   <translations>kaccounts-providers</translations>
   <domains>.*google\.com</domains>
@@ -20,13 +20,9 @@
           
           <setting name="ResponseType">code</setting>
           <setting type="as" name="Scope">[
-              'https://www.googleapis.com/auth/userinfo.email',
               'https://www.googleapis.com/auth/userinfo.profile',
-              'https://www.googleapis.com/auth/calendar',
               'https://www.googleapis.com/auth/tasks',
-              'https://www.google.com/m8/feeds/',
               'https://www.googleapis.com/auth/drive',
-              'https://www.googleapis.com/auth/youtube.upload'
           ]</setting>
           <setting type="as" name="AllowedSchemes">['https']</setting>
           <setting name="ClientId">317066460457-pkpkedrvt2ldq6g2hj1egfka2n7vpuoo.apps.googleusercontent.com</setting>
