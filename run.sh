@@ -8,9 +8,8 @@ main_menu(){
     echo "Released under the MIT license"
     echo ""
     echo ""
-    echo "(1) Setup Grub                    (2) Setup Corectrl    "      
-    echo "(3) Game Profiles                 (4) Security"
-    echo "(5) Nvidia gsk fix"
+    echo "(1) Fedora fixes                   (2) Setup Corectrl"      
+    echo "(3) Game Profiles                  (4) Nvidia gsk fix"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -19,7 +18,7 @@ main_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/conf.sh "grub"
+            fedora_menu
             ;;
 
         2)
@@ -28,10 +27,6 @@ main_menu(){
         
         3)  
             "$TOOLS_FOLDER"/conf.sh "game_profiles"
-            ;;
-
-        4)
-            "$TOOLS_FOLDER"/conf.sh "security"
             ;;
 
         5)
@@ -51,6 +46,43 @@ main_menu(){
         esac
         unset input
         main_menu
+}
+
+fedora_menu(){
+    echo "---------------------------"   
+    echo "|   Fedora configurations |"
+    echo "---------------------------" 
+    echo ""
+    echo ""
+    echo "(1) Setup Grub                    (2) Setup clamav"      
+    echo "(0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            "$TOOLS_FOLDER"/conf.sh "grub"
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/conf.sh "clamav"
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            fedora_menu
+            ;;
+
+        esac
+        unset input
+        fedora_menu
 }
 
 export TOOLS_FOLDER                          # stores full path for dsks-tools

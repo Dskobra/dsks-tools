@@ -61,7 +61,7 @@ game_profiles(){
     fi
 }
 
-security(){
+clamav(){
     # https://discussion.fedoraproject.org/t/use-clamdscan-on-workstation-f38/96864/3
     # note not sure why setroubleshoot package isnt preinstalled in fedora 41 kde spin.
     # fedora 40 was preinstalled
