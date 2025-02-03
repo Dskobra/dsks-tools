@@ -8,15 +8,23 @@ distro_updater(){
     elif [ "$DISTRO" == "opensuse-tumbleweed" ] || [ "$DISTRO" == "opensuse-slowroll" ] || [ "$DISTRO" == "opensuse-leap" ]
     then
         sudo zypper ref
-        sudo zypper -n dup
+        sudo zypper -n up
     else
         echo "Unsupported distro"
     fi
 
 }
 
+update_rclone(){    
+    if test -f /usr/bin/rclone; then
+        sudo -v ; curl https://rclone.org/install.sh | sudo bash
+    elif ! test -f /usr/bin/rclone; then
+        echo "Rclone not installed."
+    fi
+}
+
 DISTRO=$(source /etc/os-release ; echo $ID)
 flatpak update -y
 flatpak remove --unused -y  
-sudo -v ; curl https://rclone.org/install.sh | sudo bash
+update_rclone
 distro_updater
