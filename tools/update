@@ -5,7 +5,11 @@ distro_updater(){
     then
         sudo dnf clean all
         sudo dnf update -y
-    elif [ "$DISTRO" == "opensuse-tumbleweed" ] || [ "$DISTRO" == "opensuse-slowroll" ] || [ "$DISTRO" == "opensuse-leap" ]
+    elif [ "$DISTRO" == "opensuse-tumbleweed" ]
+    then
+        sudo zypper ref
+        sudo zypper -n dup
+    elif [ "$DISTRO" == "opensuse-slowroll" ] || [ "$DISTRO" == "opensuse-leap" ]
     then
         sudo zypper ref
         sudo zypper -n up
