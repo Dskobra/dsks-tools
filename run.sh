@@ -29,7 +29,7 @@ main_menu(){
             "$TOOLS_FOLDER"/conf.sh "game_profiles"
             ;;
 
-        5)
+        4)
             "$TOOLS_FOLDER"/conf.sh "nvidia_fix"
             ;;
 
