@@ -87,9 +87,9 @@ then
 elif [ "$1" == "game_profiles" ]
 then
     game_profiles
-elif [ "$1" == "security" ]
+elif [ "$1" == "clamav" ]
 then
-    security
+    clamav
 elif [ "$1" == "nvidia_fix" ]
 then
     nvidia_fix
