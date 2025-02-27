@@ -14,6 +14,38 @@ old_grub(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
 }
 
+amd_grub(){
+    # backup the default fedora provided grub and kde google provider configurations
+    sudo mv "/etc/default/grub" "/etc/default/grub.default.bak"
+
+    # copy my custom grub and selinux changes into their folders
+    cd "configs" || exit
+    sudo cp "amd_grub" "/etc/default/grub"
+
+
+    # set the configuration files permissions to root
+    sudo chown root:root "/etc/default/grub"
+
+    # rebuild grub with the new changes
+    sudo grub2-mkconfig -o /etc/grub2.cfg
+}
+
+nvidia_grub(){
+    # backup the default fedora provided grub and kde google provider configurations
+    sudo mv "/etc/default/grub" "/etc/default/grub.default.bak"
+
+    # copy my custom grub and selinux changes into their folders
+    cd "configs" || exit
+    sudo cp "nvidia_grub" "/etc/default/grub"
+
+
+    # set the configuration files permissions to root
+    sudo chown root:root "/etc/default/grub"
+
+    # rebuild grub with the new changes
+    sudo grub2-mkconfig -o /etc/grub2.cfg
+}
+
 grub(){
     echo "(1) AMD                    (2) NVIDIA"      
     echo "(0) Exit"
@@ -24,11 +56,13 @@ grub(){
 
 
         1)
-            sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff acpi_enforce_resources=lax rhgb quiet'
+            #sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff acpi_enforce_resources=lax rhgb quiet'
+            amd_grub
             ;;
 
         2)
-            sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt  rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset acpi_enforce_resources=lax rhgb quiet'
+            #sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt  rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset acpi_enforce_resources=lax rhgb quiet'
+            nvidia_grub
             ;;
 
         0)
