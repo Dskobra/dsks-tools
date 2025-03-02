@@ -27,10 +27,9 @@ update_rclone(){
     fi
 }
 
-download_discord(){
+update_discord(){
     DISCORDLINK="https://discord.com/api/download?platform=linux&format=tar.gz"
     if test -d /opt/apps/Discord; then
-        echo "Discord already downloaded."
         mkdir /opt/apps/temp
         cd /opt/apps/temp || exit
         curl -L -o discord.tar.gz "$DISCORDLINK"
@@ -47,4 +46,5 @@ DISTRO=$(source /etc/os-release ; echo $ID)
 flatpak update -y
 flatpak remove --unused -y  
 update_rclone
+update_discord
 distro_updater
