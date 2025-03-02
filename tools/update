@@ -30,6 +30,7 @@ update_rclone(){
 update_discord(){
     DISCORDLINK="https://discord.com/api/download?platform=linux&format=tar.gz"
     if test -d /opt/apps/Discord; then
+        pkill -SIGTERM Discord
         mkdir /opt/apps/temp
         cd /opt/apps/temp || exit
         curl -L -o discord.tar.gz "$DISCORDLINK"
@@ -37,6 +38,8 @@ update_discord(){
         rm -r /opt/apps/Discord
         mv Discord /opt/apps/Discord
         rm discord.tar.gz
+        nohup /opt/apps/Discord/Discord > /dev/null 2>&1 &
+        rm /opt/apps/temp/nohup.out
     elif ! test -d /opt/apps/Discord; then
         echo "Discord not downloaded."
     fi
