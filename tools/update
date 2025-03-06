@@ -31,7 +31,6 @@ update_discord(){
     DISCORDLINK="https://discord.com/api/download?platform=linux&format=tar.gz"
     if test -d /opt/apps/Discord; then
         pkill -SIGTERM Discord
-        mkdir /opt/apps/temp
         cd /opt/apps/temp || exit
         curl -L -o discord.tar.gz "$DISCORDLINK"
         tar -xvf discord.tar.gz
@@ -39,15 +38,47 @@ update_discord(){
         mv Discord /opt/apps/Discord
         rm discord.tar.gz
         nohup /opt/apps/Discord/Discord > /dev/null 2>&1 &
-        rm /opt/apps/temp/nohup.out
     elif ! test -d /opt/apps/Discord; then
         echo "Discord not downloaded."
     fi
 }
 
+help(){
+    echo "update [args]"
+    echo ""
+    echo ""
+    echo "Examples: "
+    echo "  update --apps'            # updates flatpaks, discord and rclone"
+    echo "  update --distro           # updates fedora/openSUSE"
+    echo "  update --all              # updates all the above"
+    echo ""
+    echo ""
+    echo "Available arguments:"
+    echo "  --apps, -a, apps          # update flatpaks, discord and rclone"
+    echo "  --distro, -d, distro      # update just fedora/openSUSE"
+    echo "  --all, -A, all            # update all the above"
+}
+
 DISTRO=$(source /etc/os-release ; echo $ID)
-flatpak update -y
-flatpak remove --unused -y  
-update_rclone
-update_discord
-distro_updater
+
+if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ] 
+then
+    flatpak update -y
+    flatpak remove --unused -y  
+    update_rclone
+    update_discord
+elif [ "$1" == "--distro" ] || [ "$1" == "-d" ] || [ "$1" == "distro" ]
+then
+    distro_updater
+elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
+then
+    flatpak update -y
+    flatpak remove --unused -y  
+    update_rclone
+    update_discord
+    distro_updater
+else
+    echo "Invalid argument: $1"
+    echo ""
+    help
+fi
