@@ -48,7 +48,7 @@ help(){
     echo ""
     echo ""
     echo "Examples: "
-    echo "  update --apps'            # updates flatpaks, discord and rclone"
+    echo "  update --apps             # updates flatpaks, discord and rclone"
     echo "  update --distro           # updates fedora/openSUSE"
     echo "  update --all              # updates all the above"
     echo ""
