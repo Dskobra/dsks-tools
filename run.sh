@@ -9,7 +9,8 @@ main_menu(){
     echo ""
     echo ""
     echo "(1) Fedora fixes                   (2) Setup Corectrl"      
-    echo "(3) Game Profiles                  (4) Nvidia gsk fix"
+    echo "(3) Game Profiles                  (4) Setup zram"
+    echo "(5) Nvidia gsk fix"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -30,6 +31,10 @@ main_menu(){
             ;;
 
         4)
+            "$TOOLS_FOLDER"/conf.sh "setup_zram"
+            ;;
+
+        5)
             "$TOOLS_FOLDER"/conf.sh "nvidia_fix"
             ;;
 

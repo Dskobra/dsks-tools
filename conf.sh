@@ -120,13 +120,14 @@ setup_zram(){
     then
         sudo zypper -n install systemd-zram-service zram-generator
     else
-        echo "Unsupported distro"
+        echo "Error"
     fi
 
     sudo cp /usr/lib/systemd/zram-generator.conf zram-generator.conf.bak
-    sudo cp $TOOLS_FOLDER/configs/zram-generator.conf /usr/lib/systemd/zram-generator.conf
+    sudo cp "$TOOLS_FOLDER"/configs/zram-generator.conf /usr/lib/systemd/zram-generator.conf
     sudo chown root:root /usr/lib/systemd/zram-generator.conf
 }
+
 DISTRO=$(source /etc/os-release ; echo $ID)
 if [ "$1" == "grub" ]
 then
@@ -143,8 +144,9 @@ then
 elif [ "$1" == "nvidia_fix" ]
 then
     nvidia_fix
+elif [ "$1" == "setup_zram" ]
+then
+    setup_zram
 else
     echo "error"
 fi
-
-/usr/lib/systemd/zram-generator.conf
