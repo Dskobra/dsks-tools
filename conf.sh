@@ -126,6 +126,7 @@ setup_zram(){
     sudo cp /usr/lib/systemd/zram-generator.conf zram-generator.conf.bak
     sudo cp "$TOOLS_FOLDER"/configs/zram-generator.conf /usr/lib/systemd/zram-generator.conf
     sudo chown root:root /usr/lib/systemd/zram-generator.conf
+    sudo zramswapon
 }
 
 DISTRO=$(source /etc/os-release ; echo $ID)
