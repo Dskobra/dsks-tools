@@ -112,6 +112,22 @@ nvidia_fix(){
     echo "GSK_RENDERER=gl" > /home/$USER/.config/environment.d/gsk.conf
 }
 
+setup_zram(){
+    if [ "$DISTRO" == "fedora" ]
+    then
+        echo "Zram is already preinstalled on Fedora"
+    elif [ "$DISTRO" == "opensuse-tumbleweed" ] || [ "$DISTRO" == "opensuse-slowroll" ]
+    then
+        sudo zypper -n install systemd-zram-service zram-generator
+    else
+        echo "Unsupported distro"
+    fi
+
+    sudo cp /usr/lib/systemd/zram-generator.conf zram-generator.conf.bak
+    sudo cp $TOOLS_FOLDER/configs/zram-generator.conf /usr/lib/systemd/zram-generator.conf
+    sudo chown root:root /usr/lib/systemd/zram-generator.conf
+}
+DISTRO=$(source /etc/os-release ; echo $ID)
 if [ "$1" == "grub" ]
 then
     grub
@@ -130,3 +146,5 @@ then
 else
     echo "error"
 fi
+
+/usr/lib/systemd/zram-generator.conf
