@@ -46,37 +46,14 @@ nvidia_grub(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
 }
 
-grub(){
-    echo "(1) AMD                    (2) NVIDIA"      
-    echo "(0) Exit"
-    printf "Option: "
-    read -r input
+rpmfusion_purge(){
+    sudo dnf remove akmod-nvidia kmod-nvidia nvidia-settings nvidia-modprobe\
+    nvidia-persistenced
+    sudo dnf swap -y ffmpeg ffmpeg-free --allowerasing
 
-    case $input in
-
-
-        1)
-            #sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff acpi_enforce_resources=lax rhgb quiet'
-            amd_grub
-            ;;
-
-        2)
-            #sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt  rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset acpi_enforce_resources=lax rhgb quiet'
-            nvidia_grub
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            grub
-            ;;
-
-        esac
-        unset input
+    sudo dnf remove -y mesa-va-drivers-freeworld mesa-vdpau-drivers-freeworld
+    sudo dnf remove -y mesa-va-drivers-freeworld.i686 mesa-vdpau-drivers-freeworld.i686
+    sudo dnf remove rpmfusion*
 }
 
 corectrl(){
@@ -130,9 +107,12 @@ setup_zram(){
 }
 
 DISTRO=$(source /etc/os-release ; echo $ID)
-if [ "$1" == "grub" ]
+elif [ "$1" == "amd_grub"]
 then
-    grub
+    amd_grub
+elif [ "$1" == "nvidia_grub"]
+then
+    nvidia_grub
 elif [ "$1" == "corectrl" ]
 then
     corectrl

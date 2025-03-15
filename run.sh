@@ -53,13 +53,47 @@ main_menu(){
         main_menu
 }
 
+grub_menu(){
+    echo "(1) AMD                    (2) NVIDIA"      
+    echo "(0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            #sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff acpi_enforce_resources=lax rhgb quiet'
+            "$TOOLS_FOLDER"/conf.sh "amd_grub"
+            ;;
+
+        2)
+            #sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt  rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset acpi_enforce_resources=lax rhgb quiet'
+            "$TOOLS_FOLDER"/conf.sh "nvidia_grub"
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            grub_menu
+            ;;
+
+        esac
+        unset input
+}
+
 fedora_menu(){
     echo "---------------------------"   
     echo "|   Fedora configurations |"
     echo "---------------------------" 
     echo ""
     echo ""
-    echo "(1) Setup Grub                    (2) Setup clamav" 
+    echo "(1) Setup Grub                    (2) Setup clamav"
+    echo "(3) Remove rpmfusion" 
     echo "(m) Main Menu                     (0) Exit"     
     printf "Option: "
     read -r input
@@ -68,11 +102,15 @@ fedora_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/conf.sh "grub"
+            grub_menu
             ;;
 
         2)
             "$TOOLS_FOLDER"/conf.sh "clamav"
+            ;;
+        
+        3)
+            echo "Disabled atm"
             ;;
 
         m)
