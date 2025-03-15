@@ -59,8 +59,8 @@ fedora_menu(){
     echo "---------------------------" 
     echo ""
     echo ""
-    echo "(1) Setup Grub                    (2) Setup clamav"      
-    echo "(0) Exit"
+    echo "(1) Setup Grub                    (2) Setup clamav" 
+    echo "(m) Main Menu                     (0) Exit"     
     printf "Option: "
     read -r input
 
@@ -73,6 +73,14 @@ fedora_menu(){
 
         2)
             "$TOOLS_FOLDER"/conf.sh "clamav"
+            ;;
+
+        m)
+            main_menu
+            ;;
+            
+        M)
+            main_menu
             ;;
 
         0)
