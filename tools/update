@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-distro_updater(){
+update_system(){
     if [ "$DISTRO" == "fedora" ]
     then
         sudo dnf clean all
@@ -49,13 +49,15 @@ help(){
     echo ""
     echo "Examples: "
     echo "  update --apps             # updates flatpaks, discord and rclone"
-    echo "  update --distro           # updates fedora/openSUSE"
+    echo "  update --discord          # updates discord"
+    echo "  update --system           # updates fedora/openSUSE"
     echo "  update --all              # updates all the above"
     echo ""
     echo ""
     echo "Available arguments:"
     echo "  --apps, -a, apps          # update flatpaks, discord and rclone"
-    echo "  --distro, -d, distro      # update just fedora/openSUSE"
+    echo "  --discord, -d, discord    # update discord"
+    echo "  --system, -s, system      # update just fedora/openSUSE"
     echo "  --all, -A, all            # update all the above"
 }
 
@@ -67,7 +69,10 @@ then
     flatpak remove --unused -y  
     update_rclone
     update_discord
-elif [ "$1" == "--distro" ] || [ "$1" == "-d" ] || [ "$1" == "distro" ]
+elif [ "$1" == "--discord" ] || [ "$1" == "-d" ] || [ "$1" == "discord" ]
+then
+    update_discord
+elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
 then
     distro_updater
 elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
@@ -76,7 +81,7 @@ then
     flatpak remove --unused -y  
     update_rclone
     update_discord
-    distro_updater
+    update_system
 else
     echo "Invalid argument: $1"
     echo ""
