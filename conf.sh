@@ -107,10 +107,10 @@ setup_zram(){
 }
 
 DISTRO=$(source /etc/os-release ; echo $ID)
-elif [ "$1" == "amd_grub"]
+if [ "$1" == "amd_grub" ]
 then
     amd_grub
-elif [ "$1" == "nvidia_grub"]
+elif [ "$1" == "nvidia_grub" ]
 then
     nvidia_grub
 elif [ "$1" == "corectrl" ]
