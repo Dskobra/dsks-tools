@@ -74,7 +74,7 @@ then
     update_discord
 elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
 then
-    distro_updater
+    update_system
 elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
 then
     flatpak update -y
