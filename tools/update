@@ -37,7 +37,6 @@ update_discord(){
         rm -r /opt/apps/Discord
         mv Discord /opt/apps/Discord
         rm discord.tar.gz
-        nohup /opt/apps/Discord/Discord > /dev/null 2>&1 &
     elif ! test -d /opt/apps/Discord; then
         echo "Discord not downloaded."
     fi
