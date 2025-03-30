@@ -54,8 +54,8 @@ main_menu(){
 }
 
 grub_menu(){
-    echo "(1) AMD                    (2) NVIDIA"      
-    echo "(0) Exit"
+    echo "(1) AMD                           (2) NVIDIA"    
+    echo "(m) Main Menu                     (0) Exit"    
     printf "Option: "
     read -r input
 
@@ -70,6 +70,14 @@ grub_menu(){
         2)
             #sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt  rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset acpi_enforce_resources=lax rhgb quiet'
             "$TOOLS_FOLDER"/conf.sh "nvidia_grub"
+            ;;
+
+        m)
+            main_menu
+            ;;
+
+        M)
+            main_menu
             ;;
 
         0)
