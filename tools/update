@@ -5,6 +5,7 @@ update_system(){
     then
         sudo dnf clean all
         sudo dnf update -y
+        sudo dnf autoremove -y
     elif [ "$DISTRO" == "opensuse-tumbleweed" ] || [ "$DISTRO" == "opensuse-slowroll" ]
     then
         sudo zypper ref
