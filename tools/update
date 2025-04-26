@@ -6,26 +6,10 @@ update_system(){
         sudo dnf clean all
         sudo dnf update -y
         sudo dnf autoremove -y
-    elif [ "$DISTRO" == "opensuse-tumbleweed" ] || [ "$DISTRO" == "opensuse-slowroll" ]
-    then
-        sudo zypper ref
-        sudo zypper -n dup
-    elif [ "$DISTRO" == "opensuse-leap" ]
-    then
-        sudo zypper ref
-        sudo zypper -n up
     else
         echo "Unsupported distro"
     fi
 
-}
-
-update_rclone(){    
-    if test -f /usr/bin/rclone; then
-        sudo -v ; curl https://rclone.org/install.sh | sudo bash
-    elif ! test -f /usr/bin/rclone; then
-        echo "Rclone not installed."
-    fi
 }
 
 update_discord(){
@@ -48,17 +32,17 @@ help(){
     echo ""
     echo ""
     echo "Examples: "
-    echo "  update --apps             # updates flatpaks, discord and rclone"
+    echo "  update --apps             # updates flatpaks and discord"
     echo "  update --discord          # updates discord"
-    echo "  update --system           # updates fedora/openSUSE"
+    echo "  update --system           # updates fedora"
     echo "  update --all              # updates all the above"
     echo ""
     echo ""
     echo "Available arguments:"
-    echo "  --apps, -a, apps          # update flatpaks, discord and rclone"
+    echo "  --apps, -a, apps          # update flatpaks, and discord"
     echo "  --discord, -d, discord    # update discord"
-    echo "  --system, -s, system      # update just fedora/openSUSE"
-    echo "  --all, -A, all            # update all the above"
+    echo "  --system, -s, system      # update just fedora"
+    echo "  --all, -A, all            # update all of the above"
 }
 
 DISTRO=$(source /etc/os-release ; echo $ID)
@@ -67,7 +51,6 @@ if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ]
 then
     flatpak update -y
     flatpak remove --unused -y  
-    update_rclone
     update_discord
 elif [ "$1" == "--discord" ] || [ "$1" == "-d" ] || [ "$1" == "discord" ]
 then
@@ -79,7 +62,6 @@ elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
 then
     flatpak update -y
     flatpak remove --unused -y  
-    update_rclone
     update_discord
     update_system
 else
