@@ -1,0 +1,111 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+    for rc in ~/.bashrc.d/*; do
+        if [ -f "$rc" ]; then
+            . "$rc"
+        fi
+    done
+fi
+unset rc
+
+### below is meant to be copy/pasted into .bashrc
+grub(){
+    sudo grub2-mkconfig -o /etc/grub2.cfg
+}
+
+gcache(){
+    rm -r ~/.config/BraveSoftware/Brave-Browser/Default/GPUCache/
+
+    rm -r ~/config/WowUpCf/GPUCache/
+
+    rm -r ~/.config/RaiderIO/GPUCache/
+
+    rm -r ~/.config/"Warcraft Logs Uploader"/GPUCache/
+}
+
+rebuild(){
+    sudo akmods --rebuild --force
+    sudo dracut --regenerate-all --force
+
+}
+
+update_system(){
+    sudo dnf clean all
+    sudo dnf update -y
+    sudo dnf autoremove -y
+
+}
+
+update_discord(){
+    DISCORDLINK="https://discord.com/api/download?platform=linux&format=tar.gz"
+    if test -d /opt/apps/Discord; then
+        pkill -SIGTERM Discord
+        cd /opt/apps/temp || exit
+        curl -L -o discord.tar.gz "$DISCORDLINK"
+        tar -xvf discord.tar.gz
+        rm -r /opt/apps/Discord
+        mv Discord /opt/apps/Discord
+        rm discord.tar.gz
+    elif ! test -d /opt/apps/Discord; then
+        echo "Discord not downloaded."
+    fi
+}
+
+update_help(){
+    echo "update [args]"
+    echo ""
+    echo ""
+    echo "Examples: "
+    echo "  update --apps             # updates flatpaks and discord"
+    echo "  update --discord          # updates discord"
+    echo "  update --system           # updates fedora"
+    echo "  update --all              # updates all the above"
+    echo ""
+    echo ""
+    echo "Available arguments:"
+    echo "  --apps, -a, apps          # update flatpaks, and discord"
+    echo "  --discord, -d, discord    # update discord"
+    echo "  --system, -s, system      # update just fedora"
+    echo "  --all, -A, all            # update all of the above"
+}
+
+update(){
+    if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ] 
+    then
+        flatpak update -y
+        flatpak remove --unused -y  
+        update_discord
+    elif [ "$1" == "--discord" ] || [ "$1" == "-d" ] || [ "$1" == "discord" ]
+    then
+        update_discord
+    elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
+    then
+        update_system
+    elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
+    then
+        flatpak update -y
+        flatpak remove --unused -y  
+        update_discord
+        update_system
+    else
+        echo "Invalid argument: $1"
+        echo ""
+        update_help
+    fi
+}
