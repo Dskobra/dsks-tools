@@ -56,12 +56,14 @@ update_discord(){
     DISCORDLINK="https://discord.com/api/download?platform=linux&format=tar.gz"
     if test -d /opt/apps/Discord; then
         pkill -SIGTERM Discord
+        CURRENT_DIR=$(pwd)  #get users current dir before moving to temp
         cd /opt/apps/temp || exit
         curl -L -o discord.tar.gz "$DISCORDLINK"
         tar -xvf discord.tar.gz
         rm -r /opt/apps/Discord
         mv Discord /opt/apps/Discord
         rm discord.tar.gz
+        cd $CURRENT_DIR     # go back to the folder user was in when finished
     elif ! test -d /opt/apps/Discord; then
         echo "Discord not downloaded."
     fi
@@ -86,6 +88,7 @@ update_help(){
 }
 
 update(){
+    
     if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ] 
     then
         flatpak update -y
@@ -107,5 +110,5 @@ update(){
         echo "Invalid argument: $1"
         echo ""
         update_help
-    fi
+    fi 
 }
