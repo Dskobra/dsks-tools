@@ -39,20 +39,15 @@ gcache(){
     rm -r ~/.config/"Warcraft Logs Uploader"/GPUCache/
 }
 
-rebuild(){
-    sudo akmods --rebuild --force
-    sudo dracut --regenerate-all --force
-
+upr(){    
+    if test -f /usr/bin/rclone; then
+        sudo -v ; curl https://rclone.org/install.sh | sudo bash
+    elif ! test -f /usr/bin/rclone; then
+        echo "Rclone not installed."
+    fi
 }
 
-update_system(){
-    sudo dnf clean all
-    sudo dnf update -y
-    sudo dnf autoremove -y
-
-}
-
-update_discord(){
+upd(){
     DISCORDLINK="https://discord.com/api/download?platform=linux&format=tar.gz"
     if test -d /opt/apps/Discord; then
         pkill -SIGTERM Discord
@@ -69,34 +64,23 @@ update_discord(){
     fi
 }
 
-update_help(){
-    echo "update [args]"
-    echo ""
-    echo ""
-    echo "Examples: "
-    echo "  update --apps             # updates flatpaks and discord"
-    echo "  update --discord          # updates discord"
-    echo "  update --system           # updates fedora"
-    echo "  update --all              # updates all the above"
-    echo ""
-    echo ""
-    echo "Available arguments:"
-    echo "  --apps, -a, apps          # update flatpaks, and discord"
-    echo "  --discord, -d, discord    # update discord"
-    echo "  --system, -s, system      # update just fedora"
-    echo "  --all, -A, all            # update all of the above"
+rebuild(){
+    sudo akmods --rebuild --force
+    sudo dracut --regenerate-all --force
+
+}
+
+update_system(){
+    sudo dnf clean all
+    sudo dnf update -y
+    sudo dnf autoremove -y
 }
 
 update(){
-    
     if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ] 
     then
         flatpak update -y
         flatpak remove --unused -y  
-        update_discord
-    elif [ "$1" == "--discord" ] || [ "$1" == "-d" ] || [ "$1" == "discord" ]
-    then
-        update_discord
     elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
     then
         update_system
@@ -104,11 +88,26 @@ update(){
     then
         flatpak update -y
         flatpak remove --unused -y  
-        update_discord
         update_system
     else
         echo "Invalid argument: $1"
         echo ""
         update_help
     fi 
+}
+
+update_help(){
+    echo "update [args]"
+    echo ""
+    echo ""
+    echo "Examples: "
+    echo "  update --apps             # updates flatpaks"
+    echo "  update --system           # updates fedora"
+    echo "  update --all              # updates all the above"
+    echo ""
+    echo ""
+    echo "Available arguments:"
+    echo "  --apps, -a, apps          # update flatpaks"
+    echo "  --system, -s, system      # update just fedora"
+    echo "  --all, -A, all            # update all of the above"
 }
