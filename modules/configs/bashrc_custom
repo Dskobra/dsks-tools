@@ -39,6 +39,10 @@ gcache(){
     rm -r ~/.config/"Warcraft Logs Uploader"/GPUCache/
 }
 
+clean(){
+    sudo dnf clean all
+}
+
 upr(){    
     if test -f /usr/bin/rclone; then
         sudo -v ; curl https://rclone.org/install.sh | sudo bash
@@ -71,7 +75,6 @@ rebuild(){
 }
 
 update_system(){
-    sudo dnf clean all
     sudo dnf update -y
     sudo dnf autoremove -y
 }
