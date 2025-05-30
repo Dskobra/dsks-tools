@@ -1,12 +1,12 @@
 #!/usr/bin/bash
 
 # dont really use gpu passthrough anymore. Personal note
-# tedious and unstable mess. Possible due to amd reset bug.
+# tedious and unstable mess. Possibly due to amd reset bug.
 #PCI_GPU_VIDEO="pci_0000_0a_00_0"
 #PCI_GPU_AUDIO="pci_0000_0a_00_1"
 
-PCI_WIFI_ONE="0000:07:00.0"
-PCI_WIFI_TWO="0000:08:00.0"
+#PCI_WIFI_ONE="0000:07:00.0"
+#PCI_WIFI_TWO="0000:08:00.0"
 
 sudo dnf install -y driverctl
 
