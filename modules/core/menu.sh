@@ -12,7 +12,7 @@ main_menu(){
     echo "(1) Setup Grub                     (2) Setup Corectrl"
     echo "(3) Game Profiles                  (4) Setup zram"
     echo "(5) Nvidia gsk fix                 (6) Steam launch fix"
-    echo "(7) Setup clamav                   (8) Remove rpmfusion"
+    echo "(7) Setup clamd                    (8) Remove rpmfusion"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -45,7 +45,7 @@ main_menu(){
             ;;
 
         7)
-            "$TOOLS_FOLDER"/modules/fixes/clamav.sh
+            "$TOOLS_FOLDER"/modules/fixes/clamd.sh
             ;;
 
         8)
