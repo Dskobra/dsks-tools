@@ -25,27 +25,27 @@ main_menu(){
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/core/conf.sh "corectrl"
+            "$TOOLS_FOLDER"/modules/fixes/corectrl.sh
             ;;
         
         3)  
-            "$TOOLS_FOLDER"/modules/core/conf.sh "game_profiles"
+            "$TOOLS_FOLDER"/modules/fixes/game_profiles.sh
             ;;
 
         4)
-            "$TOOLS_FOLDER"/modules/core/conf.sh "setup_zram"
+            "$TOOLS_FOLDER"/modules/fixes/zram.sh
             ;;
 
         5)
-            "$TOOLS_FOLDER"/modules/core/conf.sh "nvidia_fix"
+            "$TOOLS_FOLDER"/modules/fixes/nvidia.sh
             ;;
 
         6)
-            "$TOOLS_FOLDER"/modules/core/conf.sh "steam_launch"
+            "$TOOLS_FOLDER"/modules/fixes/steam.sh
             ;;
 
         7)
-            "$TOOLS_FOLDER"/modules/core/conf.sh "clamav"
+            "$TOOLS_FOLDER"/modules/fixes/clamav.sh
             ;;
 
         8)
@@ -76,12 +76,10 @@ grub_menu(){
 
 
         1)
-            #sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff acpi_enforce_resources=lax rhgb quiet'
             "$TOOLS_FOLDER"/modules/fixes/grub.sh "amd_grub"
             ;;
 
         2)
-            #sudo grubby --update-kernel=ALL --args='amd_iommu=on iommu=pt  rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset acpi_enforce_resources=lax rhgb quiet'
             "$TOOLS_FOLDER"/modules/fixes/grub.sh "nvidia_grub"
             ;;
 
