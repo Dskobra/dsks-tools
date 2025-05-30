@@ -1,7 +1,10 @@
 #!/usr/bin/bash
 
-export TOOLS_FOLDER                          # stores full path for dsks-tools
+### Main launch script which sets some variables
+
+export TOOLS_FOLDER                             # stores full path for dsks-tools
+export DISTRO=""                                # stores distro name.
+export VERSION_ID=""
 export COPYRIGHT="Copyright (c) 2024-2025 Jordan Bottoms"
-export VERSION=""
 TOOLS_FOLDER=$(pwd)
-"$TOOLS_FOLDER"/modules/core/menu.sh
+"$TOOLS_FOLDER"/modules/core/launcher.sh
