@@ -13,6 +13,9 @@ update(){
         flatpak update -y
         flatpak remove --unused -y
         update_system
+    elif [ "$1" == "--script" ] || [ "$1" == "-S" ] || [ "$1" == "script" ]
+    then
+        update_script
     else
         echo "Invalid argument: $1"
         echo ""
@@ -23,6 +26,10 @@ update(){
 update_system(){
     sudo dnf upgrade -y
     sudo dnf autoremove -y
+}
+
+update_script(){
+    curl -O -L https://raw.githubusercontent.com/Dskobra/dsks-tools/refs/heads/main/tools/update
 }
 
 update_help(){
