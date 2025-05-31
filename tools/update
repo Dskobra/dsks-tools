@@ -29,7 +29,11 @@ update_system(){
 }
 
 update_script(){
+    mkdir -p ~/bin/update_temp
+    cd ~/bin/update_temp || exit
     curl -O -L https://raw.githubusercontent.com/Dskobra/dsks-tools/refs/heads/main/tools/update
+    mv ~/bin/update_temp/update ~/bin/update
+    rm -r ~/bin/update_temp
     exit
 }
 
