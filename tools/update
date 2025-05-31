@@ -30,6 +30,7 @@ update_system(){
 
 update_script(){
     curl -O -L https://raw.githubusercontent.com/Dskobra/dsks-tools/refs/heads/main/tools/update
+    exit
 }
 
 update_help(){
@@ -46,6 +47,7 @@ update_help(){
     echo "  --apps, -a, apps          # update flatpaks"
     echo "  --system, -s, system      # update just fedora"
     echo "  --all, -A, all            # update all of the above"
+    echo "  --script, -S, script      # updates this script"
 }
 
 update "$1"
