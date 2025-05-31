@@ -1,0 +1,15 @@
+### below is meant to be copy/pasted into .bashrc
+
+grub(){
+    sudo grub2-mkconfig -o /etc/grub2.cfg
+}
+
+
+clean(){
+    sudo dnf clean all
+}
+
+rebuild(){
+    sudo akmods --rebuild --force
+    sudo dracut --regenerate-all --force
+}

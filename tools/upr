@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+upr(){
+    if test -f /usr/bin/rclone; then
+        sudo -v ; curl https://rclone.org/install.sh | sudo bash
+    elif ! test -f /usr/bin/rclone; then
+        echo "Rclone not installed."
+    fi
+}
+
+upr

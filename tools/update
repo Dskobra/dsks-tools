@@ -1,0 +1,44 @@
+#!/usr/bin/bash
+
+update(){
+    if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ]
+    then
+        flatpak update -y
+        flatpak remove --unused -y
+    elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
+    then
+        update_system
+    elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
+    then
+        flatpak update -y
+        flatpak remove --unused -y
+        update_system
+    else
+        echo "Invalid argument: $1"
+        echo ""
+        update_help
+    fi
+}
+
+update_system(){
+    sudo dnf upgrade -y
+    sudo dnf autoremove -y
+}
+
+update_help(){
+    echo "update [args]"
+    echo ""
+    echo ""
+    echo "Examples: "
+    echo "  update --apps             # updates flatpaks"
+    echo "  update --system           # updates fedora"
+    echo "  update --all              # updates all the above"
+    echo ""
+    echo ""
+    echo "Available arguments:"
+    echo "  --apps, -a, apps          # update flatpaks"
+    echo "  --system, -s, system      # update just fedora"
+    echo "  --all, -A, all            # update all of the above"
+}
+
+update "$1"
