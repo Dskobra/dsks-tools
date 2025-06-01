@@ -8,14 +8,23 @@ update(){
     elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
     then
         update_system
+    elif [ "$1" == "--bugs" ] || [ "$1" == "-b" ] || [ "$1" == "bugs" ]
+    then
+        sudo dnf upgrade --bugfix -y
+        sudo dnf autoremove -y
+
+    elif [ "$1" == "--security" ] || [ "$1" == "-S" ] || [ "$1" == "security" ]
+    then
+        echo
     elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
     then
         flatpak update -y
         flatpak remove --unused -y
-        update_system
-    elif [ "$1" == "--script" ] || [ "$1" == "-S" ] || [ "$1" == "script" ]
+        sudo dnf upgrade -y
+        sudo dnf autoremove -y
+    elif [ "$1" == "--tools" ] || [ "$1" == "-t" ] || [ "$1" == "tools" ]
     then
-        update_script
+        update_tools
     else
         echo "Invalid argument: $1"
         echo ""
@@ -23,17 +32,14 @@ update(){
     fi
 }
 
-update_system(){
-    sudo dnf upgrade -y
-    sudo dnf autoremove -y
-}
-
-update_script(){
+update_tools(){
     mkdir -p ~/bin/update_temp
     cd ~/bin/update_temp || exit
-    curl -O -L https://raw.githubusercontent.com/Dskobra/dsks-tools/refs/heads/main/tools/update
-    mv ~/bin/update_temp/update ~/bin/update
-    rm -r ~/bin/update_temp
+    git clone https://github.com/Dskobra/dsks-tools
+    cd dsks-tools/tools || exit
+    mv update ~/bin/update
+    mv gcache ~/bin/gcache
+    #rm -r ~/bin/update_temp
     exit
 }
 
