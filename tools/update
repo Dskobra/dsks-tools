@@ -7,7 +7,8 @@ update(){
         flatpak remove --unused -y
     elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
     then
-        update_system
+        sudo dnf upgrade -y
+        sudo dnf autoremove -y
     elif [ "$1" == "--bugs" ] || [ "$1" == "-b" ] || [ "$1" == "bugs" ]
     then
         sudo dnf upgrade --bugfix -y
@@ -39,7 +40,7 @@ update_tools(){
     cd dsks-tools/tools || exit
     mv update ~/bin/update
     mv gcache ~/bin/gcache
-    #rm -r ~/bin/update_temp
+    rm -r ~/bin/update_temp
     exit
 }
 
@@ -57,7 +58,7 @@ update_help(){
     echo "  --apps, -a, apps          # update flatpaks"
     echo "  --system, -s, system      # update just fedora"
     echo "  --all, -A, all            # update all of the above"
-    echo "  --script, -S, script      # updates this script"
+    echo "  --tools, -t, tools        # updates this script and gcache"
 }
 
 update "$1"
