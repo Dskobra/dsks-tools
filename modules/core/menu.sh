@@ -108,8 +108,11 @@ post_menu(){
             ;;
 
         2)
-            echo "Not finished"
-            #"$TOOLS_FOLDER"/modules/post_install/laptop/laptop.sh
+            "$TOOLS_FOLDER"/modules/post_install/laptop/laptop.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post_install/minipc/minipc.sh
             ;;
 
         m | M )
