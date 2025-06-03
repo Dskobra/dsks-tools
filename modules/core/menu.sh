@@ -10,9 +10,8 @@ main_menu(){
     echo ""
     echo ""
     echo "(1) Setup Grub                     (2) Setup Corectrl"
-    echo "(3) Game Profiles                  (4) Setup zram"
-    echo "(5) Various fixes                  (6) Setup clamd"
-    echo "(7) Remove rpmfusion               (8) Devices"
+    echo "(3) Game Profiles                  (4) Various fixes"
+    echo "(5) Remove rpmfusion               (6) Devices"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -33,22 +32,14 @@ main_menu(){
             ;;
 
         4)
-            "$TOOLS_FOLDER"/modules/fixes/zram.sh
-            ;;
-
-        5)
             fixes_menu
             ;;
 
-        6)
-            "$TOOLS_FOLDER"/modules/fixes/clamd.sh
-            ;;
-
-        7)
+        5)
             "$TOOLS_FOLDER"/modules/fixes/rpmfusion.sh
             ;;
 
-        8)
+        6)
             post_menu
             ;;
 
@@ -84,11 +75,7 @@ grub_menu(){
             "$TOOLS_FOLDER"/modules/fixes/grub.sh "nvidia_grub"
             ;;
 
-        m)
-            main_menu
-            ;;
-
-        M)
+        m | M )
             main_menu
             ;;
 
@@ -117,18 +104,15 @@ post_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/post_install/desktop.sh
+            "$TOOLS_FOLDER"/modules/post_install/desktop/desktop.sh
             ;;
 
         2)
             echo "Not finished"
+            #"$TOOLS_FOLDER"/modules/post_install/laptop/laptop.sh
             ;;
 
-        m)
-            main_menu
-            ;;
-
-        M)
+        m | M )
             main_menu
             ;;
 
@@ -147,16 +131,8 @@ post_menu(){
 }
 
 fixes_menu(){
-    echo "------------------"
-    echo "|   DSK's Tools  |"
-    echo "------------------"
-    echo ""
-    echo "$COPYRIGHT"
-    echo "Released under the MIT license"
-    echo ""
-    echo ""
-    echo "(1) Nvidia gsk fix                 (2) Steam launch fix"
-    echo "(0) Exit"
+    echo "(1) Nvidia gsk fix                (2) Steam launch fix"
+    echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
 
@@ -173,6 +149,10 @@ fixes_menu(){
 
         9)
             post_menu
+            ;;
+
+        m | M)
+            main_menu
             ;;
 
         0)
