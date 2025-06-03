@@ -12,8 +12,9 @@ echo "LABEL=vms                                   /home/jordan/Drives/vms       
 echo "LABEL=external                              /home/jordan/Drives/external   btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 echo "LABEL=shared                                /home/jordan/Drives/shared     btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 echo "LABEL=games                                 /home/jordan/Drives/games      btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
-mount -av
 sudo systemctl daemon-reload
+mount -av
+
 PCI_WIFI_ONE="0000:07:00.0"
 PCI_WIFI_TWO="0000:08:00.0"
 
