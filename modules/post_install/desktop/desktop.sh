@@ -23,11 +23,11 @@ clamav clamav-update clamd firewall-applet
 ##########----------system----------##########
 "$TOOLS_FOLDER"/modules/post_install/clamd.sh
 sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
-sudo firewall-cmd --permanent --set-default-zone=home
+sudo firewall-cmd --set-default-zone=home
 sudo firewall-cmd --permanent --add-service=cockpit
 sudo firewall-cmd --permanent --add-service=kdeconnect
 sudo firewall-cmd --set-log-denied=all
-sudo fireall-cmd --reload
+sudo firewall-cmd --reload
 sudo systemctl enable --now sshd
 sudo systemctl enable --now cockpit.socket
 
