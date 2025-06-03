@@ -11,7 +11,7 @@ main_menu(){
     echo ""
     echo "(1) Setup Grub                     (2) Setup Corectrl"
     echo "(3) Game Profiles                  (4) Various fixes"
-    echo "(5) Remove rpmfusion               (6) Devices"
+    echo "(5) Remove rpmfusion"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -37,10 +37,6 @@ main_menu(){
 
         5)
             "$TOOLS_FOLDER"/modules/fixes/rpmfusion.sh
-            ;;
-
-        6)
-            post_menu
             ;;
 
         0)
@@ -87,43 +83,6 @@ grub_menu(){
             echo -n "Unknown entry"
             echo ""
             grub_menu
-            ;;
-
-        esac
-        unset input
-}
-
-post_menu(){
-    echo "              Device menu"
-    echo "(1) Desktop                       (2) Laptop"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-
-        1)
-            "$TOOLS_FOLDER"/modules/post_install/desktop/desktop.sh
-            ;;
-
-        2)
-            echo "Not finished"
-            #"$TOOLS_FOLDER"/modules/post_install/laptop/laptop.sh
-            ;;
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            post_menu
             ;;
 
         esac
