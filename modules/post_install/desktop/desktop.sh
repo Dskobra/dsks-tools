@@ -4,7 +4,7 @@ sudo dnf install -y dnfdragora driverctl cockpit cockpit-composer \
 cockpit-bridge cockpit-doc cockpit-image-builder cockpit-kdump  cockpit-files \
 cockpit-networkmanager cockpit-ws-selinux cockpit-ws cockpit-system \
 cockpit-storaged cockpit-sosreport cockpit-session-recording cockpit-selinux \
-cockpit-podman cockpit-packagekit cockpit-machines Shellcheck python3-lsp-server \
+cockpit-podman cockpit-packagekit cockpit-machines ShellCheck python3-lsp-server \
 clamav clamav-update clamd firewall-applet
 
 # install from local web server
