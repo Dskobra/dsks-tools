@@ -8,10 +8,10 @@ mkdir -p ~/Drives/vms
 mkdir ~/Drives/external
 mkdir ~/Drives/shared
 mkdir ~/Drives/games
-echo "LABEL=vms                                   /home/jordan/Drives/vms        btrfs   nofail,users,exec             0 0" >> /etc/fstab
-echo "LABEL=external                              /home/jordan/Drives/external   btrfs   nofail,users,exec             0 0" >> /etc/fstab
-echo "LABEL=shared                                /home/jordan/Drives/shared     btrfs   nofail,users,exec             0 0 " >> /etc/fstab
-echo "LABEL=games                                 /home/jordan/Drives/games      btrfs   nofail,users,exec             0 0 " >> /etc/fstab
+echo "LABEL=vms                                   /home/jordan/Drives/vms        btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+echo "LABEL=external                              /home/jordan/Drives/external   btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+echo "LABEL=shared                                /home/jordan/Drives/shared     btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+echo "LABEL=games                                 /home/jordan/Drives/games      btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 mount -av
 
 PCI_WIFI_ONE="0000:07:00.0"
