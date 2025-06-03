@@ -14,7 +14,6 @@ npm i -g bash-language-server
 #sudo rpm -i ocs-url-*.x86_64.rpm
 #sudo rpm -i ProtonMail-desktop-beta.rpm
 #sudo rpm -i ProtonPass.rpm
-#npm i -g bash-language-server
 
 ##########----------packages----------##########
 
