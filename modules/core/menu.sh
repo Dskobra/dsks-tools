@@ -96,6 +96,7 @@ grub_menu(){
 post_menu(){
     echo "              Device menu"
     echo "(1) Desktop                       (2) Laptop"
+    echo "(3) MiniPC"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input

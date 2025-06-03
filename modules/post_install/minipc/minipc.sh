@@ -5,11 +5,11 @@ cockpit-bridge cockpit-doc cockpit-kdump  cockpit-files \
 cockpit-networkmanager cockpit-ws-selinux cockpit-ws cockpit-system \
 cockpit-storaged cockpit-sosreport cockpit-session-recording cockpit-selinux \
 cockpit-packagekit clamav clamav-update clamd firewall-applet \
-gnome-extension-app gnome-shell-extension-appindicator gnome-tweaks dconf-editor
+gnome-extensions-app gnome-shell-extension-appindicator gnome-tweaks dconf-editor
 ##########----------packages----------##########
 
 ##########----------hardware----------##########
-"$TOOLS_FOLDER"/modules/post_install/laptop/hardware.sh
+"$TOOLS_FOLDER"/modules/post_install/minipc/hardware.sh
 
 ##########----------system----------##########
 "$TOOLS_FOLDER"/modules/post_install/clamd.sh
