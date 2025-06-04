@@ -31,7 +31,7 @@ sudo firewall-cmd --reload
 sudo systemctl enable --now sshd
 sudo systemctl enable --now cockpit.socket
 
-sudo cp /usr/lib/systemd/zram-generator.conf zram-generator.conf.bak
+sudo cp /usr/lib/systemd/zram-generator.conf /usr/lib/systemd/zram-generator.conf.bak
 sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
 ##########----------system----------##########
 
