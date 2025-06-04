@@ -9,12 +9,18 @@ clamav clamav-update clamd firewall-applet
 npm i -g bash-language-server
 
 # install from local web server
-#cd ~/Drives/shared/packages || exit
-#sudo rpm -i dolphin-megasync-*.x86_64.rpm
-#sudo rpm -i ocs-url-*.x86_64.rpm
-#sudo rpm -i ProtonMail-desktop-beta.rpm
-#sudo rpm -i ProtonPass.rpm
+mkdir "$TOOLS_FOLDER/temp/"
+cd "$TOOLS_FOLDER/temp" || exit
 
+curl -L -o dolphin-megasync.rpm http://192.168.50.101/downloads/dolphin-megasync-5.4.0-1.1.x86_64.rpm
+curl -L -o ocs-url.rpm http://192.168.50.101/downloads/ocs-url-3.1.0-1.fc20.x86_64.rpm
+curl -L -o protonmail.rpm http://192.168.50.101/downloads/ProtonMail-desktop-beta.rpm
+curl -L -o proton-pass.rpm http://192.168.50.101/downloads/proton-pass-1.31.4-1.x86_64.rpm
+
+sudo rpm -i dolphin-megasync.rpm
+sudo rpm -i ocs-url.rpm
+sudo rpm -i protonmail.rpm
+sudo rpm -i proton-pass.rpm
 ##########----------packages----------##########
 
 ##########----------hardware----------##########
