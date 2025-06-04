@@ -29,7 +29,8 @@ sudo cp /usr/lib/systemd/zram-generator.conf zram-generator.conf.bak
 sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
 sudo cp "$TOOLS_FOLDER"/modules/configs/index.html /var/www/html
 sudo cp "$TOOLS_FOLDER"/modules/configs/web.conf /etc/httpd/conf.d/
-sudo chmod 755 /var/www/html
+sudo mkdir /var/www/html/downloads
+sudo chmod 755 -R /var/www/html
 sudo chown -R apache:apache /var/www/html
 sudo systemctl restart httpd
 ##########----------system----------##########
