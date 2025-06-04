@@ -23,8 +23,14 @@ sudo firewall-cmd --set-log-denied=all
 sudo firewall-cmd --reload
 sudo systemctl enable --now sshd
 sudo systemctl enable --now cockpit.socket
-sudo systemctl enable httpd
+sudo systemctl enable --now httpd
 
 sudo cp /usr/lib/systemd/zram-generator.conf zram-generator.conf.bak
 sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
+cp "$TOOLS_FOLDER"/modules/configs/index.html /var/www/html
+cp "$TOOLS_FOLDER"/modules/configs/web.conf /etc/httpd/conf.d/
+sudo chmod 755 /var/www/html
+sudo chown -R apache:apache /var/www/html
+sudo systemctl restart httpd
 ##########----------system----------##########
+
