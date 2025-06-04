@@ -13,8 +13,8 @@ gnome-extensions-app gnome-shell-extension-appindicator gnome-tweaks dconf-edito
 
 ##########----------system----------##########
 "$TOOLS_FOLDER"/modules/post_install/clamd.sh
-#hostnamectl set-hostname MINIPC
-hostnamectl set-hostname test
+hostnamectl set-hostname MINIPC
+
 sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
 sudo firewall-cmd --set-default-zone=home
 sudo firewall-cmd --permanent --add-service=cockpit
