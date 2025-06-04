@@ -41,3 +41,12 @@ sudo cp /usr/lib/systemd/zram-generator.conf /usr/lib/systemd/zram-generator.con
 sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
 ##########----------system----------##########
 
+##########----------apps----------##########
+cd "$TOOLS_FOLDER/temp" || exit
+git clone https://github.com/dskobra/game-profiles
+cd "$TOOLS_FOLDER/temp/game-profiles" || exit
+mkdir "$HOME"/.config/MangoHud/
+python "$TOOLS_FOLDER/modules/post_install/config_pci.py" "0:03:00.0"
+chown "$USER":"$USER" *.conf
+cp *.conf "$HOME"/.config/MangoHud/
+git stash       # reset profiles after copying
