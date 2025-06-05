@@ -34,5 +34,7 @@ sudo mkdir /var/www/html/downloads
 sudo chmod 755 -R /var/www/html
 sudo chown -R apache:apache /var/www/html
 sudo systemctl restart httpd
+# prevent pc from going to sleep when logged out
+sudo -u gdm dbus-run-session gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
 ##########----------system----------##########
 

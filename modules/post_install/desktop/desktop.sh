@@ -17,10 +17,7 @@ curl -L -o ocs-url.rpm http://192.168.50.101/downloads/ocs-url-3.1.0-1.fc20.x86_
 curl -L -o protonmail.rpm http://192.168.50.101/downloads/ProtonMail-desktop-beta.rpm
 curl -L -o proton-pass.rpm http://192.168.50.101/downloads/proton-pass-1.31.4-1.x86_64.rpm
 
-sudo rpm -i dolphin-megasync.rpm
-sudo rpm -i ocs-url.rpm
-sudo rpm -i protonmail.rpm
-sudo rpm -i proton-pass.rpm
+sudo dnf install -y *.rpm
 ##########----------packages----------##########
 
 ##########----------hardware----------##########
