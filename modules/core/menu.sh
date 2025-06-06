@@ -9,9 +9,7 @@ main_menu(){
     echo "Released under the MIT license"
     echo ""
     echo ""
-    echo "(1) Setup Grub                     (2) Setup Corectrl"
-    echo "(3) Game Profiles                  (4) Various fixes"
-    echo "(5) Remove rpmfusion               (6) Devices"
+    echo "(1) Devices                        (2) Various fixes"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -20,27 +18,10 @@ main_menu(){
 
 
         1)
-            grub_menu
-            ;;
-
-        2)
-            "$TOOLS_FOLDER"/modules/fixes/corectrl.sh
-            ;;
-        
-        3)  
-            "$TOOLS_FOLDER"/modules/fixes/game_profiles.sh
-            ;;
-
-        4)
-            fixes_menu
-            ;;
-
-        5)
-            "$TOOLS_FOLDER"/modules/fixes/rpmfusion.sh
-            ;;
-
-        6)
             post_menu
+            ;;
+        2)
+            fixes_menu
             ;;
 
         0)
@@ -136,6 +117,7 @@ post_menu(){
 
 fixes_menu(){
     echo "(1) Nvidia gsk fix                (2) Steam launch fix"
+    echo "(3) Remove RPMFusion"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -149,6 +131,10 @@ fixes_menu(){
 
         2)
             "$TOOLS_FOLDER"/modules/fixes/steam.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/fixes/rpmfusion.sh
             ;;
 
         9)
