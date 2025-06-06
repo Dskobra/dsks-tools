@@ -7,4 +7,4 @@ export DISTRO=""                                # stores distro name.
 export VERSION_ID=""
 export COPYRIGHT="Copyright (c) 2024-2025 Jordan Bottoms"
 TOOLS_FOLDER=$(pwd)
-"$TOOLS_FOLDER"/modules/core/launcher.sh
+"$TOOLS_FOLDER"/modules/menu.sh
