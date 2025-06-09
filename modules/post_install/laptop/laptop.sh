@@ -47,3 +47,7 @@ python "$TOOLS_FOLDER/modules/post_install/config_pci.py" "0:01:00.0"
 chown "$USER":"$USER" *.conf
 cp *.conf "$HOME"/.config/MangoHud/
 git stash       # reset profiles after copying
+
+# setup xiv launcher
+cp "$TOOLS_FOLDER"/modules/configs/dev.goats.xivlauncher.desktop ~/Desktop/dev.goats.xivlauncher.desktop
+chmod +x ~/Desktop/dev.goats.xivlauncher.desktop
