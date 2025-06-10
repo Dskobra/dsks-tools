@@ -53,6 +53,6 @@ git stash       # reset profiles after copying
 # /usr/bin/mangohud flatpak run dev.goats.xivlauncher, mangohud 24.08
 # from flathub and permissions to mangohud configs. Home/host
 # permissions dont work.
-cp "$TOOLS_FOLDER"/modules/configs/xivlauncher.desktop ~/Desktop
+cp "$TOOLS_FOLDER"/modules/configs/xivlauncher ~/Desktop
 flatpak install --user -y runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
 flatpak override dev.goats.xivlauncher --user --filesystem=xdg-config/MangoHud:ro

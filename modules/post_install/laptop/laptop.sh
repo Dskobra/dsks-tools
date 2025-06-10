@@ -48,6 +48,10 @@ chown "$USER":"$USER" *.conf
 cp *.conf "$HOME"/.config/MangoHud/
 git stash       # reset profiles after copying
 
-# setup xiv launcher
-cp "$TOOLS_FOLDER"/modules/configs/dev.goats.xivlauncher.desktop ~/Desktop/dev.goats.xivlauncher.desktop
-chmod +x ~/Desktop/dev.goats.xivlauncher.desktop
+# for xiv launcher to run with mangohud you need to launch it with
+# /usr/bin/mangohud flatpak run dev.goats.xivlauncher, mangohud 24.08
+# from flathub and permissions to mangohud configs. Home/host
+# permissions dont work.
+cp "$TOOLS_FOLDER"/modules/configs/xivlauncher ~/Desktop
+flatpak install --user -y runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
+flatpak override dev.goats.xivlauncher --user --filesystem=xdg-config/MangoHud:ro
