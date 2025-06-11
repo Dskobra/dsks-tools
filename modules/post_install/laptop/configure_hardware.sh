@@ -1,15 +1,16 @@
 #!/usr/bin/bash
-
-##########----------hardware----------##########
+##########----------configure hardware----------##########
 sudo sed -i '/GRUB_CMDLINE_LINUX="rhgb quiet"/c GRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset acpi_enforce_resources=lax crashkernel=512M rhgb quiet"' /etc/default/grub
 sudo sed -i '/GRUB_TIMEOUT=5/c GRUB_TIMEOUT=12' /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2.cfg
 
-# load modules needed for openrgb
+# OpenRGB needs a a couple kernel mods loaded
+# for smbus access. So make sure they are
+# automatically loaded on boot
 sudo modprobe i2c-dev
 sudo modprobe i2c-piix4
 sudo touch /etc/modules-load.d/i2c.conf
 sudo sh -c 'echo "i2c-dev" >> /etc/modules-load.d/i2c.conf'
 sudo sh -c 'echo "i2c-piix4" >> /etc/modules-load.d/i2c.conf'
 sudo i2cdetect -l
-##########----------hardware----------##########
+##########----------configure hardware----------##########

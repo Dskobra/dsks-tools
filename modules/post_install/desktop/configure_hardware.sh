@@ -4,7 +4,7 @@
 sudo sed -i '/GRUB_CMDLINE_LINUX="rhgb quiet"/c GRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff acpi_enforce_resources=lax crashkernel=512M rhgb quiet"' /etc/default/grub
 sudo sed -i '/GRUB_TIMEOUT=5/c GRUB_TIMEOUT=12' /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2.cfg
-## setup labels
+## setup drive mount points/permissions
 mkdir -p ~/Drives/vms
 mkdir ~/Drives/external
 mkdir ~/Drives/shared
@@ -16,24 +16,21 @@ echo "LABEL=games                                 /home/jordan/Drives/games     
 sudo systemctl daemon-reload
 sudo mount -av
 
-PCI_WIFI_ONE="0000:07:00.0"
-PCI_WIFI_TWO="0000:08:00.0"
-
-# copy over custom dracut config
+# setup wifi adapters for virtualization by
+# adding few drivers to initramfs, set permissions
+# on config, rebuild initramfs than bind wifi adapters
+# to vfio driver with driverctl
+PCI_WIFI_ADAPTER_ONE="0000:07:00.0"
+PCI_WIFI_ADAPTER_TWO="0000:08:00.0"
 echo 'add_driver+=" vfio vfio_iommu_type1 vfio_pci vfio_virqfd "' | sudo tee /etc/dracut.conf.d/local.conf > /dev/null
-
-# set permissions to root
 sudo chown root:root "/etc/dracut.conf.d/local.conf"
-
-# rebuild initramfs
 sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
+sudo driverctl set-override $PCI_WIFI_ADAPTER_ONE vfio-pci
+sudo driverctl set-override $PCI_WIFI_ADAPTER_TWO vfio-pci
 
-# Use driverctl to rebind the pci devices to the vfio-pci driver
-# this allows vfio-pci driver to control it for virtualization
-sudo driverctl set-override $PCI_WIFI_ONE vfio-pci
-sudo driverctl set-override $PCI_WIFI_TWO vfio-pci
-
-# load modules needed for openrgb
+# OpenRGB needs a a couple kernel mods loaded
+# for smbus access. So make sure they are
+# automatically loaded on boot
 sudo modprobe i2c-dev
 sudo modprobe i2c-piix4
 sudo touch /etc/modules-load.d/i2c.conf
