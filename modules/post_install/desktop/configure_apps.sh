@@ -40,13 +40,13 @@ game_profiles(){
 }
 
 setup_conky(){
-    cp "$TOOLS_FOLDER/configs/conkyrc" ~/.conkyrc
+    cp "$TOOLS_FOLDER/modules/configs/conkyrc" ~/.conkyrc
     cp /usr/share/applications/conky.desktop /home/jordan/.config/autostart/
 }
 
 setup_ffxiv(){
     cd "$TOOLS_FOLDER/temp" || exit
-    curl -L -o http://192.168.50.101/downloads/configs.tar.gz
+    curl -L -o configs.tar.gz http://192.168.50.101/downloads/configs.tar.gz
     tar -xvf configs.tar.gz
     mkdir ~/.xlcore
     cp "$TOOLS_FOLDER/temp/configs/ffxiv/launcher.ini" ~/.xlcore/launcher.ini
