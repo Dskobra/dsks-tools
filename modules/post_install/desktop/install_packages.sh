@@ -7,7 +7,7 @@ cockpit-bridge cockpit-doc cockpit-image-builder cockpit-kdump  cockpit-files \
 cockpit-networkmanager cockpit-ws-selinux cockpit-ws cockpit-system \
 cockpit-storaged cockpit-sosreport cockpit-session-recording cockpit-selinux \
 cockpit-podman cockpit-packagekit cockpit-machines ShellCheck python3-lsp-server \
-clamav clamav-update clamd firewall-applet
+clamav clamav-update clamd firewall-applet conky
 npm i -g bash-language-server
 
 # install from local web server

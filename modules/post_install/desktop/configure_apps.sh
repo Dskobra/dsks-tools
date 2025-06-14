@@ -38,9 +38,22 @@ game_profiles(){
      cp *.conf /home/jordan/Drives/games/MangoHud/
      git stash       # reset profiles after copying
 }
+
+setup_conky(){
+    cp "$TOOLS_FOLDER/configs/conkyrc" ~/.conkyrc
+    cp /usr/share/applications/conky.desktop /home/jordan/.config/autostart/
+}
+
+setup_ffxiv(){
+    cd "$TOOLS_FOLDER/temp" || exit
+    curl -L -o http://192.168.50.101/downloads/configs.tar.gz
+    tar -xvf configs.tar.gz
+    mkdir ~/.xlcore
+    cp "$TOOLS_FOLDER/temp/configs/ffxiv/launcher.ini" ~/.xlcore/launcher.ini
+}
 ##########----------apps----------##########
 games_drive
-
-
+setup_conky
+setup_ffxiv
 ##########----------apps----------##########
 #/home/jordan/Drives/games/xlcore/
