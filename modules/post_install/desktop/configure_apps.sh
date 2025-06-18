@@ -39,11 +39,6 @@ game_profiles(){
      git stash       # reset profiles after copying
 }
 
-setup_conky(){
-    cp "$TOOLS_FOLDER/modules/configs/conkyrc" ~/.conkyrc
-    cp /usr/share/applications/conky.desktop /home/jordan/.config/autostart/
-}
-
 setup_ffxiv(){
     cd "$TOOLS_FOLDER/temp" || exit
     curl -L -o configs.tar.gz http://192.168.50.101/downloads/configs.tar.gz
@@ -53,7 +48,6 @@ setup_ffxiv(){
 }
 ##########----------apps----------##########
 games_drive
-setup_conky
 setup_ffxiv
 ##########----------apps----------##########
 #/home/jordan/Drives/games/xlcore/

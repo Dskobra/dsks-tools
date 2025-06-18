@@ -3,6 +3,13 @@
 sudo sed -i '/GRUB_CMDLINE_LINUX="rhgb quiet"/c GRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset acpi_enforce_resources=lax crashkernel=512M rhgb quiet"' /etc/default/grub
 sudo sed -i '/GRUB_TIMEOUT=5/c GRUB_TIMEOUT=12' /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2.cfg
+## setup drive mount points/permissions
+mkdir ~/Drives/external
+mkdir ~/Drives/games
+echo "LABEL=external                              /home/jordan/Drives/external   btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+echo "LABEL=games                                 /home/jordan/Drives/games      btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+sudo systemctl daemon-reload
+sudo mount -av
 
 # OpenRGB needs a a couple kernel mods loaded
 # for smbus access. So make sure they are
