@@ -1,20 +1,20 @@
 #!/usr/bin/bash
 games_drive(){
-    if test -f "/home/jordan/Drives/games/.DRIVESTATE.txt"; then
+    if test -f "/home/jordan/Drives/game_drive/.DRIVESTATE.txt"; then
         echo "Games drive is already set up."
-    elif ! test -f "/home/jordan/Drives/games/.DRIVESTATE.txt"; then
+    elif ! test -f "/home/jordan/Drives/game_drive/.DRIVESTATE.txt"; then
         echo "Setting up games drive folders."
-        mkdir /home/jordan/Drives/games/MangoHud
-        mkdir /home/jordan/Drives/games/Cemu
-        mkdir /home/jordan/Drives/games/Lutris
-        mkdir /home/jordan/Drives/games/Xlcore
-        mkdir /home/jordan/Drives/games/Xlcore/ffxiv/
-        mkdir /home/jordan/Drives/games/Xlcore/ffxivConfig/
-        mkdir /home/jordan/Drives/games/Xlcore/patch/
+        mkdir /home/jordan/Drives/game_drive/MangoHud
+        mkdir /home/jordan/Drives/game_drive/Cemu
+        mkdir /home/jordan/Drives/game_drive/Lutris
+        mkdir /home/jordan/Drives/game_drive/Xlcore
+        mkdir /home/jordan/Drives/game_drive/Xlcore/ffxiv/
+        mkdir /home/jordan/Drives/game_drive/Xlcore/ffxivConfig/
+        mkdir /home/jordan/Drives/game_drive/Xlcore/patch/
         game_profiles
-        echo "0" > /home/jordan/Drives/games/.DRIVESTATE.txt
+        echo "0" > /home/jordan/Drives/game_drive/.DRIVESTATE.txt
     fi
-    ln -s /home/jordan/Drives/games/MangoHud /home/jordan/.config/MangoHud
+    ln -s /home/jordan/Drives/game_drive/MangoHud /home/jordan/.config/MangoHud
     # for xiv launcher to run with mangohud you need to launch it with
     # /usr/bin/mangohud flatpak run dev.goats.xivlauncher, mangohud 24.08
     # from flathub and permissions to mangohud configs. Home/host
@@ -25,7 +25,7 @@ games_drive(){
     # Dont use home permissions in flatseal otherwise during the setup for Cemu
     # drives will be listed twice in the drop-down list. Also shows them twice in the
     # file chooser on the left. So just give specific permissions.
-    flatpak override info.cemu.Cemu --user --filesystem=/home/jordan/Drives/games/Cemu/
+    flatpak override info.cemu.Cemu --user --filesystem=/home/jordan/Drives/game_drive/Cemu/
 }
 
 game_profiles(){
@@ -35,7 +35,7 @@ game_profiles(){
      cd "$TOOLS_FOLDER/temp/game-profiles" || exit
      python "$TOOLS_FOLDER/modules/post_install/config_pci.py" "0:01:00.0"
      chown "$USER":"$USER" *.conf
-     cp *.conf /home/jordan/Drives/games/MangoHud/
+     cp *.conf /home/jordan/Drives/game_drive/MangoHud/
      git stash       # reset profiles after copying
 }
 
