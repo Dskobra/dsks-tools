@@ -5,14 +5,12 @@ sudo sed -i '/GRUB_CMDLINE_LINUX="rhgb quiet"/c GRUB_CMDLINE_LINUX="amd_iommu=on
 sudo sed -i '/GRUB_TIMEOUT=5/c GRUB_TIMEOUT=12' /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2.cfg
 ## setup drive mount points/permissions
-mkdir -p ~/Drives/vms
-mkdir ~/Drives/external
-mkdir ~/Drives/shared
-mkdir ~/Drives/games
-echo "LABEL=vms                                   /home/jordan/Drives/vms        btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
-echo "LABEL=external                              /home/jordan/Drives/external   btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
-echo "LABEL=shared                                /home/jordan/Drives/shared     btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
-echo "LABEL=games                                 /home/jordan/Drives/games      btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+mkdir ~/Drives/shared_drive
+mkdir ~/Drives/game_drive
+mkdir -p ~/Drives/vm_drive
+echo "/dev/nvme0n1p1                              /home/jordan/Drives/shared_drive     btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+echo "/dev/nvme2n1p1                              /home/jordan/Drives/game_drive       btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+echo "/dev/sda1                                   /home/jordan/Drives/vm_drive         btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 sudo systemctl daemon-reload
 sudo mount -av
 
