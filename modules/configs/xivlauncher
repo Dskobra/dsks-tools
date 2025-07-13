@@ -1,6 +1,0 @@
-#!/usr/bin/bash
-# Weird note If you copy the original xivlauncher.desktop from the menu, change the exec
-# option to below and rename it kde will replace the app menu shortcut as well preventing 2 different shortcuts.
-# Also if you place an edited one on the desktop kde will just replace the edited one with the original. So just
-# have a script to launch mangohud with it. <_<
-mangohud flatpak run dev.goats.xivlauncher

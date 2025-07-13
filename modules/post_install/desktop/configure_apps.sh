@@ -15,13 +15,6 @@ game_drive(){
         echo "0" > /home/jordan/Drives/game_drive/.DRIVESTATE.txt
     fi
     ln -s /home/jordan/Drives/game_drive/MangoHud /home/jordan/.config/MangoHud
-    # for xiv launcher to run with mangohud you need to launch it with
-    # /usr/bin/mangohud flatpak run dev.goats.xivlauncher, mangohud 24.08
-    # from flathub and permissions to mangohud configs. Home/host
-    # permissions dont work.
-    cp "$TOOLS_FOLDER"/modules/configs/xivlauncher ~/Desktop
-    flatpak install --user -y runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
-    flatpak override dev.goats.xivlauncher --user --filesystem=xdg-config/MangoHud:ro
     # Dont use home permissions in flatseal otherwise during the setup for Cemu
     # drives will be listed twice in the drop-down list. Also shows them twice in the
     # file chooser on the left. So just give specific permissions.
@@ -39,7 +32,7 @@ game_profiles(){
      git stash       # reset profiles after copying
 }
 
-setup_ffxiv(){
+setup_ffxiv_config(){
     cd "$TOOLS_FOLDER/temp" || exit
     curl -L -o configs.tar.gz http://192.168.50.101/downloads/configs.tar.gz
     tar -xvf configs.tar.gz
@@ -48,5 +41,5 @@ setup_ffxiv(){
 }
 ##########----------apps----------##########
 game_drive
-setup_ffxiv
+setup_ffxiv_config
 ##########----------apps----------##########
