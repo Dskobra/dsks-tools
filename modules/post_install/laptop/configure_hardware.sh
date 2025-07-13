@@ -7,7 +7,7 @@ sudo sed -i '/GRUB_TIMEOUT=5/c GRUB_TIMEOUT=12' /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2.cfg
 ## setup drive mount points/permissions
 mkdir -p ~/Drives/game_drive
-echo "/dev/nvme1n1                               /home/jordan/Drives/game_drive      btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+echo "/dev/nvme0n1p1                               /home/jordan/Drives/game_drive      btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 sudo systemctl daemon-reload
 sudo mount -av
 
