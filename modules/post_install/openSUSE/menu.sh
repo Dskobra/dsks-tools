@@ -9,7 +9,7 @@ main_menu(){
     echo "Released under the MIT license"
     echo ""
     echo ""
-    echo "(1) Post Install                       (2) Various fixes"
+    echo "(1) Devices                        (2) Various fixes"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -41,7 +41,7 @@ main_menu(){
 
 post_menu(){
     echo "              Pick OS"
-    echo "(1) Fedora                        (2) openSUSE"
+    echo "(1) Desktop                       (2) Laptop"
     echo "(3) MiniPC"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
@@ -51,12 +51,11 @@ post_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/menu.sh
+            "$TOOLS_FOLDER"/modules/post_install/desktop/desktop.sh
             ;;
 
         2)
-            echo "disabled atm"
-            #"$TOOLS_FOLDER"/modules/post_install/openSUSE/menu.sh
+            "$TOOLS_FOLDER"/modules/post_install/laptop/laptop.sh
             ;;
 
         3)
