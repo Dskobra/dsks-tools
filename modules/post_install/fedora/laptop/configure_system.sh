@@ -15,4 +15,7 @@ sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib
 # Default Fedora hides the grub menu. I prefer it visible (like having the option when testing new kernels, nvidia driver breaks
 # or just cause)
 sudo grub2-editenv - unset menu_auto_hide
+sudo modprobe ntsync
+sudo touch /etc/modules-load.d/ntsync.conf
+echo "ntsync"  | sudo tee -a /etc/modules-load.d/ntsync.conf > /dev/null
 ##########----------configure system----------##########
