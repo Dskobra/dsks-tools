@@ -39,41 +39,6 @@ main_menu(){
         main_menu
 }
 
-grub_menu(){
-    echo "(1) AMD                           (2) NVIDIA"    
-    echo "(m) Main Menu                     (0) Exit"    
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-
-        1)
-            "$TOOLS_FOLDER"/modules/fixes/grub.sh "amd_grub"
-            ;;
-
-        2)
-            "$TOOLS_FOLDER"/modules/fixes/grub.sh "nvidia_grub"
-            ;;
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            grub_menu
-            ;;
-
-        esac
-        unset input
-}
-
 post_menu(){
     echo "              Device menu"
     echo "(1) Desktop                       (2) Laptop"
