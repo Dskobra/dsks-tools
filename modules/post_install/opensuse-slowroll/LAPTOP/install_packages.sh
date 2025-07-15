@@ -4,7 +4,8 @@ sudo zypper -n install  cockpit cockpit-bridge \
 cockpit-doc cockpit-kdump cockpit-networkmanager cockpit-ws-selinux \
 cockpit-ws cockpit-system cockpit-storaged cockpit-selinux \
 cockpit-podman cockpit-packagekit cockpit-machines ShellCheck \
-clamav firewall-applet i2c-tools python313-python-lsp-server
+clamav firewall-applet i2c-tools python313-python-lsp-server \
+systemd-zram-service
 npm i -g bash-language-server
 
 # install from local web server
