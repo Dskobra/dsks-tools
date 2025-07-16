@@ -21,7 +21,6 @@ sudo firewall-cmd --reload
 sudo systemctl enable --now sshd
 sudo systemctl enable --now cockpit.socket
 sudo systemctl enable --now zramswap
-sudo zramswapon
 
 
 sudo modprobe ntsync

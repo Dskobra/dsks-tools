@@ -26,7 +26,7 @@ game_profiles(){
      cd "$TOOLS_FOLDER/temp" || exit
      git clone https://github.com/dskobra/game-profiles
      cd "$TOOLS_FOLDER/temp/game-profiles" || exit
-     python "$TOOLS_FOLDER/modules/post_install/config_pci.py" "0:01:00.0"
+     python3 "$TOOLS_FOLDER/modules/post_install/config_pci.py" "0:01:00.0"
      chown "$USER":"$USER" *.conf
      cp *.conf /home/jordan/Drives/game_drive/MangoHud/
      git stash       # reset profiles after copying
