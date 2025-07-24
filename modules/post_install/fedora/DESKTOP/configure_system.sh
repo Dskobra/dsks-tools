@@ -1,7 +1,12 @@
 #!/usr/bin/bash
-
+configure_clamd(){
+    sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
+    sudo freshclam
+    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
+    sudo semanage boolean -m -1 antivirus_can_scan_system
+}
 ##########----------system----------##########
-"$TOOLS_FOLDER"/modules/post_install/clamd.sh
+configure_clamd
 sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
 sudo firewall-cmd --set-default-zone=home
 sudo firewall-cmd --permanent --add-service=cockpit

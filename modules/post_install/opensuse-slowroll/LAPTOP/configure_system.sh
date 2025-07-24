@@ -9,9 +9,15 @@ create_zram_config(){
 
 }
 
+configure_clamd(){
+    sudo freshclam
+    sudo semanage boolean -m -1 antivirus_can_scan_system
+    sudo systemctl enable --now clamd freshclam
+}
 ##########----------configure system----------##########
 "$TOOLS_FOLDER"/modules/post_install/clamd.sh
 create_zram_config
+configure_clamd
 sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
 sudo firewall-cmd --set-default-zone=home
 sudo firewall-cmd --permanent --add-service=cockpit
