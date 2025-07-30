@@ -1,4 +1,5 @@
 ### below is meant to be copy/pasted into .bashrc
+# for fedora
 
 grub(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
@@ -11,5 +12,22 @@ clean(){
 
 rebuild(){
     sudo akmods --rebuild --force
+    sudo dracut --regenerate-all --force
+}
+
+
+
+### below is meant to be copy/pasted into .bashrc
+# for opensuse
+grub(){
+    sudo grub2-mkconfig -o /etc/grub2.cfg
+}
+
+
+clean(){
+    sudo zypper clean
+}
+
+rebuild(){
     sudo dracut --regenerate-all --force
 }

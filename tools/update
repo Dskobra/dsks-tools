@@ -1,5 +1,18 @@
 #!/usr/bin/bash
 
+distro_check(){
+    if [ "$DISTRO" == "fedora" ]
+    then
+        PKGCMDS="sudo dnf upgrade -y && sudo dnf autoremove -y"
+        PKGCLEANUPCMD="sudo dnf autoremove -y"
+    elif [ "$DISTRO" == "opensuse-slowroll" ]
+    then
+        PKGCMDS="zypper -n dup --auto-agree-with-licenses"
+        PKGCLEANUPCMD=""
+    else
+        echo ""
+    fi
+}
 update(){
     if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ]
     then
@@ -7,22 +20,14 @@ update(){
         flatpak remove --unused -y
     elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
     then
-        sudo dnf upgrade -y
-        sudo dnf autoremove -y
-    elif [ "$1" == "--bugs" ] || [ "$1" == "-b" ] || [ "$1" == "bugs" ]
-    then
-        sudo dnf upgrade --bugfix -y
-        sudo dnf autoremove -y
-
-    elif [ "$1" == "--security" ] || [ "$1" == "-S" ] || [ "$1" == "security" ]
-    then
-        echo
+        $PKGCMDS
+        $PKGCLEANUPCMD
     elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
     then
         flatpak update -y
         flatpak remove --unused -y
-        sudo dnf upgrade -y
-        sudo dnf autoremove -y
+        $PKGCMDS
+        $PKGCLEANUPCMD
     elif [ "$1" == "--tools" ] || [ "$1" == "-t" ] || [ "$1" == "tools" ]
     then
         update_tools
@@ -56,11 +61,11 @@ update_help(){
     echo ""
     echo "Available arguments:"
     echo "  --apps, -a, apps            # update flatpaks"
-    echo "  --bugs, -b, bugs            # installs buffixes only"
-    echo "  --security, -S, security    # installs security updates only"
     echo "  --system, -s, system        # update just fedora"
     echo "  --all, -A, all              # update all of the above"
     echo "  --tools, -t, tools          # updates this script and gcache"
 }
-
+DISTRO=$(source /etc/os-release ; echo $ID)
+PKGCMDS=""
+PKGCLEANUPCMD=""
 update "$1"
