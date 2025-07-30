@@ -3,11 +3,11 @@
 distro_check(){
     if [ "$DISTRO" == "fedora" ]
     then
-        PKGCMDS="sudo dnf upgrade -y && sudo dnf autoremove -y"
+        PKGCMDS="sudo dnf upgrade -y"
         PKGCLEANUPCMD="sudo dnf autoremove -y"
     elif [ "$DISTRO" == "opensuse-slowroll" ]
     then
-        PKGCMDS="zypper -n dup --auto-agree-with-licenses"
+        PKGCMDS="sudo zypper -n dup --auto-agree-with-licenses"
         PKGCLEANUPCMD=""
     else
         echo ""
@@ -45,7 +45,7 @@ update_tools(){
     cd dsks-tools/tools || exit
     mv update ~/bin/update
     mv gcache ~/bin/gcache
-    rm -r ~/bin/update_temp
+    rm -r -f ~/bin/update_temp
     exit
 }
 
@@ -68,4 +68,5 @@ update_help(){
 DISTRO=$(source /etc/os-release ; echo $ID)
 PKGCMDS=""
 PKGCLEANUPCMD=""
+distro_check
 update "$1"
