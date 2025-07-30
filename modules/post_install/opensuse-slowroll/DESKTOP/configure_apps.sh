@@ -4,7 +4,6 @@ game_drive(){
         echo "Games drive is already set up."
     elif ! test -f "/home/jordan/Drives/game_drive/.DRIVESTATE.txt"; then
         echo "Setting up games drive folders."
-        mkdir /home/jordan/Drives/game_drive/MangoHud
         mkdir /home/jordan/Drives/game_drive/Cemu
         mkdir /home/jordan/Drives/game_drive/Lutris
         mkdir /home/jordan/Drives/game_drive/Xlcore
@@ -14,7 +13,6 @@ game_drive(){
         game_profiles
         echo "0" > /home/jordan/Drives/game_drive/.DRIVESTATE.txt
     fi
-    ln -s /home/jordan/Drives/game_drive/MangoHud /home/jordan/.config/MangoHud
     # Dont use home permissions in flatseal otherwise during the setup for Cemu
     # drives will be listed twice in the drop-down list. Also shows them twice in the
     # file chooser on the left. So just give specific permissions.
@@ -28,7 +26,8 @@ game_profiles(){
      cd "$TOOLS_FOLDER/temp/game-profiles" || exit
      python3 "$TOOLS_FOLDER/modules/post_install/config_pci.py" "0:03:00.0"
      chown "$USER":"$USER" *.conf
-     cp *.conf /home/jordan/Drives/game_drive/MangoHud/
+     mkdir /home/jordan/.config/MangoHud/
+     cp *.conf /home/jordan/.config/MangoHud/
      git stash       # reset profiles after copying
 }
 
