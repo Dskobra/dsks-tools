@@ -13,6 +13,7 @@ distro_check(){
         echo ""
     fi
 }
+
 update(){
     if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ]
     then
