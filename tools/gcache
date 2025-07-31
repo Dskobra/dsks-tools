@@ -5,13 +5,20 @@
 gcache(){
     rm -r ~/.config/BraveSoftware/Brave-Browser/Default/GPUCache/
 
+    rm -r ~/.var/app/com.brave.Browser/config/BraveSoftware/Brave-Browser/Default/GPUCache/
+
+    rm -r ~/.config/discord/GPUCache/
+
+    rm -r ~/.var/app/com.discordapp.Discord/config/discord/GPUCache/
+
     rm -r ~/config/WowUpCf/GPUCache/
 
     rm -r ~/.config/RaiderIO/GPUCache/
 
     rm -r ~/.config/"Warcraft Logs Uploader"/GPUCache/
 
-    rm -r ~/.config/discord/GPUCache/
+
 }
 
 gcache
+
