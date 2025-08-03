@@ -9,7 +9,7 @@ mkdir /home/jordan/Drives/
 mkdir /home/jordan/Drives/shared_drive
 mkdir /home/jordan/Drives/game_drive
 mkdir /home/jordan/Drives/vm_drive
-echo "LABEL=shared_drive                             /home/jordan/Drives/shared_drive     btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+#echo "LABEL=shared_drive                             /home/jordan/Drives/shared_drive     btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 echo "LABEL=game_drive                               /home/jordan/Drives/game_drive       btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 echo "LABEL=vm_drive                                 /home/jordan/Drives/vm_drive         btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 sudo systemctl daemon-reload
