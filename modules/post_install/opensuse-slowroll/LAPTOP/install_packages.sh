@@ -1,11 +1,13 @@
 #!/usr/bin/bash
 ##########----------install packages----------##########
-sudo zypper -n install  cockpit cockpit-bridge \
+sudo zypper -n install cockpit cockpit-bridge \
 cockpit-doc cockpit-kdump cockpit-networkmanager cockpit-ws-selinux \
 cockpit-ws cockpit-system cockpit-storaged cockpit-selinux \
 cockpit-podman cockpit-packagekit cockpit-machines ShellCheck \
 clamav firewall-applet i2c-tools python313-python-lsp-server \
-systemd-zram-service zram-generator
+systemd-zram-service zram-generator setroubleshoot-server
+
+sudo zypper -n install --no-recommends kdump
 npm i -g bash-language-server
 
 # install from local web server
@@ -19,3 +21,7 @@ curl -L -o proton-pass.rpm http://192.168.50.101/downloads/ProtonPass.rpm
 sudo zypper -n --no-gpg-checks install  *.rpm
 flatpak install --user -y flathub org.cockpit_project.CockpitClient
 ##########----------install packages----------##########
+# cleanup packages
+sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
+yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
+yast2-services-manager

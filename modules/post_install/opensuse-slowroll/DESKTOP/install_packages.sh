@@ -19,3 +19,7 @@ curl -L -o proton-pass.rpm http://192.168.50.101/downloads/ProtonPass.rpm
 sudo zypper -n --no-gpg-checks install  *.rpm
 flatpak install --user -y flathub org.cockpit_project.CockpitClient
 ##########----------install packages----------##########
+# cleanup packages
+sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
+yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
+yast2-services-manager
