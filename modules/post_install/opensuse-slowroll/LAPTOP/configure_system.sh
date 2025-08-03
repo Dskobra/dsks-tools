@@ -1,5 +1,4 @@
 #!/usr/bin/bash
-
 create_zram_config(){
     sudo touch /usr/lib/systemd/zram-generator.conf
     sudo chown root:root /usr/lib/systemd/zram-generator.conf
@@ -15,7 +14,6 @@ configure_clamd(){
     sudo systemctl enable --now clamd freshclam
 }
 ##########----------configure system----------##########
-"$TOOLS_FOLDER"/modules/post_install/clamd.sh
 create_zram_config
 configure_clamd
 sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
@@ -26,12 +24,11 @@ sudo firewall-cmd --set-log-denied=all
 sudo firewall-cmd --reload
 sudo systemctl enable --now sshd
 sudo systemctl enable --now cockpit.socket
-sudo systemctl enable --now zramswap
 
 
-sudo modprobe ntsync
-sudo touch /etc/modules-load.d/ntsync.conf
-echo "ntsync"  | sudo tee -a /etc/modules-load.d/ntsync.conf > /dev/null
+#sudo modprobe ntsync
+#sudo touch /etc/modules-load.d/ntsync.conf
+#echo "ntsync"  | sudo tee -a /etc/modules-load.d/ntsync.conf > /dev/null
 ##########----------configure system----------##########
 
 
