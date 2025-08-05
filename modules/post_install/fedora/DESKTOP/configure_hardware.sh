@@ -6,10 +6,10 @@ sudo sed -i '/GRUB_TIMEOUT=5/c GRUB_TIMEOUT=12' /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2.cfg
 ## setup drive mount points/permissions
 mkdir /home/jordan/Drives/
-mkdir /home/jordan/Drives/shared_drive
+mkdir /home/jordan/Drives/data_drive
 mkdir /home/jordan/Drives/game_drive
 mkdir /home/jordan/Drives/vm_drive
-echo "LABEL=shared_drive                             /home/jordan/Drives/shared_drive     btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+echo "LABEL=data_drive                             /home/jordan/Drives/shared_drive     btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 echo "LABEL=game_drive                               /home/jordan/Drives/game_drive       btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 echo "LABEL=vm_drive                                 /home/jordan/Drives/vm_drive         btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
 sudo systemctl daemon-reload
