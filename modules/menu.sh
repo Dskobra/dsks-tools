@@ -39,9 +39,9 @@ main_menu(){
         main_menu
 }
 
-post_menu(){
-    echo "              Pick OS"
-    echo "(1) Fedora                        (2) openSUSE"
+device_menu(){
+    echo "              Device menu"
+    echo "(1) Desktop                       (2) Laptop"
     echo "(3) MiniPC"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
@@ -51,16 +51,15 @@ post_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/menu.sh
+            desktop_menu
             ;;
 
         2)
-            echo "disabled atm"
-            #"$TOOLS_FOLDER"/modules/post_install/openSUSE/menu.sh
+            echo "disabled"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post_install/minipc/minipc.sh
+            echo "disabled"
             ;;
 
         m | M )
@@ -74,17 +73,17 @@ post_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            post_menu
+            device_menu
             ;;
 
         esac
         unset input
 }
 
-device_menu(){
-    echo "              Device menu"
-    echo "(1) Desktop                       (2) Laptop"
-    echo "(3) MiniPC"
+desktop_menu(){
+    echo "              Setup DESKTOP"
+    echo "(1) Install packages              (2) Setup hardware"
+    echo "(3) Setup system                  (4) Setup apps"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -93,15 +92,19 @@ device_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/post_install/desktop/desktop.sh
+            "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/install_packages.sh
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post_install/laptop/laptop.sh
+            "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/configure_hardware.sh
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post_install/minipc/minipc.sh
+            "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/configure_system.sh
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/configure_apps.sh
             ;;
 
         m | M )
