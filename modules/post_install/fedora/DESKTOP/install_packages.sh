@@ -9,33 +9,17 @@ python3-idle python3-devel toolbox distrobox docker-compose-switch git git-gui g
 libvirt-daemon-kvm  qemu-kvm virt-install virt-manager virt-viewer dnfdragora driverctl cockpit cockpit-composer \
 cockpit-bridge cockpit-doc cockpit-image-builder cockpit-kdump  cockpit-files cockpit-networkmanager cockpit-ws-selinux \
 cockpit-ws cockpit-system cockpit-storaged cockpit-sosreport cockpit-session-recording cockpit-selinux cockpit-podman \
-cockpit-packagekit cockpit-machines ShellCheck python3-lsp-server clamav clamav-update clamd firewall-applet
+cockpit-packagekit cockpit-machines ShellCheck python3-lsp-server clamav clamav-update clamd firewall-applet zlib-devel \
+pcre2-devel make gcc sqlite-devel openssl-devel libevent-devel systemd-devel mysql-devel postgresql-devel kdiff3
 
+sudo dnf group install -y c-development development-tools container-management
 ## install flatpaks
 flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install --user -y flathub com.github.tchx84.Flatseal
-flatpak install --user -y flathub io.github.arunsivaramanneo.GPUViewer
-flatpak install --user -y flathub com.brave.Browser
-flatpak install --user -y flathub org.mozilla.firefox
-flatpak install --user -y flathub org.videolan.VLC
-flatpak install --user -y flathub com.obsproject.Studio
-flatpak install --user -y flathub org.openshot.OpenShot
-flatpak install --user -y flathub info.cemu.Cemu
-flatpak install --user -y flathub com.discordapp.Discord
-flatpak install --user -y flathub org.DolphinEmu.dolphin-emu
-flatpak install --user -y flathub com.vysp3r.ProtonPlus
-flatpak install --user -y flathub com.github.Matoking.protontricks
-flatpak install --user -y runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08
-flatpak install --user -y flathub net.lutris.Lutris
-flatpak install --user -y flathub com.valvesoftware.Steam
-flatpak install --user -y flathub dev.goats.xivlauncher
-flatpak install --user -y flathub io.podman_desktop.PodmanDesktop
-flatpak install --user -y flathub org.qownnotes.QOwnNotes
-flatpak install --user -y flathub io.missioncenter.MissionCenter
-flatpak install --user -y flathub it.mijorus.gearlever
-flatpak install --user -y flathub org.gtkhash.gtkhash
-flatpak install --user -y flathub org.raspberrypi.rpi-imager
-flatpak install --user -y flathub org.libreoffice.LibreOffice
+flatpak install --user -y flathub com.github.tchx84.Flatseal io.github.arunsivaramanneo.GPUViewer com.brave.Browser \
+org.mozilla.firefox org.videolan.VLC com.obsproject.Studio org.openshot.OpenShot info.cemu.Cemu com.discordapp.Discord \
+org.DolphinEmu.dolphin-emu com.vysp3r.ProtonPlus  com.github.Matoking.protontricks net.lutris.Lutris com.valvesoftware.Steam \
+dev.goats.xivlauncher io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes io.missioncenter.MissionCenter it.mijorus.gearlever \
+org.gtkhash.gtkhash org.raspberrypi.rpi-imager org.libreoffice.LibreOffice runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08
 
 # install nodejs
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
@@ -56,4 +40,5 @@ curl -L -o proton-pass.rpm http://192.168.50.101/downloads/ProtonPass.rpm
 curl -L -o proton-authenticator.rpm http://192.168.50.101/downloads/ProtonAuthenticator-1.0.0-1.x86_64.rpm
 
 sudo dnf install -y *.rpm
+sudo dnf remove -y firefox firefox-langpacks vlc libreoffice*
 ##########----------packages----------##########

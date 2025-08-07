@@ -42,3 +42,10 @@ setup_ffxiv_config(){
 game_drive
 setup_ffxiv_config
 ##########----------apps----------##########
+sudo mkdir -p /opt/apps/icons
+sudo chown $USER:$USER /opt/apps/ -R
+flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
+flatpak override com.valvesoftware.Steam  --user --filesystem=xdg-config/MangoHud:ro
+npm i -g bash-language-server
+
+
