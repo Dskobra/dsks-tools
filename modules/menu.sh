@@ -134,6 +134,7 @@ atomic_desktop_menu(){
     echo "              Setup atomic DESKTOP"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
+    echo "(5) Ossec"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -156,6 +157,10 @@ atomic_desktop_menu(){
 
         4)
             "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_apps.sh
+            ;;
+
+        5)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/ossec.sh
             ;;
 
         m | M )

@@ -8,14 +8,6 @@ configure_zram(){
     sudo mv zram-generator.conf /etc/systemd/zram-generator.conf
 }
 
-build_ossec(){
-    cd "$TOOLS_FOLDER/temp" || exit
-    curl -L -o ossec.tar.gz https://github.com/ossec/ossec-hids/archive/3.8.0.tar.gz
-    tar -xvf ossec.tar.gz
-    cd ossec-hids-3.8.0 || exit
-    sudo ./install.sh
-}
-
 configure_security(){
     sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
     sudo freshclam
@@ -43,10 +35,9 @@ configure_system_settings(){
     #sudo systemctl enable --now lactd
     #sudo modprobe ntsync
     #sudo touch /etc/modules-load.d/ntsync.conf
-    #echo "ntsync"  | sudo tee -a /etc/modules-load.d/ntsync.conf > /dev/null
+    #echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
 }
 
 configure_zram
 configure_security
-build_ossec
 configure_system_settings
