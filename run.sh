@@ -7,5 +7,5 @@ export DISTRO=""                                # stores distro name.
 export VERSION_ID=""
 export COPYRIGHT="Copyright (c) 2024-2025 Jordan Bottoms"
 TOOLS_FOLDER=$(pwd)
-mkdir "TOOLS_FOLDER"/temp
+mkdir "$TOOLS_FOLDER"/temp
 "$TOOLS_FOLDER"/modules/menu.sh
