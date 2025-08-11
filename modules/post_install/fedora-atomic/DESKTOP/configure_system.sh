@@ -6,6 +6,14 @@ configure_clamd(){
     sudo semanage boolean -m -1 antivirus_can_scan_system
 }
 
+configure_zram(){
+    cd "$TOOLS_FOLDER"/temp || exit
+    touch zram-generator.conf
+    echo "[zram0]" >> zram-generator.conf
+    echo "zram-size = min(ram, 16500)" >> zram-generator.conf
+    sudo mv zram-generator.conf /etc/systemd/zram-generator.conf
+}
+
 build_ossec(){
     cd "$TOOLS_FOLDER/temp" || exit
     curl -L -o ossec.tar.gz https://github.com/ossec/ossec-hids/archive/3.8.0.tar.gz
@@ -26,16 +34,16 @@ sudo systemctl enable --now sshd
 sudo systemctl enable --now cockpit.socket
 
 # set zram swap from default 8gb to 16gb
-sudo cp /usr/lib/systemd/zram-generator.conf /usr/lib/systemd/zram-generator.conf.bak
-sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
+configure_zram
 # Default Fedora hides the grub menu. I prefer it visible (like having the option when testing new kernels, nvidia driver breaks
 # or just cause)
 
 sudo grub2-editenv - unset menu_auto_hide
 sudo usermod -aG libvirt "$USER"
-sudo systemctl enable --now lactd
+#sudo systemctl enable --now lactd
 #sudo modprobe ntsync
 #sudo touch /etc/modules-load.d/ntsync.conf
 #echo "ntsync"  | sudo tee -a /etc/modules-load.d/ntsync.conf > /dev/null
 ##########----------system----------##########
+
 
