@@ -6,10 +6,11 @@ sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free
 sudo rpm-ostree apply-live
 
 wget https://copr.fedorainfracloud.org/coprs/ilyaz/LACT/repo/fedora-42/ilyaz-LACT-fedora-42.repo
+sudo mv ilyaz-LACT-fedora-42.repo /etc/yum.repos.d
 sudo rpm-ostree refresh-md
 sudo rpm-ostree install --allow-inactive zenity openrgb cpu-x lact remmina k3b kate kate-plugins kleopatra xfburn steam-devices \
-gamemode.x86_64 gamemode.i686 goverlay vim-enhanced distrobox git git-gui gh git-cola libvirt-daemon-config-network virt-manager \
-dnfdragora driverctl ShellCheck clamav clamav-update clamd firewall-applet
+gamemode.x86_64 gamemode.i686 goverlay vim-enhanced distrobox git-gui gh git-cola virt-manager dnfdragora driverctl ShellCheck \
+clamav clamav-update clamd
 
 ## install flatpaks
 flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
