@@ -1,9 +1,6 @@
 #!/usr/bin/bash
 configure_boot(){
-    cd "$TOOLS_FOLDER"/temp || exit
-    touch user.cfg
-    echo "set timeout=12" >> user.cfg
-    sudo mv user.cfg /boot/grub2/
+    echo "set timeout=12" | sudo tee /boot/grub2/user.cfg > /dev/null
     sudo rpm-ostree kargs --append="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff acpi_enforce_resources=lax crashkernel=512M"
 }
 
