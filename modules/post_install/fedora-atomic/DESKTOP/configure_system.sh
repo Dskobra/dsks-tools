@@ -38,7 +38,9 @@ configure_zram
 # or just cause)
 
 sudo grub2-editenv - unset menu_auto_hide
-sudo usermod -aG libvirt "$USER"
+# https://docs.fedoraproject.org/en-US/fedora-silverblue/troubleshooting/#_unable_to_add_user_to_group
+grep -E '^libvirt:' /usr/lib/group | sudo tee -a /etc/group
+sudo usermod -aG libvirt $USER
 #sudo systemctl enable --now lactd
 #sudo modprobe ntsync
 #sudo touch /etc/modules-load.d/ntsync.conf
