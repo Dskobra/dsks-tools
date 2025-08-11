@@ -45,15 +45,8 @@ configure_system_settings(){
     #sudo touch /etc/modules-load.d/ntsync.conf
     #echo "ntsync"  | sudo tee -a /etc/modules-load.d/ntsync.conf > /dev/null
 }
-##########----------system----------##########
+
 configure_zram
 configure_security
 build_ossec
 configure_system_settings
-
-
-
-
-##########----------system----------##########
-
-

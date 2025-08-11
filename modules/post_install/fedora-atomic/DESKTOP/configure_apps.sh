@@ -45,16 +45,20 @@ hide_firefox_from_base_image(){
     sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.mozilla.firefox.desktop
     sudo update-desktop-database /usr/local/share/applications/
 }
-##########----------apps----------##########
+
+flatpak_overrides(){
+    flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
+    flatpak override com.valvesoftware.Steam  --user --filesystem=xdg-config/MangoHud:ro
+    flatpak override com.valvesoftware.Steam  --user --filesystem=/var/home/jordan/Drives/game_drive/
+}
+
 game_drive
+game_profiles
 setup_ffxiv_config
 hide_firefox_from_base_image
-##########----------apps----------##########
-sudo mkdir -p /opt/apps/icons
-sudo chown $USER:$USER /opt/apps/ -R
-flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
-flatpak override com.valvesoftware.Steam  --user --filesystem=xdg-config/MangoHud:ro
-flatpak override com.valvesoftware.Steam  --user --filesystem=/var/home/jordan/Drives/game_drive/
+flatpak_overrides
+
+
 npm i -g bash-language-server
 
 

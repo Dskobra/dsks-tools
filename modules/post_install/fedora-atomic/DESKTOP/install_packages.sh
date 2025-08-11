@@ -62,11 +62,11 @@ install_extra_apps(){
     sudo mv shellcheck /usr/local/bin
 
 }
-##########----------packages----------##########
+
 cd "$TOOLS_FOLDER"/temp || exit
 install_packages
 attempt_to_install_broken_apps
 install_extra_apps
 zenity --warning --text="Reminder reboot first before doing next step."
-##########----------packages----------##########
+
 
