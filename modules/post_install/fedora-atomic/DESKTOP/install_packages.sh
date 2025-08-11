@@ -45,7 +45,8 @@ install_flatpaks(){
 
     # misc
     flatpak install --user -y flathub org.raspberrypi.rpi-imager  org.videolan.VLC com.obsproject.Studio io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes \
-    org.libreoffice.LibreOffice
+    org.libreoffice.LibreOffice org.kde.isoimagewriter
+
 }
 
 install_extra_apps(){

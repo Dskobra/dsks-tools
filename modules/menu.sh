@@ -10,7 +10,7 @@ main_menu(){
     echo ""
     echo ""
     echo "(1) Post Install                       (2) Various fixes"
-    echo "(3) Fedora Atomic desktop"
+    echo "(3) Desktop /w Fedora                  (4) Desktop /w Fedora Atomic"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -26,6 +26,10 @@ main_menu(){
             ;;
 
         3)
+            desktop_reg_fedora_menu
+            ;;
+
+        4)
             atomic_desktop_menu
             ;;
 
@@ -43,6 +47,7 @@ main_menu(){
         unset input
         main_menu
 }
+
 device_menu(){
     echo "              Device menu"
     echo "(1) Fedora Desktop                (2) Fedora Atomic Desktop"
@@ -84,7 +89,7 @@ device_menu(){
         unset input
 }
 
-desktop_menu(){
+desktop_reg_fedora_menu(){
     echo "              Setup DESKTOP"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
@@ -112,7 +117,7 @@ desktop_menu(){
             ;;
 
         m | M )
-            main_menu
+            desktop_reg_fedora_menu
             ;;
 
         0)
@@ -122,15 +127,14 @@ desktop_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            device_menu
+            desktop_reg_fedora_menu
             ;;
 
         esac
         unset input
 }
 
-
-atomic_desktop_menu(){
+desktop_atomic_fedora_menu(){
     echo "              Setup atomic DESKTOP"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
@@ -174,7 +178,7 @@ atomic_desktop_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            atomic_desktop_menu
+            desktop_atomic_fedora_menu
             ;;
 
         esac
