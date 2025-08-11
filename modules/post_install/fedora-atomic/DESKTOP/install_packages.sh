@@ -5,7 +5,7 @@ install_packages(){
 
     sudo rpm-ostree install kate kate-plugins python3-idle vim-enhanced git-gui gh git-cola kdiff3 python3-lsp-server  virt-manager ShellCheck \
     sqlite-devel openssl-devel libevent-devel systemd-devel mysql-devel postgresql-devel zlib-devel pcre2-devel python3-devel openrgb k3b xfburn steam-devices \
-    goverlay dnfdragora driverctl clamav clamav-update clamd zenity
+    goverlay dnfdragora driverctl clamav clamav-update clamd firewall-applet zenity
 
     # install megasync
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm

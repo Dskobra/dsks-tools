@@ -54,6 +54,7 @@ sudo mkdir -p /opt/apps/icons
 sudo chown $USER:$USER /opt/apps/ -R
 flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
 flatpak override com.valvesoftware.Steam  --user --filesystem=xdg-config/MangoHud:ro
+flatpak override com.valvesoftware.Steam  --user --filesystem=/var/home/jordan/Drives/game_drive/
 npm i -g bash-language-server
 
 
