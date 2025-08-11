@@ -142,6 +142,7 @@ atomic_desktop_menu(){
 
 
         1)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/cleanup.sh
             "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/install_packages.sh
             ;;
 
