@@ -10,6 +10,7 @@ main_menu(){
     echo ""
     echo ""
     echo "(1) Post Install                       (2) Various fixes"
+    echo "(3) Fedora Atomic desktop"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -22,6 +23,10 @@ main_menu(){
             ;;
         2)
             fixes_menu
+            ;;
+
+        3)
+            atomic_desktop_menu
             ;;
 
         0)
@@ -38,10 +43,9 @@ main_menu(){
         unset input
         main_menu
 }
-
 device_menu(){
     echo "              Device menu"
-    echo "(1) Desktop                       (2) Laptop"
+    echo "(1) Fedora Desktop                (2) Fedora Atomic Desktop"
     echo "(3) MiniPC"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
@@ -55,7 +59,7 @@ device_menu(){
             ;;
 
         2)
-            echo "disabled"
+            atomic_desktop_menu
             ;;
 
         3)
@@ -119,6 +123,52 @@ desktop_menu(){
             echo -n "Unknown entry"
             echo ""
             device_menu
+            ;;
+
+        esac
+        unset input
+}
+
+
+atomic_desktop_menu(){
+    echo "              Setup atomic DESKTOP"
+    echo "(1) Install packages              (2) Setup hardware"
+    echo "(3) Setup system                  (4) Setup apps"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/install_packages.sh
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_hardware.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_system.sh
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_apps.sh
+            ;;
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            atomic_desktop_menu
             ;;
 
         esac
