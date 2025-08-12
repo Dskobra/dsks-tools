@@ -43,6 +43,7 @@ flatpak_overrides(){
     flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
     flatpak override com.valvesoftware.Steam  --user --filesystem=xdg-config/MangoHud:ro
     flatpak override com.valvesoftware.Steam  --user --filesystem=/home/jordan/Drives/game_drive/
+    flatpak override info.cemu.Cemu --user --filesystem=/home/jordan/Drives/game_drive/Cemu/
 }
 
 configure_game_drive

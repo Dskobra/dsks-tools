@@ -48,49 +48,8 @@ main_menu(){
         main_menu
 }
 
-device_menu(){
-    echo "              Device menu"
-    echo "(1) Fedora Desktop                (2) Fedora Atomic Desktop"
-    echo "(3) MiniPC"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-
-        1)
-            desktop_menu
-            ;;
-
-        2)
-            atomic_desktop_menu
-            ;;
-
-        3)
-            echo "disabled"
-            ;;
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            device_menu
-            ;;
-
-        esac
-        unset input
-}
-
 desktop_reg_fedora_menu(){
-    echo "              Setup DESKTOP"
+    echo "        ---Setup DESKTOP /W Fedora (non atomic)--"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
     echo "(m) Main Menu                     (0) Exit"
@@ -117,7 +76,7 @@ desktop_reg_fedora_menu(){
             ;;
 
         m | M )
-            desktop_reg_fedora_menu
+            main_menu
             ;;
 
         0)
@@ -135,7 +94,7 @@ desktop_reg_fedora_menu(){
 }
 
 desktop_atomic_fedora_menu(){
-    echo "              Setup atomic DESKTOP"
+    echo "        ---Setup DESKTOP /W Fedora atomic--"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
     echo "(5) Ossec"
@@ -179,6 +138,51 @@ desktop_atomic_fedora_menu(){
             echo -n "Unknown entry"
             echo ""
             desktop_atomic_fedora_menu
+            ;;
+
+        esac
+        unset input
+}
+
+laptop_reg_fedora_menu(){
+    echo "        ---Setup LAPTOP /W Fedora (non atomic)--"
+    echo "(1) Install packages              (2) Setup hardware"
+    echo "(3) Setup system                  (4) Setup apps"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/install_packages.sh
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/configure_hardware.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/configure_system.sh
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/configure_apps.sh
+            ;;
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            laptop_reg_fedora_menu
             ;;
 
         esac

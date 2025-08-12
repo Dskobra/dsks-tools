@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-games_drive(){
+configure_games_drive(){
     if test -f "/home/jordan/Drives/game_drive/.DRIVESTATE.txt"; then
         echo "Games drive is already set up."
     elif ! test -f "/home/jordan/Drives/game_drive/.DRIVESTATE.txt"; then
@@ -19,7 +19,7 @@ games_drive(){
     flatpak override info.cemu.Cemu --user --filesystem=/home/jordan/Drives/game_drive/Cemu/
 }
 
-game_profiles(){
+configure_game_profiles(){
      #setup mangohud profiles
      cd "$TOOLS_FOLDER/temp" || exit
      git clone https://github.com/dskobra/game-profiles
@@ -31,15 +31,22 @@ game_profiles(){
      git stash       # reset profiles after copying
 }
 
-setup_ffxiv_config(){
+configure_ffxiv_config(){
     cd "$TOOLS_FOLDER/temp" || exit
     curl -L -o configs.tar.gz http://192.168.50.101/downloads/configs.tar.gz
     tar -xvf configs.tar.gz
     mkdir ~/.xlcore
     cp "$TOOLS_FOLDER/temp/configs/ffxiv/launcher.ini" ~/.xlcore/launcher.ini
 }
-##########----------configure apps----------##########
-##########----------apps----------##########
-games_drive
-setup_ffxiv_config
-##########----------apps----------##########
+
+flatpak_overrides(){
+    flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
+    flatpak override com.valvesoftware.Steam  --user --filesystem=xdg-config/MangoHud:ro
+    flatpak override com.valvesoftware.Steam  --user --filesystem=/home/jordan/Drives/game_drive/
+    flatpak override info.cemu.Cemu --user --filesystem=/home/jordan/Drives/game_drive/Cemu/
+}
+
+configure_games_drive
+configure_game_profiles
+configure_ffxiv_config
+flatpak_overrides
