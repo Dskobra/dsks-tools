@@ -1,6 +1,5 @@
 #!/usr/bin/bash
 install_packages(){
-    mkdir "$TOOLS_FOLDER/temp/"
     cd "$TOOLS_FOLDER/temp" || exit
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
@@ -65,4 +64,4 @@ install_flatpaks
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
 source ~/.bashrc
 nvm install lts/*
-
+zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
