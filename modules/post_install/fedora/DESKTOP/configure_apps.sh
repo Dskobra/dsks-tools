@@ -42,10 +42,11 @@ configure_ffxiv_config(){
 flatpak_overrides(){
     flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
     flatpak override com.valvesoftware.Steam  --user --filesystem=xdg-config/MangoHud:ro
-    flatpak override com.valvesoftware.Steam  --user --filesystem=/var/home/jordan/Drives/game_drive/
+    flatpak override com.valvesoftware.Steam  --user --filesystem=/home/jordan/Drives/game_drive/
 }
 
 configure_game_drive
 configure_game_profiles
 configure_ffxiv_config
+flatpak_overrides
 npm i -g bash-language-server
