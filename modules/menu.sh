@@ -9,28 +9,33 @@ main_menu(){
     echo "Released under the MIT license"
     echo ""
     echo ""
-    echo "(1) Post Install                       (2) Various fixes"
-    echo "(3) Desktop /w Fedora                  (4) Desktop /w Fedora Atomic"
+    echo "(1) Desktop /w Fedora                  (2) Desktop /w Fedora Atomic"
+    echo "(3) Laptop  /w Fedora                  (4) Laptop  /w Fedora Atomic"
+    echo "(5) Various Fixes"
     echo "(0) Exit"
     printf "Option: "
     read -r input
 
     case $input in
 
-
         1)
-            post_install
-            ;;
-        2)
-            fixes_menu
-            ;;
-
-        3)
             desktop_reg_fedora_menu
             ;;
 
-        4)
+        2)
             atomic_desktop_menu
+            ;;
+
+        3)
+            laptop_reg_fedora_menu
+            ;;
+
+        4)
+            echo "disabled"
+            ;;
+
+        5)
+            fixes_menu
             ;;
 
         0)
@@ -189,6 +194,50 @@ laptop_reg_fedora_menu(){
         unset input
 }
 
+laptop_reg_fedora_menu(){
+    echo "        ---Setup LAPTOP /W Fedora atomic--"
+    echo "(1) Install packages              (2) Setup hardware"
+    echo "(3) Setup system                  (4) Setup apps"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/install_packages.sh
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_hardware.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_system.sh
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_apps.sh
+            ;;
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            laptop_reg_fedora_menu
+            ;;
+
+        esac
+        unset input
+}
 fixes_menu(){
     echo "(1) Nvidia gsk fix                (2) Steam launch fix"
     echo "(3) Remove RPMFusion"
