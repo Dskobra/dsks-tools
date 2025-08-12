@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-configure_game_drive(){
+configure_games_drive(){
     if test -f "/var/home/jordan/Drives/game_drive/.DRIVESTATE.txt"; then
         echo "Games drive is already set up."
     elif ! test -f "/var/home/jordan/Drives/game_drive/.DRIVESTATE.txt"; then
@@ -24,7 +24,7 @@ configure_game_profiles(){
      cd "$TOOLS_FOLDER/temp" || exit
      git clone https://github.com/dskobra/game-profiles
      cd "$TOOLS_FOLDER/temp/game-profiles" || exit
-     python "$TOOLS_FOLDER/modules/post_install/config_pci.py" "0:03:00.0"
+     python "$TOOLS_FOLDER/modules/post_install/config_pci.py" "0:01:00.0"
      chown "$USER":"$USER" *.conf
      mkdir /home/jordan/.config/MangoHud/
      cp *.conf /home/jordan/.config/MangoHud/
@@ -39,13 +39,6 @@ configure_ffxiv_config(){
     cp "$TOOLS_FOLDER/temp/configs/ffxiv/launcher.ini" ~/.xlcore/launcher.ini
 }
 
-hide_firefox_from_base_image(){
-    sudo mkdir -p /usr/local/share/applications/
-    sudo cp /usr/share/applications/org.mozilla.firefox.desktop /usr/local/share/applications/
-    sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.mozilla.firefox.desktop
-    sudo update-desktop-database /usr/local/share/applications/
-}
-
 flatpak_overrides(){
     flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
     flatpak override com.valvesoftware.Steam  --user --filesystem=xdg-config/MangoHud:ro
@@ -53,13 +46,7 @@ flatpak_overrides(){
     flatpak override info.cemu.Cemu --user --filesystem=/var/home/jordan/Drives/game_drive/Cemu/
 }
 
-configure_game_drive
+configure_games_drive
 configure_game_profiles
 configure_ffxiv_config
-hide_firefox_from_base_image
 flatpak_overrides
-
-
-npm i -g bash-language-server
-
-

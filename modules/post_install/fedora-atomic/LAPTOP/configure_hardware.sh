@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+configure_boot(){
+    echo "set timeout=12" | sudo tee /boot/grub2/user.cfg > /dev/null
+    sudo rpm-ostree kargs --append="amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core nvidia-drm.modeset acpi_enforce_resources=lax crashkernel=512M"
+}
+configure_drives(){
+    ## setup drive mount points/permissions
+    mkdir -p /var/home/jordan/Drives/game_drive
+    echo "LABEL=game_drive                              /var/home/jordan/Drives/game_drive      btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    sudo systemctl daemon-reload
+    sudo mount -av
+}
+
+configure_openrgb(){
+    # OpenRGB needs a a couple kernel mods loaded
+    # for smbus access. So make sure they are
+    # automatically loaded on boot
+    sudo modprobe i2c-dev
+    sudo modprobe i2c-piix4
+    sudo touch /etc/modules-load.d/i2c.conf
+    sudo sh -c 'echo "i2c-dev" >> /etc/modules-load.d/i2c.conf'
+    sudo sh -c 'echo "i2c-piix4" >> /etc/modules-load.d/i2c.conf'
+    sudo i2cdetect -l
+}
+configure_boot
+configure_drives
+configure_openrgb
