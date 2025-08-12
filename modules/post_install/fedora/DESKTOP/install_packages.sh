@@ -1,15 +1,13 @@
 #!/usr/bin/bash
 install_packages(){
-    mkdir "$TOOLS_FOLDER/temp/"
     cd "$TOOLS_FOLDER/temp" || exit
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf copr enable -y ilyaz/LACT
-    sudo dnf install -y kate kate-plugins kdiff3 git git-gui gh git-cola vim-enhanced python3-idle toolbox distrobox \
-    openrgb cpu-x lact akmod-v4l2loopback v4l2loopback remmina k3b  isoimagewriter kleopatra xfburn steam-devices \
-    gamemode.x86_64 gamemode.i686 goverlay virt-manager  qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network \
-    docker-compose-switch ShellCheck python3-lsp-server  python3-devel pcre2-devel make gcc sqlite-devel openssl-devel \
-    libevent-devel systemd-devel mysql-devel postgresql-devel  zlib-devel zenity wget curl flatpak dnf-plugins-core \
-    dnfdragora driverctl clamav clamav-update clamd firewall-applet  \
+    sudo dnf install -y kate kate-plugins kdiff3 git git-gui gh git-cola vim-enhanced python3-idle toolbox distrobox openrgb \
+    cpu-x lact  remmina k3b  isoimagewriter kleopatra xfburn steam-devices gamemode.x86_64 gamemode.i686 goverlay virt-manager  \
+    qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch ShellCheck python3-lsp-server  \
+    python3-devel pcre2-devel make gcc sqlite-devel openssl-devel libevent-devel systemd-devel mysql-devel postgresql-devel  \
+    zlib-devel zenity wget curl flatpak dnf-plugins-core dnfdragora driverctl clamav clamav-update clamd firewall-applet  \
     pcre2-devel make gcc sqlite-devel openssl-devel libevent-devel systemd-devel mysql-devel postgresql-devel kdiff3
 
     sudo dnf group install -y c-development development-tools container-management
@@ -29,6 +27,11 @@ install_packages(){
     sudo dnf remove -y firefox firefox-langpacks vlc libreoffice*
 }
 
+install_akmods(){
+    sudo dnf install -y akmod-v4l2loopback v4l2loopback
+    sudo akmods --rebuild --force
+    sudo dracut --regenerate-all --force
+}
 install_flatpaks(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -51,6 +54,7 @@ install_flatpaks(){
 }
 
 install_packages
+install_akmods
 install_flatpaks
 
 
