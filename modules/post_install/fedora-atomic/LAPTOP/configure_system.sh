@@ -1,4 +1,13 @@
 #!/usr/bin/bash
+configure_zram(){
+    # set zram swap from default 8gb to 16gb
+    cd "$TOOLS_FOLDER"/temp || exit
+    touch zram-generator.conf
+    echo "[zram0]" >> zram-generator.conf
+    echo "zram-size = min(ram, 16500)" >> zram-generator.conf
+    sudo mv zram-generator.conf /etc/systemd/zram-generator.conf
+}
+
 configure_security(){
     sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
     sudo freshclam
@@ -16,21 +25,18 @@ configure_security(){
 }
 
 configure_system_settings(){
-    # set zram swap from default 8gb to 16gb
-    sudo cp /usr/lib/systemd/zram-generator.conf /usr/lib/systemd/zram-generator.conf.bak
-    sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
     # Default Fedora hides the grub menu. I prefer it visible (like having the option when testing new kernels, nvidia driver breaks
     # or just cause)
 
     sudo grub2-editenv - unset menu_auto_hide
-    sudo usermod -aG libvirt "$USER"
-    sudo systemctl enable --now lactd
+    # https://docs.fedoraproject.org/en-US/fedora-silverblue/troubleshooting/#_unable_to_add_user_to_group
+    grep -E '^libvirt:' /usr/lib/group | sudo tee -a /etc/group
+    sudo usermod -aG libvirt $USER
     #sudo modprobe ntsync
     #sudo touch /etc/modules-load.d/ntsync.conf
     #echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
 }
 
-
+configure_zram
 configure_security
 configure_system_settings
-

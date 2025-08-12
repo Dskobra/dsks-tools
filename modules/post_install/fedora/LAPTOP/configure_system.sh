@@ -13,12 +13,6 @@ configure_security(){
     sudo firewall-cmd --set-log-denied=all
     sudo firewall-cmd --reload
     sudo systemctl enable --now sshd
-
-    cd "$TOOLS_FOLDER/temp" || exit
-    curl -L -o ossec.tar.gz https://github.com/ossec/ossec-hids/archive/3.8.0.tar.gz
-    tar -xvf ossec.tar.gz
-    cd ossec-hids-3.8.0 || exit
-    sudo ./install.sh
 }
 
 configure_system_settings(){

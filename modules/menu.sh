@@ -54,9 +54,10 @@ main_menu(){
 }
 
 desktop_reg_fedora_menu(){
-    echo "        ---Setup DESKTOP /W Fedora (non atomic)--"
+    echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
+    echo "(5) Ossec"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -80,6 +81,10 @@ desktop_reg_fedora_menu(){
             "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/configure_apps.sh
             ;;
 
+        5)
+             "$TOOLS_FOLDER"/modules/post_install/ossec.sh
+            ;;
+
         m | M )
             main_menu
             ;;
@@ -99,7 +104,7 @@ desktop_reg_fedora_menu(){
 }
 
 desktop_atomic_fedora_menu(){
-    echo "        ---Setup DESKTOP /W Fedora atomic--"
+    echo "        ---Setup DESKTOP /W Fedora atomic---"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
     echo "(5) Ossec"
@@ -128,7 +133,7 @@ desktop_atomic_fedora_menu(){
             ;;
 
         5)
-            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/ossec.sh
+             "$TOOLS_FOLDER"/modules/post_install/ossec.sh
             ;;
 
         m | M )
@@ -150,9 +155,10 @@ desktop_atomic_fedora_menu(){
 }
 
 laptop_reg_fedora_menu(){
-    echo "        ---Setup LAPTOP /W Fedora (non atomic)--"
+    echo "        ---Setup LAPTOP /W Fedora (non atomic)---"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
+    echo "(5) Ossec"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -176,6 +182,10 @@ laptop_reg_fedora_menu(){
             "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/configure_apps.sh
             ;;
 
+        5)
+             "$TOOLS_FOLDER"/modules/post_install/ossec.sh
+            ;;
+
         m | M )
             main_menu
             ;;
@@ -194,10 +204,11 @@ laptop_reg_fedora_menu(){
         unset input
 }
 
-laptop_reg_fedora_menu(){
-    echo "        ---Setup LAPTOP /W Fedora atomic--"
+laptop_atomic_fedora_menu(){
+    echo "        ---Setup LAPTOP /W Fedora atomic---"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
+    echo "(5) Ossec"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -221,6 +232,10 @@ laptop_reg_fedora_menu(){
             "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_apps.sh
             ;;
 
+        5)
+            "$TOOLS_FOLDER"/modules/post_install/ossec.sh
+            ;;
+
         m | M )
             main_menu
             ;;
@@ -232,12 +247,13 @@ laptop_reg_fedora_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            laptop_reg_fedora_menu
+            laptop_atomic_fedora_menu
             ;;
 
         esac
         unset input
 }
+
 fixes_menu(){
     echo "(1) Nvidia gsk fix                (2) Steam launch fix"
     echo "(3) Remove RPMFusion"
