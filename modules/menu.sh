@@ -101,6 +101,7 @@ desktop_reg_fedora_menu(){
 
         esac
         unset input
+        desktop_reg_fedora_menu
 }
 
 desktop_atomic_fedora_menu(){
@@ -152,6 +153,7 @@ desktop_atomic_fedora_menu(){
 
         esac
         unset input
+        desktop_atomic_fedora_menu
 }
 
 laptop_reg_fedora_menu(){
@@ -202,6 +204,7 @@ laptop_reg_fedora_menu(){
 
         esac
         unset input
+        laptop_reg_fedora_menu
 }
 
 laptop_atomic_fedora_menu(){
@@ -252,6 +255,7 @@ laptop_atomic_fedora_menu(){
 
         esac
         unset input
+        laptop_atomic_fedora_menu
 }
 
 fixes_menu(){
