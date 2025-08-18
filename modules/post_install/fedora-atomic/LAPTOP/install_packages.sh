@@ -49,7 +49,7 @@ install_flatpaks(){
 
     #entertainment
     flatpak install --user -y flathub  net.lutris.Lutris com.valvesoftware.Steam info.cemu.Cemu org.DolphinEmu.dolphin-emu dev.goats.xivlauncher \
-    com.pokemmo.PokeMMO runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08
+    com.pokemmo.PokeMMO runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08 runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
 
     # misc
     flatpak install --user -y flathub org.raspberrypi.rpi-imager  org.videolan.VLC com.obsproject.Studio io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes \

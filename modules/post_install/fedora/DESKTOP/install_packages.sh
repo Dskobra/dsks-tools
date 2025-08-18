@@ -41,11 +41,12 @@ install_flatpaks(){
 
     # tools
     flatpak install --user -y flathub  io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
-    org.gtkhash.gtkhash com.vysp3r.ProtonPlus  com.github.Matoking.protontricks
+    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks
 
     # entertainment
     flatpak install --user -y flathub net.lutris.Lutris com.valvesoftware.Steam info.cemu.Cemu org.DolphinEmu.dolphin-emu \
-    dev.goats.xivlauncher com.pokemmo.PokeMMO runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08
+    dev.goats.xivlauncher com.pokemmo.PokeMMO runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08 \
+    runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
 
     # misc
     flatpak install --user -y flathub  org.raspberrypi.rpi-imager org.videolan.VLC com.obsproject.Studio org.openshot.OpenShot \
