@@ -1,1 +1,15 @@
-/home/jordan/.local/share/applications/Mango-XIVLauncher.desktop
+[Desktop Entry]
+Comment=
+Exec=mangohud flatpak run dev.goats.xivlauncher
+GenericName=Launch XIVLauncher w mangohud
+Icon=dev.goats.xivlauncher
+Name=Mango-XIVLauncher
+NoDisplay=false
+Path=
+PrefersNonDefaultGPU=false
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
