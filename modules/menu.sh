@@ -302,10 +302,4 @@ fixes_menu(){
         unset input
         fixes_menu
 }
-
-post_install(){
-    DISTRO=$(source /etc/os-release ; echo $ID)
-    PCNAME=$(hostname)
-    "$TOOLS_FOLDER"/modules/post_install/"$DISTRO"/"$PCNAME"/setup.sh
-}
 main_menu
