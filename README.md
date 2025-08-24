@@ -1,6 +1,5 @@
 # dsks-tools
-Collection of misc scripts for customizing the setups on my computers.
+Collection of scripts for automating the setup of my computers.
 
 ## Supported Distros
-* Fedora 42 (non atomic)
-* openSUSE Slowroll
+* Fedora 42

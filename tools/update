@@ -8,9 +8,6 @@ distro_commands(){
     elif [ "$DISTRO" == "fedora" ] && [ -n "$OSTREE" ]
     then
         sudo rpm-ostree update
-    elif [ "$DISTRO" == "opensuse-slowroll" ] || [ "$DISTRO" == "opensuse-tumbleweed" ]
-    then
-        sudo zypper -n dup --auto-agree-with-licenses
     else
         echo ""
     fi
