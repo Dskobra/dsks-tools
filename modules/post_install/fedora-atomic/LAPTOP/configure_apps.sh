@@ -19,18 +19,6 @@ configure_games_drive(){
     flatpak override info.cemu.Cemu --user --filesystem=/var/home/jordan/Drives/game_drive/Cemu/
 }
 
-configure_game_profiles(){
-     #setup mangohud profiles
-     cd "$TOOLS_FOLDER/temp" || exit
-     git clone https://github.com/dskobra/game-profiles
-     cd "$TOOLS_FOLDER/temp/game-profiles" || exit
-     python "$TOOLS_FOLDER/modules/post_install/config_pci.py" "0:01:00.0"
-     chown "$USER":"$USER" *.conf
-     mkdir /home/jordan/.config/MangoHud/
-     cp *.conf /home/jordan/.config/MangoHud/
-     git stash       # reset profiles after copying
-}
-
 configure_ffxiv_config(){
     cd "$TOOLS_FOLDER/temp" || exit
     curl -L -o configs.tar.gz http://192.168.50.101/downloads/configs.tar.gz
@@ -47,6 +35,6 @@ flatpak_overrides(){
 }
 
 configure_games_drive
-configure_game_profiles
 configure_ffxiv_config
 flatpak_overrides
+cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/LAPTOP" "$HOME"/.config/MangoHud/
