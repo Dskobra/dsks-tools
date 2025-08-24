@@ -5,8 +5,8 @@ configure_boot(){
 }
 configure_drives(){
     ## setup drive mount points/permissions
-    mkdir -p /var/home/jordan/Drives/game_drive
-    echo "LABEL=game_drive                              /var/home/jordan/Drives/game_drive      btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    mkdir -p /var/home/jordan/Drives/data_drive
+    echo "LABEL=data_drive                              /var/home/jordan/Drives/data_drive      btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
     sudo systemctl daemon-reload
     sudo mount -av
 }
