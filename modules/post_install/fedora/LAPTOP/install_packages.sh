@@ -22,7 +22,7 @@ install_packages(){
         curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-1.1.x86_64.rpm
     elif [ "$DESKTOP_TYPE" == "GNOME" ]
     then
-        sudo dnf install -y gnome-shell-extension-appindicator
+        sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks
        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.3.0-1.1.x86_64.rpm
     else
         echo "Uknown error."
@@ -69,7 +69,7 @@ install_flatpaks(){
 }
 
 install_packages
-install_akmods
+#install_akmods
 install_flatpaks
 
 
