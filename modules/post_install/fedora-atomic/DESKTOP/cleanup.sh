@@ -19,3 +19,4 @@ get_desktop_type(){
     fi
 }
 get_desktop_type
+
