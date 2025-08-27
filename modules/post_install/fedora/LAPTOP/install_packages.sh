@@ -15,14 +15,13 @@ install_packages(){
 
 
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_42.x86_64.rpm"
-    DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
-    echo $DESKTOP_TYPE
+
     if [ "$DESKTOP_TYPE" == "kde " ]
     then
         curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-1.1.x86_64.rpm
     elif [ "$DESKTOP_TYPE" == "GNOME" ]
     then
-        sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks
+        sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks dconf-editor
        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.3.0-1.1.x86_64.rpm
     else
         echo "Uknown error."
@@ -66,8 +65,20 @@ install_flatpaks(){
     # misc
     flatpak install --user -y flathub  org.raspberrypi.rpi-imager org.videolan.VLC com.obsproject.Studio org.openshot.OpenShot \
     io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes org.libreoffice.LibreOffice
-}
 
+    if [ "$DESKTOP_TYPE" == "kde " ]
+    then
+        echo ""
+    elif [ "$DESKTOP_TYPE" == "GNOME" ]
+    then
+       flatpak install --user -y flathub com.mattjakeman.ExtensionManager
+    else
+        echo "Uknown error."
+    fi
+
+}
+DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
+echo $DESKTOP_TYPE
 install_packages
 #install_akmods
 install_flatpaks
