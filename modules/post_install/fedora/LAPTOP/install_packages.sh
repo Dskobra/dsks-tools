@@ -26,7 +26,6 @@ install_packages(){
     else
         echo "Uknown error."
     fi
-    # install from local web server
 
     curl -L -o proton-mail.rpm https://proton.me/download/mail/linux/1.9.0/ProtonMail-desktop-beta.rpm
     curl -L -o proton-pass.rpm https://proton.me/download/pass/linux/proton-pass-1.32.3-1.x86_64.rpm
@@ -64,7 +63,7 @@ install_flatpaks(){
 
     # misc
     flatpak install --user -y flathub  org.raspberrypi.rpi-imager org.videolan.VLC com.obsproject.Studio org.openshot.OpenShot \
-    io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes org.libreoffice.LibreOffice
+    io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes
 
     if [ "$DESKTOP_TYPE" == "kde " ]
     then
@@ -80,7 +79,7 @@ install_flatpaks(){
 DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
 echo $DESKTOP_TYPE
 install_packages
-#install_akmods
+install_akmods
 install_flatpaks
 
 
