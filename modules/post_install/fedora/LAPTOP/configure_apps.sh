@@ -35,7 +35,6 @@ flatpak_overrides(){
 }
 
 configure_games_drive
-configure_game_profiles
 configure_ffxiv_config
 flatpak_overrides
 cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/LAPTOP" "$HOME"/.config/MangoHud/

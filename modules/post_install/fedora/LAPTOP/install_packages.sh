@@ -77,7 +77,7 @@ install_flatpaks(){
 
 }
 DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
-echo $DESKTOP_TYPE
+echo "Desktop is $DESKTOP_TYPE"
 install_packages
 install_akmods
 install_flatpaks

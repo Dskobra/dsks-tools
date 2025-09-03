@@ -19,17 +19,9 @@ configure_drives(){
 }
 
 configure_pcie(){
-    # setup wifi adapters for virtualization by
-    # adding few drivers to initramfs, set permissions
-    # on config, rebuild initramfs than bind wifi adapters
-    # to vfio driver with driverctl
-    PCI_WIFI_ADAPTER_ONE="0000:07:00.0"
-    PCI_WIFI_ADAPTER_TWO="0000:08:00.0"
     echo 'add_driver+=" vfio vfio_iommu_type1 vfio_pci vfio_virqfd "' | sudo tee /etc/dracut.conf.d/local.conf > /dev/null
     sudo chown root:root "/etc/dracut.conf.d/local.conf"
     sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
-    sudo driverctl set-override $PCI_WIFI_ADAPTER_ONE vfio-pci
-    sudo driverctl set-override $PCI_WIFI_ADAPTER_TWO vfio-pci
 }
 
 configure_openrgb(){

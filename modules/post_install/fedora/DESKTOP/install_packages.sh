@@ -7,9 +7,9 @@ install_packages(){
     i2c-tools cpu-x lact remmina k3b isoimagewriter kleopatra xfburn steam-devices gamemode.x86_64 gamemode.i686 goverlay \
     virt-manager  qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch ShellCheck \
     python3-lsp-server python3-devel pcre2-devel make gcc sqlite-devel openssl-devel libevent-devel systemd-devel \
-    mysql-devel postgresql-devel zlib-devel zenity wget curl flatpak dnf-plugins-core dnfdragora driverctl \
-    clamav clamav-update clamd firewall-applet pcre2-devel make gcc sqlite-devel openssl-devel libevent-devel \
-    systemd-devel mysql-devel postgresql-devel
+    mysql-devel postgresql-devel zlib-devel zenity wget curl flatpak dnf-plugins-core dnfdragora clamav clamav-update \
+    clamd firewall-applet pcre2-devel make gcc sqlite-devel openssl-devel libevent-devel systemd-devel mysql-devel \
+    postgresql-devel
 
     sudo dnf group install -y c-development development-tools container-management
 
@@ -74,7 +74,7 @@ install_flatpaks(){
 }
 
 DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
-echo $DESKTOP_TYPE
+echo "Desktop is $DESKTOP_TYPE"
 install_packages
 install_akmods
 install_flatpaks
