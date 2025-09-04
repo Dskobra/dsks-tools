@@ -9,9 +9,48 @@ main_menu(){
     echo "Released under the MIT license"
     echo ""
     echo ""
+    echo "(1) device_menu                        (2) Various Fixes"
+    echo "(0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            device_menu
+            ;;
+
+        2)
+            fixes_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            main_menu
+            ;;
+
+        esac
+        unset input
+        main_menu
+}
+
+device_menu(){
+    echo "------------------"
+    echo "|   Devices      |"
+    echo "------------------"
+    echo ""
+    echo "$COPYRIGHT"
+    echo "Released under the MIT license"
+    echo ""
+    echo ""
     echo "(1) Desktop /w Fedora                  (2) Desktop /w Fedora Atomic"
     echo "(3) Laptop  /w Fedora                  (4) Laptop  /w Fedora Atomic"
-    echo "(5) Various Fixes"
+    echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -38,6 +77,10 @@ main_menu(){
             fixes_menu
             ;;
 
+        m | M)
+            main_menu
+            ;;
+
         0)
             exit
             ;;
@@ -45,14 +88,13 @@ main_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            main_menu
+            device_menu
             ;;
 
         esac
         unset input
-        main_menu
+        device_menu
 }
-
 desktop_reg_fedora_menu(){
     echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
     echo "(1) Install packages              (2) Setup hardware"
@@ -263,10 +305,6 @@ fixes_menu(){
 
         3)
             "$TOOLS_FOLDER"/modules/fixes/rpmfusion.sh
-            ;;
-
-        9)
-            post_menu
             ;;
 
         m | M)
