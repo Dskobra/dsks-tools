@@ -108,7 +108,6 @@ desktop_atomic_fedora_menu(){
     echo "        ---Setup DESKTOP /W Fedora atomic---"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
-    echo "(5) Ossec"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -131,10 +130,6 @@ desktop_atomic_fedora_menu(){
 
         4)
             "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_apps.sh
-            ;;
-
-        5)
-             "$TOOLS_FOLDER"/modules/post_install/ossec.sh
             ;;
 
         m | M )
@@ -160,7 +155,6 @@ laptop_reg_fedora_menu(){
     echo "        ---Setup LAPTOP /W Fedora (non atomic)---"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
-    echo "(5) Ossec"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -182,10 +176,6 @@ laptop_reg_fedora_menu(){
 
         4)
             "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/configure_apps.sh
-            ;;
-
-        5)
-             "$TOOLS_FOLDER"/modules/post_install/ossec.sh
             ;;
 
         m | M )
@@ -211,7 +201,6 @@ laptop_atomic_fedora_menu(){
     echo "        ---Setup LAPTOP /W Fedora atomic---"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system                  (4) Setup apps"
-    echo "(5) Ossec"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -233,10 +222,6 @@ laptop_atomic_fedora_menu(){
 
         4)
             "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_apps.sh
-            ;;
-
-        5)
-            "$TOOLS_FOLDER"/modules/post_install/ossec.sh
             ;;
 
         m | M )
