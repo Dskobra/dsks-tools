@@ -8,7 +8,6 @@ install_packages(){
 
     # install megasync
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm
-    sudo rpm-ostree install megasync-Fedora_42.x86_64.rpm
     if [ "$DESKTOP_TYPE" == "KDE" ]
     then
         sudo rpm-ostree install k3b
@@ -16,7 +15,7 @@ install_packages(){
     elif [ "$DESKTOP_TYPE" == "GNOME" ]
     then
         sudo rpm-ostree install gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller xfburn
-       curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.3.0-1.1.x86_64.rpm
+        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.3.0-1.1.x86_64.rpm
     else
         echo "Uknown error."
     fi
