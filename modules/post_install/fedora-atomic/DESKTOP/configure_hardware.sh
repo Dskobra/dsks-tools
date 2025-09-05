@@ -17,7 +17,7 @@ configure_drives(){
     sudo mount -av
 }
 
-"$TOOLS_FOLDER"/modules/post_install/fedora/shared/configure_hardware.sh
+"$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/configure_hardware.sh
 configure_boot
 configure_drives
 
