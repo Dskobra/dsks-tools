@@ -5,12 +5,13 @@ install_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y kate kate-plugins kdiff3 git git-gui gh git-cola vim-enhanced python3-idle toolbox distrobox openrgb \
-    i2c-tools cpu-x remmina isoimagewriter kleopatra steam-devices gamemode.x86_64 gamemode.i686 goverlay virt-manager  \
+    i2c-tools cpu-x remmina isoimagewriter kleopatra steam steam-devices gamemode.x86_64 gamemode.i686 goverlay virt-manager  \
     qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch ShellCheck \
     python3-lsp-server python3-devel zenity wget curl flatpak dnf-plugins-core dnfdragora clamav clamav-update clamd \
     firewall-applet akmod-v4l2loopback v4l2loopback
 
     sudo dnf group install -y c-development development-tools container-management
+    sudo dnf swap ffmpeg-free ffmpeg --allowerasing
 
 
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_42.x86_64.rpm"
@@ -50,13 +51,13 @@ install_flatpaks(){
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks
 
     # entertainment
-    flatpak install --user -y flathub net.lutris.Lutris com.valvesoftware.Steam info.cemu.Cemu org.DolphinEmu.dolphin-emu \
+    flatpak install --user -y flathub net.lutris.Lutris info.cemu.Cemu org.DolphinEmu.dolphin-emu \
     dev.goats.xivlauncher com.pokemmo.PokeMMO runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08 \
     runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
 
     # misc
     flatpak install --user -y flathub org.raspberrypi.rpi-imager org.videolan.VLC com.obsproject.Studio org.openshot.OpenShot \
-    io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes org.libreoffice.LibreOffice
+    io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes
 
     if [ "$DESKTOP_TYPE" == "KDE" ]
     then

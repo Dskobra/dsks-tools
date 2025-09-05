@@ -2,3 +2,15 @@
 "$TOOLS_FOLDER"/modules/post_install/fedora/shared/install_packages.sh
 sudo dnf copr enable -y ilyaz/LACT
 sudo dnf install -y lact
+
+sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
+sudo dnf swap mesa-va-drivers.i686 mesa-va-drivers-freeworld.i686
+
+sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+sudo dnf swap mesa-vdpau-drivers.i686 mesa-vdpau-drivers-freeworld.i686
+
+sudo dnf swap mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
+sudo dnf swap mesa-vulkan-drivers.i686 mesa-vulkan-drivers-freeworld.i686
+
+
+
