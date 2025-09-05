@@ -18,8 +18,6 @@ configure_openrgb(){
     sudo i2cdetect -l
 }
 
-configure_boot
-configure_drives
 configure_vfio
 configure_openrgb
 

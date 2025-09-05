@@ -4,7 +4,7 @@ install_packages(){
     sudo rpm-ostree apply-live
 
     sudo rpm-ostree install kate kate-plugins python3-idle vim-enhanced git-gui gh git-cola kdiff3 python3-lsp-server virt-manager \
-    python3-devel openrgb steam-devices goverlay clamav clamav-update clamd firewall-applet zenity
+    python3-devel openrgb steam-devices goverlay clamav clamav-update clamd firewall-applet zenity i2c-tools
 
     # install megasync
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm
@@ -74,7 +74,7 @@ install_extra_apps(){
 
     curl -L -o shellcheck-v0.11.0.linux.x86_64.tar.xz https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.x86_64.tar.xz
     tar -xvf shellcheck-v0.11.0.linux.x86_64.tar.xz
-    cd shellcheck-v0.11.0.linux.x86_64 || exit
+    cd shellcheck-v0.11.0 || exit
     sudo mv shellcheck /usr/local/bin
 
 }
