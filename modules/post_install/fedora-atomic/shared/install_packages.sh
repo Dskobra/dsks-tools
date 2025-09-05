@@ -17,7 +17,7 @@ install_packages(){
         sudo rpm-ostree install gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller xfburn
         curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.3.0-1.1.x86_64.rpm
     else
-        echo "Uknown error."
+        echo "$DESKTOP_TYPE is not supported."
     fi
     curl -L -o proton-mail.rpm https://proton.me/download/mail/linux/1.9.0/ProtonMail-desktop-beta.rpm
     curl -L -o proton-pass.rpm https://proton.me/download/pass/linux/proton-pass-1.32.3-1.x86_64.rpm
@@ -60,7 +60,7 @@ install_flatpaks(){
     then
        flatpak install --user -y flathub com.mattjakeman.ExtensionManager
     else
-        echo "Uknown error."
+        echo "$DESKTOP_TYPE is not supported."
     fi
 }
 
