@@ -62,7 +62,7 @@ device_menu(){
             ;;
 
         2)
-            atomic_desktop_menu
+            desktop_atomic_fedora_menu(
             ;;
 
         3)
@@ -70,7 +70,7 @@ device_menu(){
             ;;
 
         4)
-            echo "disabled"
+            laptop_atomic_fedora_menu(
             ;;
 
         5)
@@ -155,7 +155,7 @@ desktop_atomic_fedora_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/cleanup.sh
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/cleanup.sh
             "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/install_packages.sh
             ;;
 
@@ -248,6 +248,7 @@ laptop_atomic_fedora_menu(){
 
 
         1)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/cleanup.sh
             "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/install_packages.sh
             ;;
 
