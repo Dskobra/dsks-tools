@@ -82,6 +82,7 @@ DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
 echo "Desktop is $DESKTOP_TYPE"
 cd "$TOOLS_FOLDER"/temp || exit
 install_packages
-attempt_to_install_broken_apps
+install_flatpaks
 install_extra_apps
+attempt_to_install_broken_apps
 zenity --warning --text="Reminder reboot first before doing next step."
