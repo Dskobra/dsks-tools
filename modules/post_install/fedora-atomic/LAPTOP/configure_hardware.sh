@@ -11,17 +11,6 @@ configure_drives(){
     sudo mount -av
 }
 
-configure_openrgb(){
-    # OpenRGB needs a a couple kernel mods loaded
-    # for smbus access. So make sure they are
-    # automatically loaded on boot
-    sudo modprobe i2c-dev
-    sudo modprobe i2c-piix4
-    sudo touch /etc/modules-load.d/i2c.conf
-    sudo sh -c 'echo "i2c-dev" >> /etc/modules-load.d/i2c.conf'
-    sudo sh -c 'echo "i2c-piix4" >> /etc/modules-load.d/i2c.conf'
-    sudo i2cdetect -l
-}
+"$TOOLS_FOLDER"/modules/post_install/fedora/shared/configure_hardware.sh
 configure_boot
 configure_drives
-configure_openrgb

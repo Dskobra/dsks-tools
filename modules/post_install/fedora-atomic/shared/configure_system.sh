@@ -39,3 +39,4 @@ configure_system_settings(){
 configure_zram
 configure_security
 configure_system_settings
+"$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/configure_system.sh
