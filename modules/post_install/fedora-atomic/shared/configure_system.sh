@@ -39,4 +39,3 @@ configure_system_settings(){
 configure_zram
 configure_security
 configure_system_settings
-"
