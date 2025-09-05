@@ -62,7 +62,7 @@ device_menu(){
             ;;
 
         2)
-            desktop_atomic_fedora_menu(
+            desktop_atomic_fedora_menu
             ;;
 
         3)
@@ -70,7 +70,7 @@ device_menu(){
             ;;
 
         4)
-            laptop_atomic_fedora_menu(
+            laptop_atomic_fedora_menu
             ;;
 
         5)
