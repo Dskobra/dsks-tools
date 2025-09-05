@@ -4,7 +4,7 @@ install_packages(){
     sudo rpm-ostree apply-live
 
     sudo rpm-ostree install kate kate-plugins python3-idle vim-enhanced git-gui gh git-cola kdiff3 python3-lsp-server virt-manager \
-    python3-devel openrgb steam-devices goverlay dnfdragora clamav clamav-update clamd firewall-applet zenity
+    python3-devel openrgb steam-devices goverlay clamav clamav-update clamd firewall-applet zenity
 
     # install megasync
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm
@@ -65,7 +65,6 @@ install_flatpaks(){
     fi
 }
 
-
 install_extra_apps(){
     # install nodejs
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
@@ -86,5 +85,3 @@ install_packages
 attempt_to_install_broken_apps
 install_extra_apps
 zenity --warning --text="Reminder reboot first before doing next step."
-
-
