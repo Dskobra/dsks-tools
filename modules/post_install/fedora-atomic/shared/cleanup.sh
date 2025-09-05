@@ -1,8 +1,6 @@
 #!/usr/bin/bash
 
 get_desktop_type(){
-    DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
-    echo $DESKTOP_TYPE
     if [ "$DESKTOP_TYPE" == "KDE" ]
     then
         flatpak remove -y org.kde.skanpage org.kde.okular org.kde.krdc org.kde.kolourpaint org.kde.kmines org.kde.kcalc  \
@@ -18,4 +16,6 @@ get_desktop_type(){
         echo "Uknown error."
     fi
 }
+DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
+echo "Desktop is $DESKTOP_TYPE"
 get_desktop_type

@@ -78,7 +78,8 @@ install_extra_apps(){
     sudo mv shellcheck /usr/local/bin
 
 }
-
+DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
+echo "Desktop is $DESKTOP_TYPE"
 cd "$TOOLS_FOLDER"/temp || exit
 install_packages
 attempt_to_install_broken_apps
