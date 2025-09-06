@@ -187,6 +187,47 @@ laptop_reg_fedora_menu(){
         laptop_reg_fedora_menu
 }
 
+minipc_reg_fedora_menu(){
+    echo "        ---Setup MiniPC /W Fedora (non atomic)---"
+    echo "(1) Install packages              (2) Setup hardware"
+    echo "(3) Setup system"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/MINIPC/install_packages.sh
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/MINIPC/configure_hardware.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/MINIPC/configure_system.sh
+            ;;
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            minipc_reg_fedora_menu
+            ;;
+
+        esac
+        unset input
+        minipc_reg_fedora_menu
+}
 # opensuse menus
 desktop_tumbleweed_menu(){
     echo "        ---Setup DESKTOP Tumbleweed---"
