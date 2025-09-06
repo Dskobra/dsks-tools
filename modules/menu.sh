@@ -9,7 +9,7 @@ main_menu(){
     echo "Released under the MIT license"
     echo ""
     echo ""
-    echo "(1) device_menu                        (2) Various Fixes"
+    echo "(1) Device_menu                        (2) Various Fixes"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -44,12 +44,13 @@ device_menu(){
     echo "|   Devices      |"
     echo "------------------"
     echo ""
-    echo "$COPYRIGHT"
-    echo "Released under the MIT license"
-    echo ""
-    echo ""
+    echo "-------------------------Fedora-------------------------"
+    echo "========================================================================="
     echo "(1) Desktop /w Fedora                  (2) Desktop /w Fedora Atomic"
     echo "(3) Laptop  /w Fedora                  (4) Laptop  /w Fedora Atomic"
+    echo "========================================================================="
+    echo "-------------------------Tumbleweed-------------------------"
+    echo "5. Desktop"
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
@@ -74,7 +75,7 @@ device_menu(){
             ;;
 
         5)
-            fixes_menu
+            echo "Disabled atm"
             ;;
 
         m | M)
@@ -95,7 +96,7 @@ device_menu(){
         unset input
         device_menu
 }
-
+# fedora menus
 desktop_reg_fedora_menu(){
     echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
     echo "(1) Install packages              (2) Setup hardware"
@@ -283,6 +284,58 @@ laptop_atomic_fedora_menu(){
         laptop_atomic_fedora_menu
 }
 
+# opensuse menus
+desktop_tumbleweed_menu(){
+    echo "        ---Setup DESKTOP Tumbleweed---"
+    echo "(1) Install packages              (2) Setup hardware"
+    echo "(3) Setup system                  (4) Setup apps"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            "$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/install_packages.sh
+            ;;
+
+        2)
+            echo "Disabled atm"
+            #"$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/configure_hardware.sh
+            ;;
+
+        3)
+            echo "Disabled atm"
+            #"$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/configure_system.sh
+            ;;
+
+        4)
+            echo "Disabled atm"
+           # "$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/configure_apps.sh
+            ;;
+
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            desktop_tumbleweed_menu
+            ;;
+
+        esac
+        unset input
+        desktop_tumbleweed_menu
+}
+
+# misc
 fixes_menu(){
     echo "(1) Nvidia gsk fix                (2) Steam launch fix"
     echo "(3) Remove RPMFusion"
