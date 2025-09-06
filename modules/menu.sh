@@ -75,7 +75,7 @@ device_menu(){
             ;;
 
         5)
-            echo "Disabled atm"
+            desktop_tumbleweed_menu
             ;;
 
         m | M)
