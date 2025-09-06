@@ -309,8 +309,7 @@ desktop_tumbleweed_menu(){
             ;;
 
         4)
-            echo "Disabled atm"
-           # "$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/configure_apps.sh
+           "$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/configure_apps.sh
             ;;
 
 

@@ -10,6 +10,7 @@ configure_game_drive(){
         mkdir /home/jordan/Drives/game_drive/Xlcore/ffxiv/
         mkdir /home/jordan/Drives/game_drive/Xlcore/ffxivConfig/
         mkdir /home/jordan/Drives/game_drive/Xlcore/patch/
+        game_profiles
         echo "0" > /home/jordan/Drives/game_drive/.DRIVESTATE.txt
     fi
     # Dont use home permissions in flatseal otherwise during the setup for Cemu
@@ -25,6 +26,7 @@ configure_ffxiv_config(){
     mkdir ~/.xlcore
     cp "$TOOLS_FOLDER/temp/configs/ffxiv/launcher.ini" ~/.xlcore/launcher.ini
 }
+
 
 flatpak_overrides(){
     flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
