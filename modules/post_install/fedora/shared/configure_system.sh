@@ -8,7 +8,6 @@ configure_security(){
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
 
     sudo firewall-cmd --set-default-zone=home
-    sudo firewall-cmd --permanent --add-service=cockpit
     sudo firewall-cmd --permanent --add-service=kdeconnect
     sudo firewall-cmd --set-log-denied=all
     sudo firewall-cmd --reload
