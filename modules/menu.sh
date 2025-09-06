@@ -301,8 +301,7 @@ desktop_tumbleweed_menu(){
             ;;
 
         2)
-            echo "Disabled atm"
-            #"$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/configure_hardware.sh
+            "$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/configure_hardware.sh
             ;;
 
         3)
