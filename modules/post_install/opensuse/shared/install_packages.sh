@@ -2,11 +2,10 @@
 ### shared packages between my devices.
 install_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
-    sudo zypper -n install kate kate-plugins kdiff3 git git-gui gh git-cola vim-enhanced python3-idle toolbox distrobox openrgb \
-    cpu-x remmina kleopatra steam-devices gamemode.x86_64 gamemode.i686 goverlay virt-manager qemu-kvm virt-install \
-    libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch ShellCheck clamav firewall-applet i2c-tools \
-    python313-python-lsp-server systemd-zram-service zram-generator v4l2loopback-kmp-default v4l2loopback-kmp-longterm \
-    v4l2loopback-autoload python313-devel opi vlc
+    sudo zypper -n install kate kate-plugins kdiff3 git git-gui gh git-cola python313-idle patterns-containers-container_runtime \
+    distrobox OpenRGB cpu-x remmina kleopatra steam-devices gamemode goverlay virt-manager docker-compose-switch ShellCheck \
+    clamav firewall-applet i2c-tools python313-python-lsp-server systemd-zram-service zram-generator v4l2loopback-kmp-default \
+    v4l2loopback-kmp-longterm v4l2loopback-autoload python313-devel opi vlc
 
     sudo opi -n megasync
     sudo opi -n brave
@@ -24,7 +23,6 @@ install_packages(){
     curl -L -o proton-pass.rpm https://proton.me/download/pass/linux/proton-pass-1.32.3-1.x86_64.rpm
     curl -L -o proton-authenticator.rpm https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.0.0-1.x86_64.rpm
 
-    zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp."
 
     sudo zypper -n --no-gpg-checks install  *.rpm
     rm *.rpm
