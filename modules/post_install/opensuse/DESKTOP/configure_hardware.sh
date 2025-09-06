@@ -5,7 +5,7 @@ configure_boot(){
     #sudo grub2-mkconfig -o /etc/grub2.cfg
 
     zenity --warning --text="Copy the contents of step 1 in grub.txt into yast bootloader"
-    xdg-open grub.txt
+    xdg-open "$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/grub.txt
 }
 
 configure_drives(){
