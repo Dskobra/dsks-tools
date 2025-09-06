@@ -50,7 +50,7 @@ device_menu(){
     echo "(3) Laptop  /w Fedora                  (4) Laptop  /w Fedora Atomic"
     echo "========================================================================="
     echo "-------------------------Tumbleweed-------------------------"
-    echo "5. Desktop"
+    echo "(5). Desktop"
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
