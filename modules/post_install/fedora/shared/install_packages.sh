@@ -8,7 +8,7 @@ install_packages(){
     i2c-tools cpu-x remmina isoimagewriter kleopatra steam steam-devices gamemode.x86_64 gamemode.i686 goverlay virt-manager  \
     qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch ShellCheck \
     python3-lsp-server python3-devel zenity wget curl flatpak dnf-plugins-core dnfdragora clamav clamav-update clamd \
-    firewall-applet akmod-v4l2loopback v4l2loopback
+    firewall-applet akmod-v4l2loopback v4l2loopback discord
 
     sudo dnf group install -y c-development development-tools container-management
     sudo dnf swap ffmpeg-free ffmpeg --allowerasing
@@ -43,8 +43,7 @@ install_flatpaks(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 
     # most important
-    flatpak install --user -y flathub com.github.tchx84.Flatseal com.brave.Browser org.mozilla.firefox org.cockpit_project.CockpitClient \
-    com.discordapp.Discord
+    flatpak install --user -y flathub com.github.tchx84.Flatseal com.brave.Browser org.mozilla.firefox org.cockpit_project.CockpitClient
 
     # tools
     flatpak install --user -y flathub  io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
