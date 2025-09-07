@@ -14,8 +14,8 @@ configure_game_drive(){
         echo "0" > /home/jordan/Drives/game_drive/.DRIVESTATE.txt
     fi
     # Dont use home permissions in flatseal otherwise during the setup for Cemu
-    # drives will be listed twice in the drop-down list. Also shows them twice in the
-    # file chooser on the left. So just give specific permissions.
+    # drives will be listed twice in the drop-down list and on left in file-chooser.
+    # So just give specific permissions.
     flatpak override info.cemu.Cemu --user --filesystem=/home/jordan/Drives/game_drive/Cemu/
 }
 
@@ -35,9 +35,8 @@ flatpak_overrides(){
     flatpak override info.cemu.Cemu --user --filesystem=/home/jordan/Drives/game_drive/Cemu/
 }
 
-configure_game_drive
-configure_ffxiv_config
+
 flatpak_overrides
 npm i -g bash-language-server
-cp "$TOOLS_FOLDER/modules/configs/Mango-XIVLauncher.desktop" /home/jordan/.local/share/applications/Mango-XIVLauncher.desktop
+cp "$TOOLS_FOLDER/modules/configs/XIVLauncher-fps.desktop" /home/jordan/.local/share/applications/XIVLauncher-fps.desktop
 cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/

@@ -34,8 +34,7 @@ flatpak_overrides(){
 }
 
 configure_game_drive
-configure_ffxiv_config
 flatpak_overrides
 npm i -g bash-language-server
-cp "$TOOLS_FOLDER/modules/configs/Mango-XIVLauncher.desktop" /home/jordan/.local/share/applications/Mango-XIVLauncher.desktop
+cp "$TOOLS_FOLDER/modules/configs/XIVLauncher-fps.desktop" /home/jordan/.local/share/applications/XIVLauncher-fps.desktop
 cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
