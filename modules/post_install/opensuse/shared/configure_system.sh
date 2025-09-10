@@ -2,7 +2,7 @@
 configure_security(){
     sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
     sudo freshclam
-    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
+    sudo systemctl enable --now clamd
     sudo semanage boolean -m -1 antivirus_can_scan_system
 
     sudo firewall-cmd --set-default-zone=home

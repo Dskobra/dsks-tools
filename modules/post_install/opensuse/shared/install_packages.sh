@@ -2,20 +2,20 @@
 ### shared packages between my devices.
 install_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
-    sudo zypper -n install kate kate-plugins kdiff3 git git-gui gh git-cola python313-idle patterns-containers-container_runtime \
-    distrobox OpenRGB cpu-x remmina kleopatra steam-devices gamemode goverlay virt-manager docker-compose-switch ShellCheck \
+    sudo zypper -n install setroubleshoot-server git git-gui gh git-cola python313-idle patterns-containers-container_runtime \
+    distrobox OpenRGB cpu-x remmina steam steam-devices gamemode goverlay virt-manager docker-compose-switch ShellCheck \
     clamav firewall-applet i2c-tools python313-python-lsp-server systemd-zram-service zram-generator v4l2loopback-kmp-default \
-    v4l2loopback-kmp-longterm v4l2loopback-autoload python313-devel opi vlc discord
+    v4l2loopback-kmp-longterm v4l2loopback-autoload python313-devel opi vlc discord kdump
 
     sudo opi -n megasync
     sudo opi -n brave
 
     if [ "$DESKTOP_TYPE" == "KDE" ]
     then
-        sudo zypper -n install k3b
+        sudo zypper -n install k3b kate kate-plugins kdiff3 kleopatra
     elif [ "$DESKTOP_TYPE" == "GNOME" ]
     then
-        sudo zypper -n install gnome-tweaks dconf-editor file-roller xfburn ptyxis snapshot yaru-icon-theme
+        sudo zypper -n install gnome-tweaks dconf-editor file-roller xfburn snapshot yaru-icon-theme
     else
         echo "$DESKTOP_TYPE is not supported."
     fi
@@ -36,7 +36,7 @@ install_flatpaks(){
 
     # tools
     flatpak install --user -y flathub  io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
-    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks
+    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks app.devsuite.Ptyxis
 
     # entertainment
     flatpak install --user -y flathub net.lutris.Lutris info.cemu.Cemu org.DolphinEmu.dolphin-emu \
@@ -52,7 +52,7 @@ install_flatpaks(){
         echo ""
     elif [ "$DESKTOP_TYPE" == "GNOME" ]
     then
-       flatpak install --user -y flathub com.mattjakeman.ExtensionManager
+       flatpak install --user -y flathub com.mattjakeman.ExtensionManager org.kde.kleopatra
     else
         echo "$DESKTOP_TYPE is not supported."
     fi
@@ -63,7 +63,7 @@ cleanup(){
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
     yast2-services-manager xscreensaver xscreensaver-data gnome-mahjongg swell-foop \
     quadrapassel gnome-mines gnome-chess lightsoff gnome-sudoku cheese gnome-extensions \
-    totem gnome-photos xterm
+    totem gnome-photos xterm yast2-kdump
 }
 
 DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
@@ -78,3 +78,4 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
 source ~/.bashrc
 nvm install lts/*
 zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp."
+
