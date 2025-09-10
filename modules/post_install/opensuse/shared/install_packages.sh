@@ -2,10 +2,11 @@
 ### shared packages between my devices.
 install_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
-    sudo zypper -n install setroubleshoot-server git git-gui gh git-cola python313-idle patterns-containers-container_runtime \
-    distrobox OpenRGB cpu-x remmina steam steam-devices gamemode goverlay virt-manager docker-compose-switch ShellCheck \
-    clamav firewall-applet i2c-tools python313-python-lsp-server systemd-zram-service zram-generator v4l2loopback-kmp-default \
-    v4l2loopback-kmp-longterm v4l2loopback-autoload python313-devel opi vlc discord kdump
+    sudo zypper -n install --auto-agree-with-licenses setroubleshoot-server git git-gui gh git-cola python313-idle \
+    patterns-containers-container_runtime distrobox OpenRGB cpu-x remmina steam steam-devices gamemode goverlay \
+    virt-manager docker-compose-switch ShellCheck clamav firewall-applet i2c-tools python313-python-lsp-server \
+    systemd-zram-service zram-generator v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload \
+    python313-devel opi vlc discord kdump
 
     sudo opi -n megasync
     sudo opi -n brave
