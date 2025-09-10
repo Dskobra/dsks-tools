@@ -1,0 +1,2 @@
+1. amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core nvidia-drm.modeset crashkernel=512M
+2. Change timeout to 12
