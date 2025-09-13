@@ -9,9 +9,13 @@ configure_security(){
 
     sudo firewall-cmd --set-default-zone=home
     sudo firewall-cmd --permanent --add-service=kdeconnect
+    sudo firewall-cmd --permanent --add-service=cockpit
+    sudo firewall-cmd --zone=home --add-port=1716-1764/tcp
+    sudo firewall-cmd --zone=home --add-port=1716-1764/udp
     sudo firewall-cmd --set-log-denied=all
     sudo firewall-cmd --reload
     sudo systemctl enable --now sshd
+    sudo systemctl enable --now cockpit.socket
 }
 
 configure_system_settings(){
