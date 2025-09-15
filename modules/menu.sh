@@ -49,8 +49,6 @@ device_menu(){
     echo "(1) Desktop                            (2) Laptop"
     echo "(3) MiniPC"
     echo "========================================================================="
-    echo "-------------------------Tumbleweed-------------------------"
-    echo "(4) Desktop                            (5) Laptop"
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
@@ -68,10 +66,6 @@ device_menu(){
 
         3)
             echo "Disabled atm"
-            ;;
-
-        4)
-            desktop_tumbleweed_menu
             ;;
 
         m | M)
@@ -228,99 +222,7 @@ minipc_reg_fedora_menu(){
         unset input
         minipc_reg_fedora_menu
 }
-# opensuse menus
-desktop_tumbleweed_menu(){
-    echo "        ---Setup DESKTOP Tumbleweed---"
-    echo "(1) Install packages              (2) Setup hardware"
-    echo "(3) Setup system                  (4) Setup apps"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
 
-    case $input in
-
-
-        1)
-            "$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/install_packages.sh
-            ;;
-
-        2)
-            "$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/configure_hardware.sh
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/configure_system.sh
-            ;;
-
-        4)
-           "$TOOLS_FOLDER"/modules/post_install/opensuse/DESKTOP/configure_apps.sh
-            ;;
-
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            desktop_tumbleweed_menu
-            ;;
-
-        esac
-        unset input
-        desktop_tumbleweed_menu
-}
-
-laptop_tumbleweed_menu(){
-    echo "        ---Setup LAPTOP /W Fedora (non atomic)---"
-    echo "(1) Install packages              (2) Setup hardware"
-    echo "(3) Setup system                  (4) Setup apps"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-
-        1)
-            "$TOOLS_FOLDER"/modules/post_install/opensuse/LAPTOP/install_packages.sh
-            ;;
-
-        2)
-            "$TOOLS_FOLDER"/modules/post_install/opensuse/LAPTOP/configure_hardware.sh
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/post_install/opensuse/LAPTOP/configure_system.sh
-            ;;
-
-        4)
-            "$TOOLS_FOLDER"/modules/post_install/opensuse/LAPTOP/configure_apps.sh
-            ;;
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            laptop_tumbleweed_menu
-            ;;
-
-        esac
-        unset input
-        laptop_tumbleweed_menu
-}
 # misc
 fixes_menu(){
     echo "(1) Nvidia gsk fix                (2) Steam launch fix"
