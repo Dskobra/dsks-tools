@@ -10,6 +10,7 @@ main_menu(){
     echo ""
     echo ""
     echo "(1) Device_menu                        (2) Various Fixes"
+    echo "(3) Experiments"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -22,6 +23,10 @@ main_menu(){
 
         2)
             fixes_menu
+            ;;
+
+        3)
+            experiments_menu
             ;;
 
         0)
@@ -263,5 +268,45 @@ fixes_menu(){
         esac
         unset input
         fixes_menu
+}
+
+experiments_menu(){
+    echo "------------------"
+    echo "|   Experiments  |"
+    echo "------------------"
+    echo ""
+    echo "(1) Create container                   (2) Install tools"
+    echo "(m) Main Menu                          (0) Exit"
+    echo "(0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            distrobox create --image fedora:42 --name tooling
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/experiments/containers.sh
+            ;;
+
+        m | M)
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            experiments_menu
+            ;;
+
+        esac
+        unset input
+        experiments_menu
 }
 main_menu
