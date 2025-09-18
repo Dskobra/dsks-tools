@@ -17,6 +17,7 @@ then
     distrobox-export --app codium
     distrobox-export --app idle
     distrobox-export --app kdiff3
+    distrobox-export --app git-cola
 else 
     echo ""
 fi
