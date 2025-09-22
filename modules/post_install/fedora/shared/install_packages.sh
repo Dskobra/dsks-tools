@@ -4,12 +4,10 @@
 install_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf install -y kate kate-plugins kdiff3 git git-gui gh git-cola vim-enhanced python3-idle toolbox distrobox openrgb \
-    i2c-tools cpu-x remmina isoimagewriter kleopatra steam steam-devices gamemode.x86_64 gamemode.i686 goverlay virt-manager  \
-    qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch ShellCheck \
-    python3-lsp-server python3-devel zenity wget curl flatpak dnf-plugins-core dnfdragora clamav clamav-update clamd \
-    firewall-applet akmod-v4l2loopback v4l2loopback discord cockpit cockpit-files cockpit-kdump cockpit-selinux \
-    cockpit-session-recording vim-X11
+    sudo dnf install -y vim-enhanced toolbox distrobox openrgb i2c-tools cpu-x remmina isoimagewriter steam steam-devices gamemode.x86_64 \
+    gamemode.i686 goverlay virt-manager qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch \
+    zenity wget curl flatpak dnf-plugins-core dnfdragora clamav clamav-update clamd firewall-applet akmod-v4l2loopback \
+    v4l2loopback discord cockpit cockpit-files cockpit-kdump cockpit-selinux cockpit-session-recording
 
     sudo dnf group install -y c-development development-tools container-management
     sudo dnf swap ffmpeg-free ffmpeg --allowerasing

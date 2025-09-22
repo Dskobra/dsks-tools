@@ -4,7 +4,7 @@ install_packages(){
     sudo dnf update -y
     sudo dnf group install -y rpm-development-tools development-tools c-development
     sudo dnf install -y kate kdiff3 kommit python3-idle vim-X11 gh git-cola vim-enhanced \
-    python3-lsp-server python3-devel ShellCheck codium  
+    python3-lsp-server python3-devel ShellCheck codium meld
 }
 
 if [ -z "$container" ]
