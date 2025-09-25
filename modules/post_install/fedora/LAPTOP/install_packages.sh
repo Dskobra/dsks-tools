@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 install_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
-    sudo dnf install -y akmod-nvidia nvidia-settings xorg-x11-drv-nvidia-cuda akmod-v4l2loopback v4l2loopback
+    sudo dnf install -y akmod-nvidia nvidia-settings xorg-x11-drv-nvidia-cuda
     sudo sh -c 'echo "%_with_kmod_nvidia_open 1" > /etc/rpm/macros.nvidia-kmod'
     sudo dnf install -y rpmfusion-nonfree-release-tainted
     sudo dnf install -y akmod-nvidia-open

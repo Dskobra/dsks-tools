@@ -6,8 +6,8 @@ install_packages(){
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y vim-enhanced toolbox distrobox openrgb i2c-tools cpu-x remmina isoimagewriter steam steam-devices gamemode.x86_64 \
     gamemode.i686 goverlay virt-manager qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch \
-    zenity wget curl flatpak dnf-plugins-core dnfdragora clamav clamav-update clamd firewall-applet discord cockpit cockpit-files \
-    cockpit-kdump cockpit-selinux cockpit-session-recording
+    zenity wget curl flatpak dnf-plugins-core clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump \
+    cockpit-selinux cockpit-session-recording
 
     sudo dnf group install -y c-development development-tools container-management
     sudo dnf swap ffmpeg-free ffmpeg --allowerasing
@@ -36,9 +36,6 @@ install_packages(){
 
     sudo dnf install -y proton-mail.rpm proton-pass.rpm proton-authenticator.rpm -- *-megasync.rpm
     rm *.rpm
-
-    sudo akmods --rebuild --force
-    sudo dracut --regenerate-all --force
 }
 
 install_flatpaks(){
