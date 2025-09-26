@@ -16,7 +16,8 @@ install_packages(){
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_42.x86_64.rpm"
     wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
     sudo dnf install -y ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo dnf check-update -y --refresh
-    sudo dnf install -y  proton-vpn-gnome-desktop 
+    sudo dnf install -y  proton-vpn-gnome-desktop
+    rm protonvpn-stable-release-1.0.3-1.noarch.rpm
 
     if [ "$DESKTOP_TYPE" == "KDE" ]
     then
@@ -34,7 +35,7 @@ install_packages(){
     curl -L -o proton-pass.rpm https://proton.me/download/pass/linux/proton-pass-1.32.3-1.x86_64.rpm
     curl -L -o proton-authenticator.rpm https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.0.0-1.x86_64.rpm
 
-    sudo dnf install -y proton-mail.rpm proton-pass.rpm proton-authenticator.rpm -- *-megasync.rpm
+    sudo dnf install -y *.rpm
     rm *.rpm
 }
 

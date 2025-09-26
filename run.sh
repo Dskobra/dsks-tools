@@ -22,7 +22,7 @@ fedora_release_check(){
 
 }
 
-export TOOLS_FOLDER                                                   # stores full path for dsks-tools
+export TOOLS_FOLDER                                                   
 export DISTRO_NAME=""                                
 export DISTRO_VER=""
 export DESKTOP_ENV=""
@@ -32,6 +32,6 @@ DISTRO_NAME=$(source /etc/os-release ; echo $ID)                      # store ba
 DISTRO_VER=$(source /etc/os-release ; echo "$VERSION_ID")             # store distro version number
 DESKTOP_ENV=$(echo $XDG_CURRENT_DESKTOP)                              # store desktop name (gnome, kde etc)
 
-TOOLS_FOLDER=$(pwd)
+TOOLS_FOLDER=$(pwd)                                                   # stores full path for dsks-tools
 mkdir "$TOOLS_FOLDER"/temp
 distro_check                                                          # check if supported distro
