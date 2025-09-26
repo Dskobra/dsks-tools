@@ -10,7 +10,7 @@ install_packages(){
     cockpit-selinux cockpit-session-recording
 
     sudo dnf group install -y c-development development-tools container-management
-    sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+    sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
 
 
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_42.x86_64.rpm"
