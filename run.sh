@@ -15,7 +15,7 @@ distro_check(){
 fedora_release_check(){
     if [ "$DISTRO_VER" == "42" ] || [ "$DISTRO_VER" == "43" ]
     then
-        "$TOOLS_FOLDER"/modules/core/menu.sh
+        "$TOOLS_FOLDER"/modules/menu.sh
     else
         echo "These scripts only support Fedora 42/43."
     fi
@@ -29,10 +29,9 @@ export DESKTOP_ENV=""
 export COPYRIGHT="Copyright (c) 2024-2025 Jordan Bottoms"
 
 DISTRO_NAME=$(source /etc/os-release ; echo $ID)                      # store basic distro name
-DISTRO_VER=$(source /etc/os-release ; echo "$DISTRO_VER")             # store distro version number
+DISTRO_VER=$(source /etc/os-release ; echo "$VERSION_ID")             # store distro version number
 DESKTOP_ENV=$(echo $XDG_CURRENT_DESKTOP)                              # store desktop name (gnome, kde etc)
 
 TOOLS_FOLDER=$(pwd)
 mkdir "$TOOLS_FOLDER"/temp
 distro_check                                                          # check if supported distro
-"$TOOLS_FOLDER"/modules/menu.sh
