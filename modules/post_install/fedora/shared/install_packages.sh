@@ -72,7 +72,6 @@ cleanup(){
     sudo dnf remove -y firefox firefox-langpacks vlc libreoffice*
 }
 
-DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
 echo "Desktop is $DESKTOP_TYPE"
 install_packages
 install_flatpaks
