@@ -23,3 +23,5 @@ flatpak_overrides
 npm i -g bash-language-server
 cp "$TOOLS_FOLDER/modules/configs/XIVFPS.desktop" /home/jordan/.local/share/applications/XIVFPS.desktop
 cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
+ln -s "/home/jordan/.local/share/gnome-boxes/images" "/home/jordan/Drives/vm_drive/boxes"
+

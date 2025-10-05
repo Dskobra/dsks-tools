@@ -51,8 +51,9 @@ device_menu(){
     echo ""
     echo "-------------------------Fedora-------------------------"
     echo "========================================================================="
-    echo "(1) Desktop                            (2) Laptop"
-    echo "(3) MiniPC"
+    echo "(1) Desktop Fedora (non atomic)        (2) Desktop Fedora Atomic "
+    echo "(3) Laptop Fedora (non atomic)"
+    echo "(4) MiniPC"
     echo "========================================================================="
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
@@ -66,10 +67,15 @@ device_menu(){
             ;;
 
         2)
-            laptop_reg_fedora_menu
+            echo "disabled. needs cleanup"
+            #desktop_atomic_fedora_menu
             ;;
 
         3)
+            laptop_reg_fedora_menu
+            ;;
+
+        4)
             echo "Disabled atm"
             ;;
 
@@ -138,6 +144,53 @@ desktop_reg_fedora_menu(){
         esac
         unset input
         desktop_reg_fedora_menu
+}
+
+desktop_atomic_fedora_menu(){
+    echo "        ---Setup DESKTOP /W Fedora atomic---"
+    echo "(1) Install packages              (2) Setup hardware"
+    echo "(3) Setup system                  (4) Setup apps"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/cleanup.sh
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/install_packages.sh
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_hardware.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_system.sh
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_apps.sh
+            ;;
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            desktop_atomic_fedora_menu
+            ;;
+
+        esac
+        unset input
+        desktop_atomic_fedora_menu
 }
 
 laptop_reg_fedora_menu(){
@@ -309,4 +362,5 @@ experiments_menu(){
         unset input
         experiments_menu
 }
+
 main_menu
