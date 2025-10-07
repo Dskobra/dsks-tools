@@ -9,7 +9,7 @@ install_packages(){
 
 if [ -z "$container" ]
 then
-    echo ""
+    echo "Not in a container. Closing."
 elif [ -n "$container" ]
 then
     install_packages
