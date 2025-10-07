@@ -6,6 +6,9 @@ install_packages(){
     sudo rpm-ostree install vim-enhanced  virt-manager openrgb steam-devices goverlay clamav clamav-update clamd \
     firewall-applet zenity i2c-tools
 
+    # dev tools are sometimes broken due to mismatches on mirrors. Might have to wait several hours.
+    sudo rpm-ostree install gamemode.i686
+
     # install megasync
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm
     if [ "$DESKTOP_ENV" == "KDE" ]
@@ -26,11 +29,13 @@ install_packages(){
     sudo rpm-ostree install *.rpm
     rm *.rpm
     sudo rpm-ostree apply-live
+
+    # distrobox
+    curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
 }
 
 attempt_to_install_broken_apps(){
-    # dev tools are sometimes broken due to mismatches
-    sudo rpm-ostree install gamemode.i686
+
 }
 
 install_flatpaks(){
@@ -58,31 +63,16 @@ install_flatpaks(){
         echo ""
     elif [ "$DESKTOP_ENV" == "GNOME" ]
     then
-       flatpak install --user -y flathub com.mattjakeman.ExtensionManager
+       flatpak install --user -y flathub com.mattjakeman.ExtensionManager org.gnome.baobab \
+       org.gnome.font-viewer org.gnome.Loupe org.gnome.Papers
     else
         echo "$DESKTOP_ENV is not supported."
     fi
 }
 
-install_extra_apps(){
-    # install nodejs
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-    source ~/.bashrc
-    nvm install lts/*
-    # distrobox
-    curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
-
-    curl -L -o shellcheck-v0.11.0.linux.x86_64.tar.xz https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.x86_64.tar.xz
-    tar -xvf shellcheck-v0.11.0.linux.x86_64.tar.xz
-    cd shellcheck-v0.11.0 || exit
-    sudo mv shellcheck /usr/local/bin
-
-}
 DESKTOP_ENV=$(echo $XDG_CURRENT_DESKTOP)
 echo "Desktop is $DESKTOP_ENV"
 cd "$TOOLS_FOLDER"/temp || exit
 install_packages
 install_flatpaks
-install_extra_apps
 attempt_to_install_broken_apps
-zenity --warning --text="Reminder reboot first before doing next step."

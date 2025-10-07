@@ -77,10 +77,3 @@ echo "Desktop is $DESKTOP_ENV"
 install_packages
 install_flatpaks
 cleanup
-
-
-# install nodejs
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-source ~/.bashrc
-nvm install lts/*
-zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"

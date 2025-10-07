@@ -345,6 +345,14 @@ containers_menu(){
             "$TOOLS_FOLDER"/modules/containers/tooling.sh
             ;;
 
+        3)
+            distrobox create --image fedora:42 --name apps
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/modules/containers/apps.sh
+            ;;
+
         m | M)
             main_menu
             ;;
