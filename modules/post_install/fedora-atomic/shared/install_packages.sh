@@ -3,21 +3,21 @@ install_packages(){
     sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo rpm-ostree apply-live
 
-    sudo rpm-ostree install kate kate-plugins python3-idle vim-enhanced git-gui gh git-cola kdiff3 python3-lsp-server virt-manager \
-    python3-devel openrgb steam-devices goverlay clamav clamav-update clamd firewall-applet zenity i2c-tools
+    sudo rpm-ostree install vim-enhanced  virt-manager openrgb steam-devices goverlay clamav clamav-update clamd \
+    firewall-applet zenity i2c-tools
 
     # install megasync
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm
-    if [ "$DESKTOP_TYPE" == "KDE" ]
+    if [ "$DESKTOP_ENV" == "KDE" ]
     then
         sudo rpm-ostree install k3b
         curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-1.1.x86_64.rpm
-    elif [ "$DESKTOP_TYPE" == "GNOME" ]
+    elif [ "$DESKTOP_ENV" == "GNOME" ]
     then
         sudo rpm-ostree install gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller xfburn
         curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.3.0-1.1.x86_64.rpm
     else
-        echo "$DESKTOP_TYPE is not supported."
+        echo "$DESKTOP_ENV is not supported."
     fi
     curl -L -o proton-mail.rpm https://proton.me/download/mail/linux/1.9.0/ProtonMail-desktop-beta.rpm
     curl -L -o proton-pass.rpm https://proton.me/download/pass/linux/proton-pass-1.32.3-1.x86_64.rpm
@@ -30,7 +30,7 @@ install_packages(){
 
 attempt_to_install_broken_apps(){
     # dev tools are sometimes broken due to mismatches
-    sudo rpm-ostree install akmod-v4l2loopback v4l2loopback gamemode.i686
+    sudo rpm-ostree install gamemode.i686
 }
 
 install_flatpaks(){
@@ -53,14 +53,14 @@ install_flatpaks(){
     flatpak install --user -y flathub org.raspberrypi.rpi-imager org.videolan.VLC com.obsproject.Studio org.openshot.OpenShot \
     io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes
 
-    if [ "$DESKTOP_TYPE" == "KDE" ]
+    if [ "$DESKTOP_ENV" == "KDE" ]
     then
         echo ""
-    elif [ "$DESKTOP_TYPE" == "GNOME" ]
+    elif [ "$DESKTOP_ENV" == "GNOME" ]
     then
        flatpak install --user -y flathub com.mattjakeman.ExtensionManager
     else
-        echo "$DESKTOP_TYPE is not supported."
+        echo "$DESKTOP_ENV is not supported."
     fi
 }
 
@@ -78,8 +78,8 @@ install_extra_apps(){
     sudo mv shellcheck /usr/local/bin
 
 }
-DESKTOP_TYPE=$(echo $XDG_CURRENT_DESKTOP)
-echo "Desktop is $DESKTOP_TYPE"
+DESKTOP_ENV=$(echo $XDG_CURRENT_DESKTOP)
+echo "Desktop is $DESKTOP_ENV"
 cd "$TOOLS_FOLDER"/temp || exit
 install_packages
 install_flatpaks

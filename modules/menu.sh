@@ -10,7 +10,7 @@ main_menu(){
     echo ""
     echo ""
     echo "(1) Device_menu                        (2) Various Fixes"
-    echo "(3) Experiments"
+    echo "(3) Containers"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -323,12 +323,13 @@ fixes_menu(){
         fixes_menu
 }
 
-experiments_menu(){
+containers_menu(){
     echo "------------------"
-    echo "|   Experiments  |"
+    echo "|  Containers    |"
     echo "------------------"
     echo ""
-    echo "(1) Create container                   (2) Install tools"
+    echo "(1) Create dev container               (2) Install tools"
+    echo "(3) Create apps container              (4) Install apps"
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
@@ -341,7 +342,7 @@ experiments_menu(){
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/experiments/containers.sh
+            "$TOOLS_FOLDER"/modules/containers/tooling.sh
             ;;
 
         m | M)
@@ -355,12 +356,12 @@ experiments_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            experiments_menu
+            containers_menu
             ;;
 
         esac
         unset input
-        experiments_menu
+        containers_menu
 }
 
 main_menu
