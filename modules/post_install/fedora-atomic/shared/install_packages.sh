@@ -6,38 +6,16 @@ install_packages(){
     sudo rpm-ostree install vim-enhanced  virt-manager openrgb steam-devices goverlay clamav clamav-update clamd \
     firewall-applet zenity i2c-tools
 
+    wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
+    sudo rpm-ostree install ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo rpm-ostree apply-live
+    sudo rpm-ostree refresh-md && sudo rpm-ostree install proton-vpn-gnome-desktop
+
     # dev tools are sometimes broken due to mismatches on mirrors. Might have to wait several hours.
     sudo rpm-ostree install gamemode.i686
-
-    # install megasync
-    wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm
-    if [ "$DESKTOP_ENV" == "KDE" ]
-    then
-        sudo rpm-ostree install k3b
-        curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-1.1.x86_64.rpm
-    elif [ "$DESKTOP_ENV" == "GNOME" ]
-    then
-        sudo rpm-ostree install gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller xfburn
-        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.3.0-1.1.x86_64.rpm
-    else
-        echo "$DESKTOP_ENV is not supported."
-    fi
-    curl -L -o proton-mail.rpm https://proton.me/download/mail/linux/1.9.0/ProtonMail-desktop-beta.rpm
-    curl -L -o proton-pass.rpm https://proton.me/download/pass/linux/proton-pass-1.32.3-1.x86_64.rpm
-    curl -L -o proton-authenticator.rpm https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.0.0-1.x86_64.rpm
-
-    sudo rpm-ostree install *.rpm
-    rm *.rpm
-    sudo rpm-ostree apply-live
 
     # distrobox
     curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
 }
-
-attempt_to_install_broken_apps(){
-
-}
-
 install_flatpaks(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -63,8 +41,8 @@ install_flatpaks(){
         echo ""
     elif [ "$DESKTOP_ENV" == "GNOME" ]
     then
-       flatpak install --user -y flathub com.mattjakeman.ExtensionManager org.gnome.baobab \
-       org.gnome.font-viewer org.gnome.Loupe org.gnome.Papers
+       flatpak install --user -y flathub com.mattjakeman.ExtensionManager org.gnome.baobab org.gnome.font-viewer \
+       org.gnome.Loupe org.gnome.Papers org.gnome.Boxes
     else
         echo "$DESKTOP_ENV is not supported."
     fi
@@ -75,4 +53,3 @@ echo "Desktop is $DESKTOP_ENV"
 cd "$TOOLS_FOLDER"/temp || exit
 install_packages
 install_flatpaks
-attempt_to_install_broken_apps

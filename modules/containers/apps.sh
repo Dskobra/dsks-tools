@@ -6,16 +6,14 @@ install_packages(){
     if [ "$DESKTOP_ENV" == "KDE" ]
     then
         sudo dnf install -y k3b
-        curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-1.1.x86_64.rpm
-        distrobox-export --app megasync
         distrobox-export --app k3b
+        curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-1.1.x86_64.rpm
     elif [ "$DESKTOP_ENV" == "GNOME" ]
     then
         sudo dnf install -y  xfburn xarchiver
-        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.3.0-1.1.x86_64.rpm
-        distrobox-export --app megasync
         distrobox-export --app xfburn
         distrobox-export --app xarchiver
+        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.3.0-1.1.x86_64.rpm
     else
         echo "$DESKTOP_ENV is not supported."
     fi
@@ -26,6 +24,10 @@ install_packages(){
 
     sudo dnf install -y *.rpm
     rm *.rpm
+    distrobox-export --app megasync
+    distrobox-export --app proton-pass
+    distrobox-export --app proton-mail
+    distrobox-export --app proton-authenticator
 }
 
 if [ -z "$container" ]
