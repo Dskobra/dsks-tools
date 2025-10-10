@@ -355,7 +355,8 @@ containers_menu(){
             ;;
 
         3)
-            distrobox create --name apps --image fedora:42 
+            #distrobox create --name apps --image fedora:42
+            "$TOOLS_FOLDER"/modules/containers/gpu_picker.sh "apps" 
             ;;
 
         4)
@@ -363,7 +364,7 @@ containers_menu(){
             ;;
 
         5)
-            distrobox create --name codecs --image fedora:42 
+            "$TOOLS_FOLDER"/modules/containers/gpu_picker.sh "codecs"
             ;;
 
         6)
@@ -371,27 +372,33 @@ containers_menu(){
             ;;
 
         7)
-            distrobox create --nvidia --name tooling --image fedora:42
+            #distrobox create --nvidia --name tooling --image fedora:42
+            echo ""disabled
             ;;
 
         8)
-            "$TOOLS_FOLDER"/modules/containers/apps.sh
+            #"$TOOLS_FOLDER"/modules/containers/apps.sh
+            echo ""disabled
             ;;
 
         9)
-            distrobox create --nvidia --name apps --image fedora:42
+            #distrobox create --nvidia --name apps --image fedora:42
+            echo ""disabled
             ;;
 
         10)
-            "$TOOLS_FOLDER"/modules/containers/apps.sh
+            #"$TOOLS_FOLDER"/modules/containers/apps.sh
+            echo ""disabled
             ;;
 
         11)
-            distrobox create --nvidia --name codecs --image fedora:42
+            #distrobox create --nvidia --name codecs --image fedora:42
+            echo ""disabled
             ;;
 
         12)
-            "$TOOLS_FOLDER"/modules/containers/codecs.sh
+            #"$TOOLS_FOLDER"/modules/containers/codecs.sh
+            echo ""disabled
             ;;
 
         m | M)
