@@ -2,7 +2,8 @@ install_packages(){
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y rpmfusion-free-release-tainted 
     
-    sudo dnf install -y clamav clamav-update clamd discord steam steam-devices gamemode.x86_64 gamemode.i686 openshot vlc libdvdcss
+    sudo dnf install -y clamav clamav-update clamd discord steam steam-devices gamemode.x86_64 gamemode.i686 openshot vlc libdvdcss\
+    vim-enhanced
 
     sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
     
@@ -37,6 +38,9 @@ install_packages(){
 
     sudo dnf install -y *.rpm
     rm *.rpm
+
+    #
+    distrobox-export --bin /usr/bin/vim
 
     # cloud apps
     distrobox-export --app megasync
