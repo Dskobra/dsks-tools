@@ -26,7 +26,7 @@ main_menu(){
             ;;
 
         3)
-            experiments_menu
+            containers_menu
             ;;
 
         0)
@@ -328,8 +328,16 @@ containers_menu(){
     echo "|  Containers    |"
     echo "------------------"
     echo ""
-    echo "(1) Create dev container               (2) Install tools"
+    echo "|-------------------------------------------|"
+    echo "|                 AMD                       |"
+    echo "|-------------------------------------------|"
+    echo "(1) Create dev container               (2) Install apps"
     echo "(3) Create apps container              (4) Install apps"
+    echo "|-------------------------------------------|"
+    echo "|                 Nvidia                    |"
+    echo "|-------------------------------------------|"
+    echo "(5) Create dev container               (6) Install apps"
+    echo "(7) Create apps container              (8) Install apps"
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
@@ -338,7 +346,8 @@ containers_menu(){
     case $input in
 
         1)
-            distrobox create --image fedora:42 --name tooling
+            #distrobox create --name tooling --image fedora:42 
+            "$TOOLS_FOLDER"/modules/containers/gpu_picker.sh "tooling"
             ;;
 
         2)
@@ -346,11 +355,43 @@ containers_menu(){
             ;;
 
         3)
-            distrobox create --image fedora:42 --name apps
+            distrobox create --name apps --image fedora:42 
             ;;
 
         4)
             "$TOOLS_FOLDER"/modules/containers/apps.sh
+            ;;
+
+        5)
+            distrobox create --name codecs --image fedora:42 
+            ;;
+
+        6)
+            "$TOOLS_FOLDER"/modules/containers/codecs.sh
+            ;;
+
+        7)
+            distrobox create --nvidia --name tooling --image fedora:42
+            ;;
+
+        8)
+            "$TOOLS_FOLDER"/modules/containers/apps.sh
+            ;;
+
+        9)
+            distrobox create --nvidia --name apps --image fedora:42
+            ;;
+
+        10)
+            "$TOOLS_FOLDER"/modules/containers/apps.sh
+            ;;
+
+        11)
+            distrobox create --nvidia --name codecs --image fedora:42
+            ;;
+
+        12)
+            "$TOOLS_FOLDER"/modules/containers/codecs.sh
             ;;
 
         m | M)
