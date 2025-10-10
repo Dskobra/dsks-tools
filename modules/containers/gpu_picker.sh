@@ -6,11 +6,11 @@ gpu_picker(){
     read -r GPU_TYPE
     if [ "$GPU_TYPE" == "1" ]
     then
-        distrobox create "$GPU_ARG" --name "$CONTAINER_NAME" --image "$IMAGE"
+        distrobox create $GPU_ARG --name $CONTAINER_NAME --image $IMAGE
     elif [ "$GPU_TYPE" == "2" ]
     then
         GPU_ARG="--nvidia"
-        distrobox create "$GPU_ARG" --name "$CONTAINER_NAME" --image "$IMAGE"
+        distrobox create $GPU_ARG --name $CONTAINER_NAME --image $IMAGE
     elif [ "$GPU_TYPE" == "0" ]
     then
         echo "User canceled"
