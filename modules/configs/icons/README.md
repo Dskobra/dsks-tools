@@ -1,4 +1,4 @@
-# Yaru Icon Theme taken from fedora packages.
+# Yaru Icon Theme
 
 Just a repack of the rpm package from the below link with just the icons and licenses folder (no /usr/share parent)
 
