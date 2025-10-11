@@ -328,16 +328,9 @@ containers_menu(){
     echo "|  Containers    |"
     echo "------------------"
     echo ""
-    echo "|-------------------------------------------|"
-    echo "|                 AMD                       |"
-    echo "|-------------------------------------------|"
     echo "(1) Create dev container               (2) Install apps"
     echo "(3) Create apps container              (4) Install apps"
-    echo "|-------------------------------------------|"
-    echo "|                 Nvidia                    |"
-    echo "|-------------------------------------------|"
-    echo "(5) Create dev container               (6) Install apps"
-    echo "(7) Create apps container              (8) Install apps"
+    echo "(5) Create codecs container            (6) Install apps"
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
@@ -369,36 +362,6 @@ containers_menu(){
 
         6)
             "$TOOLS_FOLDER"/modules/containers/codecs.sh
-            ;;
-
-        7)
-            #distrobox create --nvidia --name tooling --image fedora:42
-            echo ""disabled
-            ;;
-
-        8)
-            #"$TOOLS_FOLDER"/modules/containers/apps.sh
-            echo ""disabled
-            ;;
-
-        9)
-            #distrobox create --nvidia --name apps --image fedora:42
-            echo ""disabled
-            ;;
-
-        10)
-            #"$TOOLS_FOLDER"/modules/containers/apps.sh
-            echo ""disabled
-            ;;
-
-        11)
-            #distrobox create --nvidia --name codecs --image fedora:42
-            echo ""disabled
-            ;;
-
-        12)
-            #"$TOOLS_FOLDER"/modules/containers/codecs.sh
-            echo ""disabled
             ;;
 
         m | M)
