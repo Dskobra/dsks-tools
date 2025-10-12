@@ -8,15 +8,14 @@ configure_boot(){
 configure_drives(){
     ## setup drive mount points/permissions
     mkdir /home/jordan/Drives/
-    mkdir /home/jordan/Drives/data_drive
-    mkdir /home/jordan/Drives/game_drive
-    mkdir /home/jordan/Drives/vm_drive
-    mkdir /home/jordan/Drives/shared_drive
-    echo "LABEL=data_drive                               /home/jordan/Drives/data_drive       btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
-    echo "LABEL=game_drive                               /home/jordan/Drives/game_drive       btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
-    echo "LABEL=vm_drive                                 /home/jordan/Drives/vm_drive         btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
-    echo "LABEL=shared_drive                             /home/jordan/Drives/shared_drive     ntfs    nofail,users,exec             0 0 "  | sudo tee -a /etc/fstab > /dev/null
-
+    mkdir /home/jordan/Drives/data
+    mkdir /home/jordan/Drives/games
+    mkdir /home/jordan/Drives/vms
+    mkdir /home/jordan/Drives/shared
+    echo "LABEL=data                                  /home/jordan/Drives/data             btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=games                                 /home/jordan/Drives/games            btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=vms                                   /home/jordan/Drives/vms              btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=shared                                /home/jordan/Drives/shared           ntfs    nofail,users,exec             0 0 " | sudo tee -a /etc/fstab > /dev/null
     sudo systemctl daemon-reload
     sudo mount -av
 }
