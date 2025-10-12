@@ -14,6 +14,11 @@ install_packages(){
 
     # distrobox
     curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+
+    # install nodejs
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+    source ~/.bashrc
+    nvm install lts/*
 }
 install_flatpaks(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -51,3 +56,4 @@ echo "Desktop is $DESKTOP_ENV"
 cd "$TOOLS_FOLDER"/temp || exit
 install_packages
 install_flatpaks
+zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"

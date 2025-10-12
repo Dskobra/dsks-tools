@@ -1,30 +1,18 @@
 #!/usr/bin/bash
-configure_game_drive(){
-    if test -f "/var/home/jordan/Drives/game_drive/.DRIVESTATE.txt"; then
+configure_games(){
+    if test -f "/var/home/jordan/Drives/games/.DRIVESTATE.txt"; then
         echo "Games drive is already set up."
-    elif ! test -f "/var/home/jordan/Drives/game_drive/.DRIVESTATE.txt"; then
+    elif ! test -f "/var/home/jordan/Drives/games/.DRIVESTATE.txt"; then
         echo "Setting up games drive folders."
-        mkdir /var/home/jordan/Drives/game_drive/Cemu
-        mkdir /var/home/jordan/Drives/game_drive/Lutris
-        mkdir /var/home/jordan/Drives/game_drive/Xlcore
-        mkdir /var/home/jordan/Drives/game_drive/Xlcore/ffxiv/
-        mkdir /var/home/jordan/Drives/game_drive/Xlcore/ffxivConfig/
-        mkdir /var/home/jordan/Drives/game_drive/Xlcore/patch/
+        mkdir /var/home/jordan/Drives/games/Cemu
+        mkdir /var/home/jordan/Drives/games/Lutris
         game_profiles
-        echo "0" > /var/home/jordan/Drives/game_drive/.DRIVESTATE.txt
+        echo "0" > /var/home/jordan/Drives/games/.DRIVESTATE.txt
     fi
     # Dont use home permissions in flatseal otherwise during the setup for Cemu
     # drives will be listed twice in the drop-down list. Also shows them twice in the
     # file chooser on the left. So just give specific permissions.
-    flatpak override info.cemu.Cemu --user --filesystem=/var/home/jordan/Drives/game_drive/Cemu/
-}
-
-configure_ffxiv_config(){
-    cd "$TOOLS_FOLDER/temp" || exit
-    curl -L -o configs.tar.gz http://192.168.50.101/downloads/configs.tar.gz
-    tar -xvf configs.tar.gz
-    mkdir ~/.xlcore
-    cp "$TOOLS_FOLDER/temp/configs/ffxiv/launcher.ini" ~/.xlcore/launcher.ini
+    flatpak override info.cemu.Cemu --user --filesystem=/var/home/jordan/Drives/games/Cemu/
 }
 
 hide_firefox_from_base_image(){
@@ -37,14 +25,13 @@ hide_firefox_from_base_image(){
 flatpak_overrides(){
     flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
     flatpak override com.valvesoftware.Steam  --user --filesystem=xdg-config/MangoHud:ro
-    flatpak override com.valvesoftware.Steam  --user --filesystem=/var/home/jordan/Drives/game_drive/
-    flatpak override info.cemu.Cemu --user --filesystem=/var/home/jordan/Drives/game_drive/Cemu/
+    flatpak override com.valvesoftware.Steam  --user --filesystem=/var/home/jordan/Drives/games/
+    flatpak override info.cemu.Cemu --user --filesystem=/var/home/jordan/Drives/games/Cemu/
 }
 
-configure_game_drive
+configure_games
 configure_ffxiv_config
 hide_firefox_from_base_image
-flatpak_overrides
 
 
 npm i -g bash-language-server

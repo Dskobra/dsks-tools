@@ -9,16 +9,16 @@ configure_zram(){
 }
 
 configure_security(){
-    sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
-    sudo freshclam
-    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
-    sudo semanage boolean -m -1 antivirus_can_scan_system
+    #sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
+    #sudo freshclam
+    #sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
+    #sudo semanage boolean -m -1 antivirus_can_scan_system
 
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
 
     sudo firewall-cmd --set-default-zone=home
     sudo firewall-cmd --permanent --add-service=kdeconnect
-    sudo firewall-cmd --set-log-denied=all
+    sudo firewall-cmd --set-log-denied=all 
     sudo firewall-cmd --reload
     sudo systemctl enable --now sshd
 }
