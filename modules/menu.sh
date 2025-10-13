@@ -52,7 +52,7 @@ device_menu(){
     echo "-------------------------Fedora-------------------------"
     echo "========================================================================="
     echo "(1) Desktop Fedora (non atomic)        (2) Desktop Fedora Atomic "
-    echo "(3) Laptop Fedora (non atomic)"
+    echo "(3) Laptop Fedora (non atomic)         (4) Laptop Fedora Atomic"
     echo "(4) MiniPC"
     echo "========================================================================="
     echo "(m) Main Menu                          (0) Exit"
@@ -76,7 +76,7 @@ device_menu(){
             ;;
 
         4)
-            echo "Disabled atm"
+            laptop_atomic_fedora_menu
             ;;
 
         m | M)
@@ -239,6 +239,52 @@ laptop_reg_fedora_menu(){
         laptop_reg_fedora_menu
 }
 
+laptop_atomic_fedora_menu(){
+    echo "        ---Setup LAPTOP /W Fedora atomic---"
+    echo "(1) Install packages              (2) Setup hardware"
+    echo "(3) Setup system                  (4) Setup apps"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/cleanup.sh
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/install_packages.sh
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_hardware.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_system.sh
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_apps.sh
+            ;;
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            laptop_atomic_fedora_menu
+            ;;
+
+        esac
+        unset input
+        laptop_atomic_fedora_menu
+}
 minipc_reg_fedora_menu(){
     echo "        ---Setup MiniPC /W Fedora (non atomic)---"
     echo "(1) Install packages              (2) Setup hardware"
