@@ -36,4 +36,5 @@ hide_firefox_from_base_image
 
 npm i -g bash-language-server
 cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
+#ln -s "/home/jordan/.local/share/gnome-boxes"  "/home/jordan/Drives/vms/gnome-boxes" 
 
