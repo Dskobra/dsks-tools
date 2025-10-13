@@ -6,11 +6,6 @@ install_packages(){
     sudo dnf group install -y rpm-development-tools development-tools c-development
     sudo dnf install -y kate kdiff3 kommit python3-idle vim-X11 gh git-cola vim-enhanced python3-lsp-server python3-devel \
     ShellCheck codium meld zenity
-
-    # install nodejs
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-    source ~/.bashrc
-    nvm install lts/*
 }
 
 if [ -z "$container" ]
@@ -24,7 +19,6 @@ then
     distrobox-export --app idle
     distrobox-export --app kdiff3
     distrobox-export --app git-cola
-    zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 else 
     echo ""
 fi
