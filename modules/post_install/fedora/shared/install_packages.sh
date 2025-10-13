@@ -63,7 +63,7 @@ install_flatpaks(){
         echo ""
     elif [ "$DESKTOP_ENV" == "GNOME" ]
     then
-       flatpak install --user -y flathub com.mattjakeman.ExtensionManager
+       flatpak install --user -y flathub com.mattjakeman.ExtensionManager ca.desrt.dconf-editor
     else
         echo "$DESKTOP_ENV is not supported."
     fi
