@@ -56,4 +56,3 @@ echo "Desktop is $DESKTOP_ENV"
 cd "$TOOLS_FOLDER"/temp || exit
 install_packages
 install_flatpaks
-zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"

@@ -68,7 +68,7 @@ device_menu(){
 
         2)
             echo "disabled. needs cleanup"
-            #desktop_atomic_fedora_menu
+            desktop_atomic_fedora_menu
             ;;
 
         3)
