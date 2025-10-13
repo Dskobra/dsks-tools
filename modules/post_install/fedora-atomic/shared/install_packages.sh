@@ -3,7 +3,7 @@ install_packages(){
     sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo rpm-ostree apply-live
 
-    sudo rpm-ostree install virt-manager openrgb firewall-applet zenity i2c-tools
+    sudo rpm-ostree install virt-manager openrgb firewall-applet zenity i2c-tools partitionmanager
 
     wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
     sudo rpm-ostree install ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo rpm-ostree apply-live

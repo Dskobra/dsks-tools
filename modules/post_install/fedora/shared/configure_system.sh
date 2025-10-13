@@ -27,9 +27,9 @@ configure_system_settings(){
 
     sudo grub2-editenv - unset menu_auto_hide
     sudo usermod -aG libvirt "$USER"
-    #sudo modprobe ntsync
-    #sudo touch /etc/modules-load.d/ntsync.conf
-    #echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
+    sudo modprobe ntsync
+    sudo touch /etc/modules-load.d/ntsync.conf
+    echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
 }
 
 

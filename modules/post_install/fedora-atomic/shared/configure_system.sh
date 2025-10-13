@@ -31,9 +31,9 @@ configure_system_settings(){
     # https://docs.fedoraproject.org/en-US/fedora-silverblue/troubleshooting/#_unable_to_add_user_to_group
     grep -E '^libvirt:' /usr/lib/group | sudo tee -a /etc/group
     sudo usermod -aG libvirt $USER
-    #sudo modprobe ntsync
-    #sudo touch /etc/modules-load.d/ntsync.conf
-    #echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
+    sudo modprobe ntsync
+    sudo touch /etc/modules-load.d/ntsync.conf
+    echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
 }
 
 configure_icon_pack(){
