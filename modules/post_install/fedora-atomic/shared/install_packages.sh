@@ -45,7 +45,7 @@ install_flatpaks(){
     elif [ "$DESKTOP_ENV" == "GNOME" ]
     then
        flatpak install --user -y flathub com.mattjakeman.ExtensionManager org.gnome.baobab org.gnome.font-viewer \
-       org.gnome.Loupe org.gnome.Papers org.gnome.Boxes page.tesk.Refine
+       org.gnome.Loupe org.gnome.Papers org.gnome.Boxes page.tesk.Refine ca.desrt.dconf-editor
     else
         echo "$DESKTOP_ENV is not supported."
     fi
