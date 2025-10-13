@@ -6,4 +6,3 @@ configure_boot(){
 
 "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/configure_hardware.sh
 configure_boot
-configure_drives
