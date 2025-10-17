@@ -36,7 +36,7 @@ configure_system_settings(){
     echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
 }
 
-configure_icon_pack(){
+configure_yaru_icon_pack(){
     cd "$TOOLS_FOLDER"/modules/configs/icons || exit
     unzip yaru-icon-repack.zip
     mkdir /home/"$USER"/.local/share/icons/
@@ -44,7 +44,20 @@ configure_icon_pack(){
     rm -r "$TOOLS_FOLDER"/modules/configs/icons/yaru-icon-repack
 
 }
+
+personalize_desktop(){
+    if [ "$DESKTOP_ENV" == "KDE" ]
+    then
+        echo ""
+    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    then
+        configure_yaru_icon_pack
+    else
+        echo "$DESKTOP_ENV is not supported."
+    fi
+}
+
 configure_zram
 configure_security
 configure_system_settings
-configure_icon_pack
+personalize_desktop
