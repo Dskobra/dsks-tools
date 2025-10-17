@@ -20,7 +20,6 @@ configure_security(){
     sudo firewall-cmd --permanent --add-service=kdeconnect
     sudo firewall-cmd --set-log-denied=all 
     sudo firewall-cmd --reload
-    sudo systemctl enable --now sshd
 }
 
 configure_system_settings(){
@@ -28,12 +27,14 @@ configure_system_settings(){
     # or just cause)
 
     sudo grub2-editenv - unset menu_auto_hide
+    echo "set timeout=12" | sudo tee /boot/grub2/user.cfg > /dev/null
     # https://docs.fedoraproject.org/en-US/fedora-silverblue/troubleshooting/#_unable_to_add_user_to_group
     grep -E '^libvirt:' /usr/lib/group | sudo tee -a /etc/group
     sudo usermod -aG libvirt $USER
     sudo modprobe ntsync
     sudo touch /etc/modules-load.d/ntsync.conf
     echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
+    sudo systemctl enable --now sshd
 }
 
 configure_yaru_icon_pack(){
@@ -57,7 +58,26 @@ personalize_desktop(){
     fi
 }
 
+hide_firefox_from_desktop(){
+    # hides firefox from gnome/kde
+    sudo mkdir -p /usr/local/share/applications/
+    sudo cp /usr/share/applications/org.mozilla.firefox.desktop /usr/local/share/applications/
+    sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.mozilla.firefox.desktop
+    sudo update-desktop-database /usr/local/share/applications/
+}
+
+flatpak_overrides(){
+    flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
+    flatpak override com.valvesoftware.Steam  --user --filesystem=xdg-config/MangoHud:ro
+}
+
 configure_zram
 configure_security
 configure_system_settings
 personalize_desktop
+hide_firefox_from_desktop
+flatpak_overrides
+
+npm i -g bash-language-server
+mkdir "$HOME"/.local/share/applications/
+cp "$TOOLS_FOLDER/modules/configs/shortcuts/XIVFPS.desktop" "$HOME"/.local/share/applications/XIVFPS.desktop

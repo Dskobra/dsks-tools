@@ -2,7 +2,6 @@
 configure_vfio(){
     echo 'add_driver+=" vfio vfio_iommu_type1 vfio_pci vfio_virqfd "' | sudo tee /etc/dracut.conf.d/local.conf > /dev/null
     sudo chown root:root "/etc/dracut.conf.d/local.conf"
-    #sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 
 }
 

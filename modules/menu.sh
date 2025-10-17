@@ -161,15 +161,12 @@ desktop_atomic_fedora_menu(){
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_hardware.sh
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/configure_hardware.sh
             ;;
 
         3)
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/configure_system.sh
             "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_system.sh
-            ;;
-
-        4)
-            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/DESKTOP/configure_apps.sh
             ;;
 
         m | M )
@@ -240,7 +237,7 @@ laptop_reg_fedora_menu(){
 laptop_atomic_fedora_menu(){
     echo "        ---Setup LAPTOP /W Fedora atomic---"
     echo "(1) Install packages              (2) Setup hardware"
-    echo "(3) Setup system                  (4) Setup apps"
+    echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -254,15 +251,11 @@ laptop_atomic_fedora_menu(){
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_hardware.sh
+            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/configure_hardware.sh
             ;;
 
         3)
             "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_system.sh
-            ;;
-
-        4)
-            "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/LAPTOP/configure_apps.sh
             ;;
 
         m | M )
