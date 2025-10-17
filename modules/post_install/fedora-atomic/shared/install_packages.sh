@@ -18,6 +18,35 @@ install_fedora_rpmfusion_packages(){
     sudo rpm-ostree apply-live
 }
 
+install_other_apps(){
+    # distrobox
+    curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+
+    # install nodejs
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+    source ~/.bashrc
+    nvm install lts/*
+
+    cd "$TOOLS_FOLDER"/temp || exit
+    if [ "$DESKTOP_ENV" == "KDE" ]
+    then
+        curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
+    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    then
+        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
+    else
+        echo "$DESKTOP_ENV is not supported."
+    fi
+
+    wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
+    wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm 
+
+    sudo rpm-ostree install *.rpm
+    sudo rpm-ostree apply-live
+    #sudo rpm-ostree install ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo rpm-ostree apply-live
+    sudo rpm-ostree refresh-md && sudo rpm-ostree install proton-vpn-gnome-desktop
+}
+
 install_flatpaks(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -48,35 +77,6 @@ install_flatpaks(){
     else
         echo "$DESKTOP_ENV is not supported."
     fi
-}
-
-install_other_apps(){
-    # distrobox
-    curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
-
-    # install nodejs
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-    source ~/.bashrc
-    nvm install lts/*
-
-    cd "$TOOLS_FOLDER"/temp || exit
-    if [ "$DESKTOP_ENV" == "KDE" ]
-    then
-        curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
-    elif [ "$DESKTOP_ENV" == "GNOME" ]
-    then
-        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
-    else
-        echo "$DESKTOP_ENV is not supported."
-    fi
-
-    wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
-    wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm 
-
-    sudo rpm-ostree install *.rpm
-    sudo rpm-ostree apply-live
-    #sudo rpm-ostree install ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo rpm-ostree apply-live
-    sudo rpm-ostree refresh-md && sudo rpm-ostree install proton-vpn-gnome-desktop
 }
 
 DESKTOP_ENV=$(echo $XDG_CURRENT_DESKTOP)
