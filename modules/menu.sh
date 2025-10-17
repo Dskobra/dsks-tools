@@ -67,7 +67,6 @@ device_menu(){
             ;;
 
         2)
-            echo "disabled. needs cleanup"
             desktop_atomic_fedora_menu
             ;;
 
@@ -98,7 +97,6 @@ device_menu(){
         device_menu
 }
 
-# fedora menus
 desktop_reg_fedora_menu(){
     echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
     echo "(1) Install packages              (2) Setup hardware"
@@ -285,6 +283,7 @@ laptop_atomic_fedora_menu(){
         unset input
         laptop_atomic_fedora_menu
 }
+
 minipc_reg_fedora_menu(){
     echo "        ---Setup MiniPC /W Fedora (non atomic)---"
     echo "(1) Install packages              (2) Setup hardware"
@@ -327,7 +326,6 @@ minipc_reg_fedora_menu(){
         minipc_reg_fedora_menu
 }
 
-# misc
 fixes_menu(){
     echo "(1) Nvidia gsk fix                (2) Steam launch fix"
     echo "(3) Remove RPMFusion"

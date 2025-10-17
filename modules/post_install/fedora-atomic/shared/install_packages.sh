@@ -1,12 +1,21 @@
 #!/usr/bin/bash
 install_fedora_rpmfusion_packages(){
     sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    sudo rpm-ostree apply-live
-
-    sudo rpm-ostree install virt-manager openrgb firewall-applet zenity i2c-tools kde-partitionmanager
-
+    
     # dev tools are sometimes broken due to mismatches on mirrors. Might have to wait several hours.
     #sudo rpm-ostree install gamemode.i686
+    
+
+    if [ "$DESKTOP_ENV" == "KDE" ]
+    then
+        sudo rpm-ostree install virt-manager openrgb firewall-applet zenity
+    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    then
+        sudo rpm-ostree install virt-manager openrgb firewall-applet i2c-tools kde-partitionmanager
+    else
+        echo "$DESKTOP_ENV is not supported."
+    fi
+    sudo rpm-ostree apply-live
 }
 
 install_flatpaks(){
@@ -31,7 +40,7 @@ install_flatpaks(){
     if [ "$DESKTOP_ENV" == "KDE" ]
     then
         flatpak install --user -y flathub org.kde.elisa org.kde.gwenview org.kde.kcalc org.kde.krdc org.kde.okular \
-        org.kde.skanpage
+        org.kde.skanpage app.devsuite.Ptyxis
     elif [ "$DESKTOP_ENV" == "GNOME" ]
     then
        flatpak install --user -y flathub com.mattjakeman.ExtensionManager org.gnome.baobab org.gnome.font-viewer \
@@ -40,6 +49,7 @@ install_flatpaks(){
         echo "$DESKTOP_ENV is not supported."
     fi
 }
+
 install_other_apps(){
     # distrobox
     curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
