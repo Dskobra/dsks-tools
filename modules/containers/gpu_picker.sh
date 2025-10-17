@@ -7,10 +7,12 @@ gpu_picker(){
     if [ "$GPU_TYPE" == "1" ]
     then
         distrobox create $GPU_ARG --name $CONTAINER_NAME --image $IMAGE
+        #toolbox create $CONTAINER_NAME --distro fedora --release $RELEASE
     elif [ "$GPU_TYPE" == "2" ]
     then
         GPU_ARG="--nvidia"
         distrobox create $GPU_ARG --name $CONTAINER_NAME --image $IMAGE
+        #toolbox create $CONTAINER_NAME --distro fedora --release $RELEASE
     elif [ "$GPU_TYPE" == "0" ]
     then
         echo "User canceled"
@@ -23,4 +25,5 @@ gpu_picker(){
 GPU_ARG=""
 CONTAINER_NAME=$1
 IMAGE="fedora:42 "
+#RELEASE="42"
 gpu_picker
