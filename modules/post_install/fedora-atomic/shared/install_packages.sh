@@ -3,7 +3,7 @@ install_packages(){
     sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo rpm-ostree apply-live
 
-    sudo rpm-ostree install virt-manager openrgb firewall-applet zenity i2c-tools partitionmanager
+    sudo rpm-ostree install virt-manager openrgb firewall-applet zenity i2c-tools kde-partitionmanager
 
     wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
     sudo rpm-ostree install ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo rpm-ostree apply-live
@@ -28,7 +28,7 @@ install_flatpaks(){
 
     # tools
     flatpak install --user -y flathub  io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
-    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks org.kde.isoimagewriter
+    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks org.kde.isoimagewriter org.kde.kleopatra
 
     # entertainment
     flatpak install --user -y flathub net.lutris.Lutris info.cemu.Cemu org.DolphinEmu.dolphin-emu \
@@ -41,7 +41,8 @@ install_flatpaks(){
 
     if [ "$DESKTOP_ENV" == "KDE" ]
     then
-        echo ""
+        flatpak install --user -y flathub org.kde.elisa org.kde.gwenview org.kde.kcalc org.kde.krdc org.kde.okular \
+        org.kde.skanpage
     elif [ "$DESKTOP_ENV" == "GNOME" ]
     then
        flatpak install --user -y flathub com.mattjakeman.ExtensionManager org.gnome.baobab org.gnome.font-viewer \
