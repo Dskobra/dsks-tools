@@ -60,3 +60,5 @@ configure_security
 configure_system_settings
 flatpak_overrides
 personalize_desktop
+mkdir "$HOME"/.local/share/applications/
+cp "$TOOLS_FOLDER/modules/configs/shortcuts/XIVFPS.desktop" "$HOME"/.local/share/applications/XIVFPS.desktop

@@ -14,22 +14,6 @@ configure_drives(){
     sudo mount -av
 }
 
-configure_games(){
-    if test -f "/var/home/jordan/Drives/games/.DRIVESTATE.txt"; then
-        echo "Games drive is already set up."
-    elif ! test -f "/var/home/jordan/Drives/games/.DRIVESTATE.txt"; then
-        echo "Setting up games drive folders."
-        mkdir /var/home/jordan/Drives/games/Cemu
-        mkdir /var/home/jordan/Drives/games/Lutris
-        game_profiles
-        echo "0" > /var/home/jordan/Drives/games/.DRIVESTATE.txt
-    fi
-    # Dont use home permissions in flatseal otherwise during the setup for Cemu
-    # drives will be listed twice in the drop-down list. Also shows them twice in the
-    # file chooser on the left. So just give specific permissions.
-    flatpak override info.cemu.Cemu --user --filesystem=/var/home/jordan/Drives/games/Cemu/
-}
-
 flatpak_overrides(){
     flatpak override com.valvesoftware.Steam  --user --filesystem=/var/home/jordan/Drives/games/
     flatpak override info.cemu.Cemu --user --filesystem=/var/home/jordan/Drives/games/Cemu/
@@ -38,6 +22,8 @@ flatpak_overrides(){
 configure_drives
 configure_games
 flatpak_overrides
+mkdir "$HOME"/.local/share/applications/
+cp "$TOOLS_FOLDER/modules/configs/shortcuts/XIVFPS.desktop" "$HOME"/.local/share/applications/XIVFPS.desktop
 cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
 #ln -s "$HOME"/.local/share/gnome-boxes"  "$HOME"/Drives/vms/boxes
 sudo rpm-ostree kargs --append="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff crashkernel=512M"
