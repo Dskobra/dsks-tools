@@ -19,7 +19,5 @@ sudo systemctl enable --now lactd
 sudo sed -i '/GRUB_CMDLINE_LINUX="rhgb quiet"/c GRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff crashkernel=512M rhgb quiet"' /etc/default/grub
 sudo grub2-mkconfig -o /etc/grub2.cfg
 
-npm i -g bash-language-server
-cp "$TOOLS_FOLDER/modules/configs/shortcuts/XIVFPS.desktop" /home/"$USER"/.local/share/applications/XIVFPS.desktop
 cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
 ln -s  "$HOME"/.local/share/gnome-boxes/images "$HOME"/Drives/vms/boxes

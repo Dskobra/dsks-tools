@@ -20,7 +20,6 @@ flatpak_overrides(){
 }
 
 configure_drives
-configure_games
 flatpak_overrides
 mkdir "$HOME"/.local/share/applications/
 cp "$TOOLS_FOLDER/modules/configs/shortcuts/XIVFPS.desktop" "$HOME"/.local/share/applications/XIVFPS.desktop
