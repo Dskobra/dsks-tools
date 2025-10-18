@@ -99,8 +99,7 @@ device_menu(){
 
 desktop_reg_fedora_menu(){
     echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
-    echo "(1) Install packages              (2) Setup hardware"
-    echo "(3) Setup system                  (4) Setup apps"
+    echo "(1) Install packages              (2) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -113,15 +112,7 @@ desktop_reg_fedora_menu(){
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/configure_hardware.sh
-            ;;
-
-        3)
             "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/configure_system.sh
-            ;;
-
-        4)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/configure_apps.sh
             ;;
 
 
