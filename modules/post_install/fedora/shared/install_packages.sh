@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
 ### shared packages between my devices.
-install_packages(){
-    cd "$TOOLS_FOLDER/temp" || exit
+install_fedora_rpmfusion_packages(){
+    
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y vim-enhanced toolbox distrobox openrgb i2c-tools cpu-x remmina isoimagewriter steam steam-devices gamemode.x86_64 \
     gamemode.i686 goverlay virt-manager qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch \
@@ -11,8 +11,10 @@ install_packages(){
 
     sudo dnf group install -y c-development development-tools container-management
     sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
+}
 
-
+install_other_apps(){
+    cd "$TOOLS_FOLDER/temp" || exit
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_42.x86_64.rpm"
     wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
     sudo dnf install -y ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo dnf check-update -y --refresh
@@ -38,7 +40,6 @@ install_packages(){
     sudo dnf install -y *.rpm
     rm *.rpm
 }
-
 install_flatpaks(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -74,6 +75,7 @@ cleanup(){
 }
 
 echo "Desktop is $DESKTOP_ENV"
-install_packages
+install_fedora_rpmfusion_packages
+install_other_app
 install_flatpaks
 cleanup

@@ -30,9 +30,33 @@ configure_system_settings(){
     sudo modprobe ntsync
     sudo touch /etc/modules-load.d/ntsync.conf
     echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
+    sudo sed -i '/GRUB_TIMEOUT=5/c GRUB_TIMEOUT=12' /etc/default/grub
+}
+configure_yaru_icon_pack(){
+    cd "$TOOLS_FOLDER"/modules/configs/icons || exit
+    unzip yaru-icon-repack.zip
+    mkdir /home/"$USER"/.local/share/icons/
+    mv "$TOOLS_FOLDER"/modules/configs/icons/yaru-icon-repack/icons/Yaru* /home/"$USER"/.local/share/icons/
+    rm -r "$TOOLS_FOLDER"/modules/configs/icons/yaru-icon-repack
+
 }
 
-
+personalize_desktop(){
+    if [ "$DESKTOP_ENV" == "KDE" ]
+    then
+        echo ""
+    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    then
+        configure_yaru_icon_pack
+    else
+        echo "$DESKTOP_ENV is not supported."
+    fi
+}
+flatpak_overrides(){
+    flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
+    flatpak override dev.goats.xivlauncher --user --filesystem=xdg-config/MangoHud:ro
+}
 configure_security
 configure_system_settings
-
+flatpak_overrides
+personalize_desktop

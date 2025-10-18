@@ -39,5 +39,5 @@ configure_drives
 configure_games
 flatpak_overrides
 cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
-#ln -s "/home/jordan/.local/share/gnome-boxes"  "/home/jordan/Drives/vms/gnome-boxes"
+#ln -s "$HOME"/.local/share/gnome-boxes"  "$HOME"/Drives/vms/boxes
 sudo rpm-ostree kargs --append="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff crashkernel=512M"
