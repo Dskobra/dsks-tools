@@ -138,7 +138,7 @@ desktop_reg_fedora_menu(){
 desktop_atomic_fedora_menu(){
     echo "        ---Setup DESKTOP /W Fedora atomic---"
     echo "(1) Install packages              (2) Setup hardware"
-    echo "(3) Setup system                  (4) Setup apps"
+    echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
