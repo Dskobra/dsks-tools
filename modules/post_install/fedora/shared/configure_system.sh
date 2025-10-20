@@ -42,14 +42,14 @@ configure_yaru_icon_pack(){
 }
 
 personalize_desktop(){
-    if [ "$DESKTOP_ENV" == "KDE" ]
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         echo ""
-    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         configure_yaru_icon_pack
     else
-        echo "$DESKTOP_ENV is not supported."
+        echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
 }
 flatpak_overrides(){

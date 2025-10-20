@@ -21,16 +21,16 @@ install_other_apps(){
     sudo dnf install -y  proton-vpn-gnome-desktop
     rm protonvpn-stable-release-1.0.3-1.noarch.rpm
 
-    if [ "$DESKTOP_ENV" == "KDE" ]
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         sudo dnf install -y k3b
         curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
-    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller xfburn
         curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
     else
-        echo "$DESKTOP_ENV is not supported."
+        echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
 
     curl -L -o proton-mail.rpm https://proton.me/download/mail/linux/1.9.0/ProtonMail-desktop-beta.rpm
@@ -59,14 +59,14 @@ install_flatpaks(){
     flatpak install --user -y flathub org.raspberrypi.rpi-imager org.videolan.VLC com.obsproject.Studio org.openshot.OpenShot \
     io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes
 
-    if [ "$DESKTOP_ENV" == "KDE" ]
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         echo ""
-    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
        flatpak install --user -y flathub com.mattjakeman.ExtensionManager
     else
-        echo "$DESKTOP_ENV is not supported."
+        echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
 }
 
@@ -74,7 +74,7 @@ cleanup(){
     sudo dnf remove -y firefox firefox-langpacks vlc libreoffice*
 }
 
-echo "Desktop is $DESKTOP_ENV"
+echo "Desktop is $XDG_CURRENT_DESKTOP"
 install_fedora_rpmfusion_packages
 install_other_app
 install_flatpaks

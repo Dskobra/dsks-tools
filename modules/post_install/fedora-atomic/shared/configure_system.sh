@@ -30,7 +30,7 @@ configure_system_settings(){
     echo "set timeout=12" | sudo tee /boot/grub2/user.cfg > /dev/null
     # https://docs.fedoraproject.org/en-US/fedora-silverblue/troubleshooting/#_unable_to_add_user_to_group
     grep -E '^libvirt:' /usr/lib/group | sudo tee -a /etc/group
-    sudo usermod -aG libvirt $USER
+    sudo usermod -aG libvirt "$USER"
     sudo modprobe ntsync
     sudo touch /etc/modules-load.d/ntsync.conf
     echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
@@ -40,21 +40,21 @@ configure_system_settings(){
 configure_yaru_icon_pack(){
     cd "$TOOLS_FOLDER"/modules/configs/icons || exit
     unzip yaru-icon-repack.zip
-    mkdir /home/"$USER"/.local/share/icons/
-    mv "$TOOLS_FOLDER"/modules/configs/icons/yaru-icon-repack/icons/Yaru* /home/"$USER"/.local/share/icons/
+    mkdir "$HOME"/.local/share/icons/
+    mv "$TOOLS_FOLDER"/modules/configs/icons/yaru-icon-repack/icons/Yaru* "$HOME"/.local/share/icons/
     rm -r "$TOOLS_FOLDER"/modules/configs/icons/yaru-icon-repack
 
 }
 
 personalize_desktop(){
-    if [ "$DESKTOP_ENV" == "KDE" ]
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         echo ""
-    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         configure_yaru_icon_pack
     else
-        echo "$DESKTOP_ENV is not supported."
+        echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
 }
 

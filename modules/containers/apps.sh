@@ -7,19 +7,19 @@ install_packages(){
 
     wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_42.x86_64.rpm"
 
-    if [ "$DESKTOP_ENV" == "KDE" ]
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         sudo dnf install -y k3b
         distrobox-export --app k3b
         curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
-    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         sudo dnf install -y  xfburn xarchiver
         distrobox-export --app xfburn
         distrobox-export --app xarchiver
         curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
     else
-        echo "$DESKTOP_ENV is not supported."
+        echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
 
     curl -L -o proton-mail.rpm https://proton.me/download/mail/linux/1.9.0/ProtonMail-desktop-beta.rpm

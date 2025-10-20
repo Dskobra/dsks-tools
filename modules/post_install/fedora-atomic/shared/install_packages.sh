@@ -2,14 +2,14 @@
 install_fedora_rpmfusion_packages(){
     sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     
-    if [ "$DESKTOP_ENV" == "KDE" ]
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         sudo rpm-ostree install virt-manager openrgb firewall-applet zenity
-    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         sudo rpm-ostree install virt-manager openrgb firewall-applet i2c-tools kde-partitionmanager
     else
-        echo "$DESKTOP_ENV is not supported."
+        echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
     sudo rpm-ostree apply-live
 }
@@ -27,7 +27,6 @@ install_other_apps(){
     wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
     sudo rpm-ostree install *.rpm
     sudo rpm-ostree apply-live
-    #sudo rpm-ostree install ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo rpm-ostree apply-live
     sudo rpm-ostree refresh-md && sudo rpm-ostree install proton-vpn-gnome-desktop
 }
 
@@ -51,21 +50,20 @@ install_flatpaks(){
     flatpak install --user -y flathub org.raspberrypi.rpi-imager com.obsproject.Studio io.podman_desktop.PodmanDesktop \
     org.qownnotes.QOwnNotes
 
-    if [ "$DESKTOP_ENV" == "KDE" ]
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         flatpak install --user -y flathub org.kde.elisa org.kde.gwenview org.kde.kcalc org.kde.krdc org.kde.okular \
         org.kde.skanpage app.devsuite.Ptyxis
-    elif [ "$DESKTOP_ENV" == "GNOME" ]
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
        flatpak install --user -y flathub com.mattjakeman.ExtensionManager org.gnome.baobab org.gnome.font-viewer \
        org.gnome.Loupe org.gnome.Papers org.gnome.Boxes page.tesk.Refine ca.desrt.dconf-editor
     else
-        echo "$DESKTOP_ENV is not supported."
+        echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
 }
 
-DESKTOP_ENV=$(echo $XDG_CURRENT_DESKTOP)
-echo "Desktop is $DESKTOP_ENV"
+echo "Desktop is $XDG_CURRENT_DESKTOP"
 cd "$TOOLS_FOLDER"/temp || exit
 install_fedora_rpmfusion_packages
 install_other_apps
