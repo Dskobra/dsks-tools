@@ -55,12 +55,13 @@ install_flatpaks(){
 
     # tools
     flatpak install --user -y flathub  io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
-    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks org.kde.isoimagewriter org.kde.kleopatra
+    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks org.kde.isoimagewriter org.kde.kleopatra \
+    io.github.thetumultuousunicornofdarkness.cpu-x
 
-    # entertainment
+    # games/multimedia
     flatpak install --user -y flathub net.lutris.Lutris info.cemu.Cemu org.DolphinEmu.dolphin-emu \
     dev.goats.xivlauncher com.pokemmo.PokeMMO runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08 \
-    runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
+    runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08 io.github.radiolamp.mangojuice
 
     # misc
     flatpak install --user -y flathub org.raspberrypi.rpi-imager com.obsproject.Studio io.podman_desktop.PodmanDesktop \
