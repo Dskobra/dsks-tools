@@ -35,8 +35,8 @@ configure_system_settings(){
 configure_yaru_icon_pack(){
     cd "$TOOLS_FOLDER"/modules/configs/icons || exit
     unzip yaru-icon-repack.zip
-    mkdir /home/"$USER"/.local/share/icons/
-    mv "$TOOLS_FOLDER"/modules/configs/icons/yaru-icon-repack/icons/Yaru* /home/"$USER"/.local/share/icons/
+    mkdir "$HOME"/.local/share/icons/
+    mv "$TOOLS_FOLDER"/modules/configs/icons/yaru-icon-repack/icons/Yaru* "$HOME"/.local/share/icons/
     rm -r "$TOOLS_FOLDER"/modules/configs/icons/yaru-icon-repack
 
 }

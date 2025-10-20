@@ -14,15 +14,7 @@ configure_drives(){
     sudo mount -av
 }
 
-flatpak_overrides(){
-    flatpak override com.valvesoftware.Steam  --user --filesystem=/var/home/jordan/Drives/games/
-    flatpak override info.cemu.Cemu --user --filesystem=/var/home/jordan/Drives/games/Cemu/
-}
-
 configure_drives
-flatpak_overrides
-mkdir "$HOME"/.local/share/applications/
-cp "$TOOLS_FOLDER/modules/configs/shortcuts/XIVFPS.desktop" "$HOME"/.local/share/applications/XIVFPS.desktop
 cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
-#ln -s "$HOME"/.local/share/gnome-boxes"  "$HOME"/Drives/vms/boxes
+ln -s "$HOME"/.var/app/org.gnome.Boxes/data/gnome-boxes/images/  "$HOME"/Drives/vms/boxes
 sudo rpm-ostree kargs --append="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff crashkernel=512M"

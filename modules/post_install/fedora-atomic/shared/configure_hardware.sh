@@ -6,8 +6,7 @@ configure_vfio(){
 }
 
 configure_openrgb(){
-    # OpenRGB needs a a couple kernel mods loaded
-    # for smbus access. So make sure they are
+    # OpenRGB needs a a couple kernel mods loaded for smbus access. So make sure they are
     # automatically loaded on boot
     sudo modprobe i2c-dev
     sudo modprobe i2c-piix4

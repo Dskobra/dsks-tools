@@ -1,7 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Terminal=false
-Exec=toolbox run --container tooling git-cola --prompt
-Name=Git Cola
-Icon=git-cola
