@@ -2,10 +2,6 @@
 install_fedora_rpmfusion_packages(){
     sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     
-    # dev tools are sometimes broken due to mismatches on mirrors. Might have to wait several hours.
-    #sudo rpm-ostree install gamemode.i686
-    
-
     if [ "$DESKTOP_ENV" == "KDE" ]
     then
         sudo rpm-ostree install virt-manager openrgb firewall-applet zenity
@@ -28,19 +24,7 @@ install_other_apps(){
     nvm install lts/*
 
     cd "$TOOLS_FOLDER"/temp || exit
-    if [ "$DESKTOP_ENV" == "KDE" ]
-    then
-        curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
-    elif [ "$DESKTOP_ENV" == "GNOME" ]
-    then
-        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
-    else
-        echo "$DESKTOP_ENV is not supported."
-    fi
-
     wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
-    wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm 
-
     sudo rpm-ostree install *.rpm
     sudo rpm-ostree apply-live
     #sudo rpm-ostree install ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo rpm-ostree apply-live
