@@ -359,7 +359,7 @@ containers_menu(){
 
         1)
             #distrobox create --name tooling --image fedora:42 
-            "$TOOLS_FOLDER"/modules/containers/gpu_picker.sh "tooling"
+            "$TOOLS_FOLDER"/modules/containers/containers.sh "tooling"
             ;;
 
         2)
@@ -368,7 +368,7 @@ containers_menu(){
 
         3)
             #distrobox create --name apps --image fedora:42
-            "$TOOLS_FOLDER"/modules/containers/gpu_picker.sh "apps" 
+            "$TOOLS_FOLDER"/modules/containers/containers.sh "apps" 
             ;;
 
         4)
@@ -376,7 +376,7 @@ containers_menu(){
             ;;
 
         5)
-            "$TOOLS_FOLDER"/modules/containers/gpu_picker.sh "codecs"
+            "$TOOLS_FOLDER"/modules/containers/containers.sh "codecs"
             ;;
 
         6)
