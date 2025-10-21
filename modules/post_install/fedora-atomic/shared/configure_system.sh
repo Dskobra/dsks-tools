@@ -30,6 +30,7 @@ configure_system_settings(){
     sudo touch /etc/modules-load.d/ntsync.conf
     echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
     sudo systemctl enable --now sshd
+    sudo systemctl enable --now libvirtd
 }
 
 configure_yaru_icon_pack(){
