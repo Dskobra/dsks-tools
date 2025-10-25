@@ -62,16 +62,11 @@ hide_firefox_from_desktop(){
     sudo update-desktop-database /usr/local/share/applications/
 }
 
-flatpak_overrides(){
-
-}
-
 configure_zram
 configure_security
 configure_system_settings
 personalize_desktop
 hide_firefox_from_desktop
-flatpak_overrides
 
 npm i -g bash-language-server
 flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
