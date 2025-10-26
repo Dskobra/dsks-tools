@@ -58,7 +58,7 @@ install_flatpaks(){
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
        flatpak install --user -y flathub com.mattjakeman.ExtensionManager org.gnome.baobab org.gnome.font-viewer \
-       org.gnome.Loupe org.gnome.Papers org.gnome.Boxes page.tesk.Refine ca.desrt.dconf-editor
+       org.gnome.Loupe org.gnome.Papers page.tesk.Refine ca.desrt.dconf-editor
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
