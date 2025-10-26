@@ -3,9 +3,9 @@
 get_desktop_type(){
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
-        flatpak remove -y org.kde.skanpage org.kde.okular org.kde.krdc org.kde.kolourpaint org.kde.kmines org.kde.kcalc  \
-        org.kde.gwenview org.kde.elisa org.kde.kmahjongg  org.fedoraproject.Platform.tessdata  org.fedoraproject.Platform.Locale   \
-        org.fedoraproject.Platform.GL.default org.fedoraproject.KDE6Platform
+        flatpak remove -y org.kde.skanpage org.kde.okular org.kde.krdc org.kde.kolourpaint org.kde.kmines org.kde.kcalc \
+        org.kde.gwenview org.kde.elisa org.kde.kmahjongg org.fedoraproject.Platform.tessdata org.fedoraproject.Platform.Locale \
+        org.fedoraproject.Platform.GL.default org.fedoraproject.KDE6Platform org.kde.skanpage org.kde.okular
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         flatpak remove -y org.gnome.font-viewer org.gnome.clocks org.gnome.baobab org.gnome.Weather org.gnome.TextEditor org.gnome.Snapshot \
@@ -16,6 +16,5 @@ get_desktop_type(){
         echo "Uknown error."
     fi
 }
-DESKTOP_TYPE=$(echo "$XDG_CURRENT_DESKTOP")
 echo "Desktop is $XDG_CURRENT_DESKTOP"
 get_desktop_type

@@ -4,10 +4,11 @@ install_fedora_rpmfusion_packages(){
     
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
-        sudo rpm-ostree install virt-manager openrgb firewall-applet zenity
+        sudo rpm-ostree install virt-manager openrgb firewall-applet zenity cockpit-ws cockpit-selinux cockpit-ostree cockpit-kdump cockpit-files 
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
-        sudo rpm-ostree install virt-manager openrgb firewall-applet i2c-tools kde-partitionmanager
+        sudo rpm-ostree install virt-manager openrgb firewall-applet i2c-tools kde-partitionmanager cockpit-ws cockpit-selinux cockpit-ostree \
+        cockpit-kdump cockpit-files 
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
@@ -34,7 +35,7 @@ install_flatpaks(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 
     # most important
-    flatpak install --user -y flathub com.github.tchx84.Flatseal com.brave.Browser org.mozilla.firefox org.cockpit_project.CockpitClient
+    flatpak install --user -y flathub com.github.tchx84.Flatseal com.brave.Browser org.mozilla.firefox
 
     # tools
     flatpak install --user -y flathub  io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
