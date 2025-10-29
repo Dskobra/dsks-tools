@@ -9,6 +9,9 @@ install_fedora_rpmfusion_packages(){
     wget curl flatpak dnf-plugins-core clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump \
     cockpit-selinux cockpit-session-recording vlc openshot 
 
+    # codecs some stuff is taken from the below guide
+    # https://github.com/devangshekhawat/Fedora-43-Post-Install-Guide
+    sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
     sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
 
     sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
@@ -17,7 +20,10 @@ install_fedora_rpmfusion_packages(){
     sudo dnf swap -y mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
     sudo dnf swap -y mesa-vulkan-drivers.i686 mesa-vulkan-drivers-freeworld.i686
 
-    sudo dnf install -y openh264 gstreamer1-plugin-openh264.i686  gstreamer1-plugin-openh264.x86_64 libdvdcss
+    sudo dnf group install -y multimedia
+    sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264 libdvdcss
+    sudo dnf upgrade -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         sudo dnf install -y ptyxis k3b
@@ -34,6 +40,8 @@ install_fedora_rpmfusion_packages(){
 
 install_other_apps(){
     cd "$TOOLS_FOLDER/temp" || exit
+    sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+    sudo dnf install -y brave-browser
     #wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_42.x86_64.rpm"
     wget https://mega.nz/linux/repo/Fedora_43/x86_64/megasync-Fedora_43.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_43.x86_64.rpm"
     wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
@@ -69,7 +77,7 @@ install_flatpaks(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 
     # most important
-    flatpak install --user -y flathub com.github.tchx84.Flatseal com.brave.Browser org.mozilla.firefox
+    flatpak install --user -y flathub com.github.tchx84.Flatseal
 
     # tools
     flatpak install --user -y flathub  io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
