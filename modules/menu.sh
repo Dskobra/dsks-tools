@@ -99,19 +99,23 @@ device_menu(){
 
 desktop_reg_fedora_menu(){
     echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
-    echo "(1) Install packages              (2) Setup system"
+    echo "(1) Install lact                  (2) Install packages"
+    echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
 
     case $input in
 
-
         1)
+            sudo dnf copr enable -y ilyaz/LACT
+            sudo dnf install -y lact
+            ;;
+        2)
             "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/install_packages.sh
             ;;
 
-        2)
+        3)
             "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/configure_system.sh
             ;;
 
