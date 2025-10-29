@@ -3,10 +3,11 @@
 ### shared packages between my devices.
 install_fedora_rpmfusion_packages(){
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    sudo dnf install rpmfusion-free-release-tainted
     sudo dnf install -y vim-enhanced toolbox distrobox openrgb cpu-x remmina isoimagewriter steam steam-devices gamemode.x86_64 \
     gamemode.i686 goverlay virt-manager qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch \
     wget curl flatpak dnf-plugins-core clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump \
-    cockpit-selinux cockpit-session-recording 
+    cockpit-selinux cockpit-session-recording vlc openshot 
 
     sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
 
@@ -15,6 +16,8 @@ install_fedora_rpmfusion_packages(){
 
     sudo dnf swap -y mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
     sudo dnf swap -y mesa-vulkan-drivers.i686 mesa-vulkan-drivers-freeworld.i686
+
+    sudo dnf install -y openh264 gstreamer1-plugin-openh264.i686  gstreamer1-plugin-openh264.x86_64 libdvdcss
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         sudo dnf install -y ptyxis k3b
@@ -78,7 +81,7 @@ install_flatpaks(){
     runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
 
     # misc
-    flatpak install --user -y flathub org.raspberrypi.rpi-imager org.videolan.VLC com.obsproject.Studio org.openshot.OpenShot \
+    flatpak install --user -y flathub org.raspberrypi.rpi-imager org.videolan.VLC com.obsproject.Studio \
     io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes
 
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
