@@ -10,5 +10,5 @@ install_packages(){
 }
 
 "$TOOLS_FOLDER"/modules/post_install/fedora/shared/install_packages.sh
-install_packages
-zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
+#install_packages
+#zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"

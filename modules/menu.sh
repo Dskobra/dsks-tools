@@ -112,7 +112,7 @@ desktop_reg_fedora_menu(){
             sudo dnf install -y lact
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/install_packages.sh
+            "$TOOLS_FOLDER"/modules/post_install/fedora/shared/install_packages.sh
             ;;
 
         3)
@@ -196,11 +196,11 @@ laptop_reg_fedora_menu(){
         1)
             "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/install_nvidia.sh
             ;;
-        1)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/install_packages.sh
+        2)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/shared/install_packages.sh
             ;;
 
-        2)
+        3)
             "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/configure_system.sh
             ;;
 
