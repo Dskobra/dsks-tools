@@ -112,3 +112,4 @@ install_fedora_rpmfusion_packages
 install_other_apps
 install_flatpaks
 cleanup
+zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
