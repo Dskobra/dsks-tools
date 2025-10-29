@@ -7,7 +7,7 @@ install_fedora_rpmfusion_packages(){
     sudo dnf install -y vim-enhanced toolbox distrobox openrgb i2c-tools cpu-x remmina isoimagewriter steam steam-devices gamemode.x86_64 \
     gamemode.i686 goverlay virt-manager qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch \
     zenity wget curl flatpak dnf-plugins-core clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump \
-    cockpit-selinux cockpit-session-recording
+    cockpit-selinux cockpit-session-recording ptyxis
 
     sudo dnf group install -y c-development development-tools container-management
     sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
@@ -15,7 +15,8 @@ install_fedora_rpmfusion_packages(){
 
 install_other_apps(){
     cd "$TOOLS_FOLDER/temp" || exit
-    wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_42.x86_64.rpm"
+    #wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_42.x86_64.rpm"
+    wget https://mega.nz/linux/repo/Fedora_43/x86_64/megasync-Fedora_43.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_43.x86_64.rpm"
     wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
     sudo dnf install -y ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo dnf check-update -y --refresh
     sudo dnf install -y  proton-vpn-gnome-desktop
@@ -24,11 +25,13 @@ install_other_apps(){
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         sudo dnf install -y k3b
-        curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
+        #curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
+        curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller xfburn
-        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
+        #curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
+        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
