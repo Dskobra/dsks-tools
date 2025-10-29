@@ -18,7 +18,7 @@ install_fedora_rpmfusion_packages(){
     sudo dnf swap -y mesa-vulkan-drivers.i686 mesa-vulkan-drivers-freeworld.i686
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
-        sudo rpm-ostree install zenity ptyxis
+        sudo dnf install -y zenity ptyxis
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         sudo dnf install -y i2c-tools kde-partitionmanager
