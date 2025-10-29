@@ -79,6 +79,6 @@ cleanup(){
 
 echo "Desktop is $XDG_CURRENT_DESKTOP"
 install_fedora_rpmfusion_packages
-install_other_app
+install_other_apps
 install_flatpaks
 cleanup
