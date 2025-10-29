@@ -8,7 +8,6 @@ install_fedora_rpmfusion_packages(){
     wget curl flatpak dnf-plugins-core clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump \
     cockpit-selinux cockpit-session-recording 
 
-    sudo dnf group install -y c-development development-tools
     sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
 
     sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
@@ -18,10 +17,11 @@ install_fedora_rpmfusion_packages(){
     sudo dnf swap -y mesa-vulkan-drivers.i686 mesa-vulkan-drivers-freeworld.i686
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
-        sudo dnf install -y zenity ptyxis
+        sudo dnf install -y ptyxis k3b
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
-        sudo dnf install -y i2c-tools kde-partitionmanager
+        sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller xfburn \
+        i2c-tools kde-partitionmanager
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
@@ -40,12 +40,10 @@ install_other_apps(){
 
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
-        sudo dnf install -y k3b
         #curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
         curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
-        sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller xfburn
         #curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
         curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
     else
