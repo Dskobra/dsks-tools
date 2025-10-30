@@ -129,6 +129,7 @@ desktop_reg_fedora_menu(){
         unset input
         desktop_reg_fedora_menu
 }
+
 laptop_reg_fedora_menu(){
     echo "        ---Setup LAPTOP /W Fedora (non atomic)---"
     echo "(1) Nvidia Driver                 (2) Install packages"
@@ -168,7 +169,6 @@ laptop_reg_fedora_menu(){
         unset input
         laptop_reg_fedora_menu
 }
-
 
 minipc_reg_fedora_menu(){
     echo "        ---Setup MiniPC /W Fedora (non atomic)---"
