@@ -28,12 +28,14 @@ ostree_check(){
     if [ -z  "$OSTREE_VER" ]
     then
         echo "Not running Fedora atomic"
-        #git clone https://github.com/dskobra/dsks-tools -b fedora
-        "$TOOLS_FOLDER"/modules/post_install/temp/menu.sh
+        git clone https://github.com/dskobra/dsks-tools -b fedora
+        mv dsks-tools fedora
+        "$TOOLS_FOLDER"/modules/post_install/fedora/menu.sh
     else
         echo "Running atomic version $OSTREE_VER"
-        #git clone https://github.com/dskobra/dsks-tools -b fedora-atomic
-        #"$TOOLS_FOLDER"/modules/post_install/temp/menu.sh
+        git clone https://github.com/dskobra/dsks-tools -b fedora-atomic
+        mv dsks-tools fedora-atomic
+        "$TOOLS_FOLDER"/modules/post_install/fedora-atomic/menu.sh
     fi
 
 }
