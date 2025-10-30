@@ -18,7 +18,7 @@ main_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/distro/post-menu
+            "$TOOLS_FOLDER"/modules/post-install/distro/post-menu.sh
             ;;
 
         2)
