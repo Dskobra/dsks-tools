@@ -1,49 +1,5 @@
 #!/usr/bin/bash
 
-main_menu(){
-    echo "------------------"   
-    echo "|   DSK's Tools  |"
-    echo "------------------" 
-    echo ""
-    echo "$COPYRIGHT"
-    echo "Released under the MIT license"
-    echo ""
-    echo ""
-    echo "(1) Device_menu                        (2) Various Fixes"
-    echo "(3) Containers"
-    echo "(0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            device_menu
-            ;;
-
-        2)
-            fixes_menu
-            ;;
-
-        3)
-            containers_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            main_menu
-            ;;
-
-        esac
-        unset input
-        main_menu
-}
-
 device_menu(){
     echo "------------------"
     echo "|   Devices      |"
@@ -103,11 +59,11 @@ desktop_reg_fedora_menu(){
             sudo dnf install -y lact
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/shared/install_packages.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/shared/install_packages.sh
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/configure_system.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/configure_system.sh
             ;;
 
 
@@ -141,14 +97,14 @@ laptop_reg_fedora_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/install_nvidia.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/LAPTOP/install_nvidia.sh
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/shared/install_packages.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/shared/install_packages.sh
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/LAPTOP/configure_system.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/LAPTOP/configure_system.sh
             ;;
 
         m | M )
@@ -182,15 +138,15 @@ minipc_reg_fedora_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/MINIPC/install_packages.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/MINIPC/install_packages.sh
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/MINIPC/configure_hardware.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/MINIPC/configure_hardware.sh
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post_install/fedora/MINIPC/configure_system.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/MINIPC/configure_system.sh
             ;;
 
         m | M )
@@ -212,4 +168,4 @@ minipc_reg_fedora_menu(){
         minipc_reg_fedora_menu
 }
 
-main_menu
+device_menu
