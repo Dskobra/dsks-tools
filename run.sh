@@ -15,8 +15,8 @@ distro_check(){
 fedora_release_check(){
     if [ "$DISTRO_VER" == "42" ] || [ "$DISTRO_VER" == "43" ]
     then
-        #ostree_check
-        "$TOOLS_FOLDER"/modules/menu.sh
+        ostree_check
+        #"$TOOLS_FOLDER"/modules/menu.sh
     else
         echo "These scripts only support Fedora 42/43."
     fi
@@ -24,16 +24,16 @@ fedora_release_check(){
 }
 
 ostree_check(){
-    cd "$TOOLS_FOLDER"/modules/post_install/temp/ || exit
+    cd "$TOOLS_FOLDER"/modules/post_install/ || exit
     if [ -z  "$OSTREE_VER" ]
     then
         echo "Not running Fedora atomic"
-        git clone https://github.com/dskobra/dsks-tools -b nonatomic
+        #git clone https://github.com/dskobra/dsks-tools -b fedora
         "$TOOLS_FOLDER"/modules/post_install/temp/menu.sh
     else
         echo "Running atomic version $OSTREE_VER"
-        git clone https://github.com/dskobra/dsks-tools -b atomic
-        "$TOOLS_FOLDER"/modules/post_install/temp/menu.sh
+        #git clone https://github.com/dskobra/dsks-tools -b fedora-atomic
+        #"$TOOLS_FOLDER"/modules/post_install/temp/menu.sh
     fi
 
 }
