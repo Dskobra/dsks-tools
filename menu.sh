@@ -88,6 +88,47 @@ device_menu(){
         device_menu
 }
 
+desktop_reg_fedora_menu(){
+    echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
+    echo "(1) Install lact                  (2) Install packages"
+    echo "(3) Setup system"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            sudo dnf copr enable -y ilyaz/LACT
+            sudo dnf install -y lact
+            ;;
+        2)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/shared/install_packages.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post_install/fedora/DESKTOP/configure_system.sh
+            ;;
+
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            desktop_reg_fedora_menu
+            ;;
+
+        esac
+        unset input
+        desktop_reg_fedora_menu
+}
 laptop_reg_fedora_menu(){
     echo "        ---Setup LAPTOP /W Fedora (non atomic)---"
     echo "(1) Nvidia Driver                 (2) Install packages"
