@@ -24,7 +24,7 @@ fedora_release_check(){
 }
 
 ostree_check(){
-    cd "$TOOLS_FOLDER"/modules/post_install/ || exit
+    cd "$TOOLS_FOLDER"/modules/post-install/ || exit
     if [ -z  "$OSTREE_VER" ]
     then
         echo "Not running Fedora atomic"
