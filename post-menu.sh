@@ -5,9 +5,9 @@ device_menu(){
     echo "|   Devices      |"
     echo "------------------"
     echo ""
-    echo "-------------------------Fedora-------------------------"
+    echo "-------------------------Fedora (non atomic)-------------------------"
     echo "========================================================================="
-    echo "(1) Desktop Fedora (non atomic)        (2) Laptop Fedora (non atomic)"
+    echo "(1) Desktop                            (2) Laptop"
     echo "(4) MiniPC"
     echo "========================================================================="
     echo "(m) Main Menu                          (0) Exit"
@@ -18,15 +18,19 @@ device_menu(){
     case $input in
 
         1)
-            desktop_reg_fedora_menu
+            desktop
             ;;
 
         2)
-            laptop_reg_fedora_menu
+            laptop
+            ;;
+
+        3)
+            minipc
             ;;
 
         m | M)
-            main_menu
+            "$TOOLS_FOLDER"/modules/menu.sh
             ;;
 
         0)
@@ -44,7 +48,7 @@ device_menu(){
         device_menu
 }
 
-desktop_reg_fedora_menu(){
+desktop(){
     echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
     echo "(1) Install lact                  (2) Install packages"
     echo "(3) Setup system"
@@ -68,7 +72,7 @@ desktop_reg_fedora_menu(){
 
 
         m | M )
-            main_menu
+            "$TOOLS_FOLDER"/modules/menu.sh
             ;;
 
         0)
@@ -78,15 +82,15 @@ desktop_reg_fedora_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            desktop_reg_fedora_menu
+            desktop
             ;;
 
         esac
         unset input
-        desktop_reg_fedora_menu
+        desktop
 }
 
-laptop_reg_fedora_menu(){
+laptop(){
     echo "        ---Setup LAPTOP /W Fedora (non atomic)---"
     echo "(1) Nvidia Driver                 (2) Install packages"
     echo "(3) Setup system"
@@ -108,7 +112,7 @@ laptop_reg_fedora_menu(){
             ;;
 
         m | M )
-            main_menu
+            "$TOOLS_FOLDER"/modules/menu.sh
             ;;
 
         0)
@@ -118,15 +122,15 @@ laptop_reg_fedora_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            laptop_reg_fedora_menu
+            laptop
             ;;
 
         esac
         unset input
-        laptop_reg_fedora_menu
+        laptop
 }
 
-minipc_reg_fedora_menu(){
+minipc(){
     echo "        ---Setup MiniPC /W Fedora (non atomic)---"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system"
@@ -150,7 +154,7 @@ minipc_reg_fedora_menu(){
             ;;
 
         m | M )
-            main_menu
+            "$TOOLS_FOLDER"/modules/menu.sh
             ;;
 
         0)
@@ -160,12 +164,12 @@ minipc_reg_fedora_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            minipc_reg_fedora_menu
+            minipc
             ;;
 
         esac
         unset input
-        minipc_reg_fedora_menu
+        minipc
 }
 
 device_menu

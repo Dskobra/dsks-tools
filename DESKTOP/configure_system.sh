@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-"$TOOLS_FOLDER"/modules/post_install/fedora/shared/configure_system.sh
+"$TOOLS_FOLDER"/modules/post-install/distro/shared/configure_system.sh
 configure_drives(){
     ## setup drive mount points/permissions
     mkdir /home/jordan/Drives/
