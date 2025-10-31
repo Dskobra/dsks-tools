@@ -7,7 +7,7 @@ distro_check(){
     then
         fedora_release_check
     else
-        echo "Unfortunately, '$DISTRO_NAME $DISTRO_VER' is not a supported distro."
+        echo "Unupported distro."
     fi
 
 }
@@ -41,4 +41,21 @@ ostree_check(){
 
 }
 
-distro_check
+game_profiles(){
+    cd "$TOOLS_FOLDER"/modules/ || exit
+    rm -r -f game-profiles
+    git clone https://github.com/dskobra/dsks-tools -b mangohud
+    mv dsks-tools game-profiles
+
+}
+
+
+if [ "$1" == "distro" ]
+then
+    distro_check
+elif [ "$1" == "game-profiles" ]
+then
+    game_profiles
+else
+    echo "error"
+fi
