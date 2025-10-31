@@ -72,7 +72,7 @@ desktop(){
 
 
         m | M )
-            "$TOOLS_FOLDER"/modules/menu.sh
+            "$TOOLS_FOLDER"/modules/core/menu.sh
             ;;
 
         0)
@@ -112,7 +112,7 @@ laptop(){
             ;;
 
         m | M )
-            "$TOOLS_FOLDER"/modules/menu.sh
+            "$TOOLS_FOLDER"/modules/core/menu.sh
             ;;
 
         0)
@@ -154,7 +154,7 @@ minipc(){
             ;;
 
         m | M )
-            "$TOOLS_FOLDER"/modules/menu.sh
+            "$TOOLS_FOLDER"/modules/core/menu.sh
             ;;
 
         0)
