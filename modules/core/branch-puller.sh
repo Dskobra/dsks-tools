@@ -1,6 +1,18 @@
 #!/usr/bin/bash
 
 # checks what distro then pulls it from a sub branch
+
+CHECK_DISTRO_FOLDER(){
+    cd "$TOOLS_FOLDER"/modules/ || exit
+    DISTRO_FOLDER="$TOOLS_FOLDER"/modules/post-install/distro
+    if [ -d "$DISTRO_FOLDER" ]; then
+        cd "$DISTRO_FOLDER" || exit
+        git stash
+        git pull
+    else
+        distro_check
+    fi
+}
 distro_check(){
     # check if fedora
     if [ "$DISTRO_NAME" == "fedora" ]
@@ -43,16 +55,21 @@ ostree_check(){
 
 game_profiles(){
     cd "$TOOLS_FOLDER"/modules/ || exit
-    rm -r -f game-profiles
-    git clone https://github.com/dskobra/dsks-tools -b mangohud
-    mv dsks-tools game-profiles
-
+    PROFILES_FOLDER="$TOOLS_FOLDER"/modules/game-profiles/
+    if [ -d "$PROFILES_FOLDER" ]; then
+        cd "$PROFILES_FOLDER" || exit
+        git stash
+        git pull
+    else
+        git clone https://github.com/dskobra/dsks-tools -b mangohud
+        mv dsks-tools game-profiles
+    fi
 }
 
 
 if [ "$1" == "distro" ]
 then
-    distro_check
+    CHECK_DISTRO_FOLDER
 elif [ "$1" == "game-profiles" ]
 then
     game_profiles
