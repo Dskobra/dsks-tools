@@ -30,7 +30,7 @@ device_menu(){
             ;;
 
         m | M)
-            "$TOOLS_FOLDER"/modules/menu.sh
+            "$TOOLS_FOLDER"/modules/core/menu.sh
             ;;
 
         0)
