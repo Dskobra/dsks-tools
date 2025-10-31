@@ -13,6 +13,7 @@ CHECK_DISTRO_FOLDER(){
         distro_check
     fi
 }
+
 distro_check(){
     # check if fedora
     if [ "$DISTRO_NAME" == "fedora" ]
@@ -28,7 +29,6 @@ fedora_release_check(){
     if [ "$DISTRO_VER" == "42" ] || [ "$DISTRO_VER" == "43" ]
     then
         ostree_check
-        #"$TOOLS_FOLDER"/modules/menu.sh
     else
         echo "These scripts only support Fedora 42/43."
     fi
@@ -49,7 +49,6 @@ ostree_check(){
         git clone https://github.com/dskobra/dsks-tools -b fedora-atomic
         mv dsks-tools distro
     fi
-    "$TOOLS_FOLDER"/modules/post-install/distro/post-menu.sh
 
 }
 
@@ -70,6 +69,7 @@ game_profiles(){
 if [ "$1" == "distro" ]
 then
     CHECK_DISTRO_FOLDER
+    "$TOOLS_FOLDER"/modules/post-install/distro/post-menu.sh
 elif [ "$1" == "game-profiles" ]
 then
     game_profiles
