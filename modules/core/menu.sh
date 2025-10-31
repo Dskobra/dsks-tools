@@ -18,7 +18,7 @@ main_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/distro/post-menu.sh
+            "$TOOLS_FOLDER"/modules/core/branch-puller.sh
             ;;
 
         2)
