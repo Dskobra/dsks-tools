@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+# Sometimes apps built with electron will display a blank window
+# when open opened. clearing the apps gpu cache fixes it.
+gcache(){
+    # brave-browser from rpm and flatpak (user)
+    rm -r ~/.config/BraveSoftware/Brave-Browser/Default/GPUCache/
+    rm -r ~/.var/app/com.brave.Browser/config/BraveSoftware/Brave-Browser/Default/GPUCache/
+
+    # discord from rpm/tarball and flatpak (user)
+    rm -r ~/.config/discord/GPUCache/
+    rm -r ~/.var/app/com.discordapp.Discord/config/discord/GPUCache/
+
+    # wowup, raider.io and warcraft logs 3rd party world of warcraft
+    # addons/services
+    rm -r ~/config/WowUpCf/GPUCache/
+    rm -r ~/.config/RaiderIO/GPUCache/
+    rm -r ~/.config/"Warcraft Logs Uploader"/GPUCache/
+
+
+}
+
+gcache
+

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Comment=Launch XIVLauncher w mangohud
+Version=1.0
+Type=Application
+Terminal=false
+Exec=mangohud flatpak run dev.goats.xivlauncher
+PrefersNonDefaultGPU=false
+Name=XIVFPS
+Icon=dev.goats.xivlauncher
+Categories=Game;
