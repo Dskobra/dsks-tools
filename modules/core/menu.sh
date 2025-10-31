@@ -10,7 +10,7 @@ main_menu(){
     echo ""
     echo ""
     echo "(1) Device_menu                        (2) Various Fixes"
-    echo "(3) Containers"
+    echo "(3) Containers                         (4) Game profiles"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -18,7 +18,7 @@ main_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/core/branch-puller.sh
+            "$TOOLS_FOLDER"/modules/core/branch-puller.sh "distro"
             ;;
 
         2)
@@ -27,6 +27,10 @@ main_menu(){
 
         3)
             containers_menu
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/modules/core/branch-puller.sh "game-profiles"
             ;;
 
         0)
