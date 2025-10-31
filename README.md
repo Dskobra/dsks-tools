@@ -1,2 +1,2 @@
 # dsks-tools
-Collection of scripts for automating the setup of my computers or whatever I'm feeling atm. :P
+sub branch containing auto tools for setting up fedora editions on my pc.
