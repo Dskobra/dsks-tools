@@ -15,5 +15,5 @@ configure_drives(){
 }
 
 configure_drives
-cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
+cp -r "$TOOLS_FOLDER/modules/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
 sudo rpm-ostree kargs --append="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff crashkernel=512M"

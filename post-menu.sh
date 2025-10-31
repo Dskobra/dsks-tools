@@ -5,11 +5,9 @@ device_menu(){
     echo "|   Devices      |"
     echo "------------------"
     echo ""
-    echo "-------------------------Fedora-------------------------"
+    echo "-------------------------Fedora atomic-------------------------"
     echo "========================================================================="
-    echo "(1) Desktop Fedora (non atomic)        (2) Desktop Fedora Atomic "
-    echo "(3) Laptop Fedora (non atomic)         (4) Laptop Fedora Atomic"
-    echo "(4) MiniPC"
+    echo "(1) Desktop Fedora Atomic              (2) Laptop Fedora Atomic"
     echo "========================================================================="
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
@@ -19,23 +17,15 @@ device_menu(){
     case $input in
 
         1)
-            desktop_reg_fedora_menu
-            ;;
-
-        2)
             desktop_menu
             ;;
 
-        3)
-            laptop_reg_fedora_menu
-            ;;
-
-        4)
+        2)
             laptop_menu
             ;;
 
         m | M)
-            main_menu
+            "$TOOLS_FOLDER"/modules/core/menu.sh
             ;;
 
         0)
@@ -79,7 +69,7 @@ desktop_menu(){
             ;;
 
         m | M )
-            main_menu
+            "$TOOLS_FOLDER"/modules/core/menu.sh
             ;;
 
         0)
@@ -122,7 +112,7 @@ laptop_menu(){
             ;;
 
         m | M )
-            main_menu
+            "$TOOLS_FOLDER"/modules/core/menu.sh
             ;;
 
         0)

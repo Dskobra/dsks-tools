@@ -9,6 +9,6 @@ attempt_to_install_broken_apps(){
 
 }
 
-"$TOOLS_FOLDER"/modules/post_install/fedora-atomic/shared/install_packages.sh
+"$TOOLS_FOLDER"/modules/post-install/distro/shared/install_packages.sh
 attempt_to_install_broken_apps
 zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
