@@ -3,10 +3,10 @@ install_packages(){
     sudo dnf install -y httpd clamav clamav-update clamd firewall-applet \
     gnome-extensions-app gnome-shell-extension-appindicator gnome-tweaks dconf-editor
 }
-"$TOOLS_FOLDER"/modules/post-install/distro/minipc/hardware.sh
+"$TOOLS_FOLDER"/modules/post-install/distro/minipc/configure-hardware.sh
 
 ##########----------system----------##########
-"$TOOLS_FOLDER"/modules/post-install/distro/shared/configure_system.sh
+"$TOOLS_FOLDER"/modules/post-install/distro/shared/configure-system.sh
 hostnamectl set-hostname MINIPC
 
 sudo firewall-cmd --permanent --add-service=http

@@ -9,6 +9,6 @@ install_packages(){
     sudo dracut --regenerate-all --force
 }
 
-"$TOOLS_FOLDER"/modules/post-install/distro/shared/install_packages.sh
+"$TOOLS_FOLDER"/modules/post-install/distro/shared/install-packages.sh
 #install_packages
 #zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
