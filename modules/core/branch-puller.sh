@@ -43,11 +43,13 @@ ostree_check(){
         rm -r -f distro
         git clone https://github.com/dskobra/dsks-tools -b fedora
         mv dsks-tools distro
+        FEDORA_VARIANT="fedora"
     else
         echo "Running atomic version $OSTREE_VER"
         rm -r -f distro
         git clone https://github.com/dskobra/dsks-tools -b fedora-atomic
         mv dsks-tools distro
+        FEDORA_VARIANT="atomic"
     fi
 
 }
@@ -65,11 +67,11 @@ game_profiles(){
     fi
 }
 
-
+FEDORA_VARIANT=""
 if [ "$1" == "distro" ]
 then
     CHECK_DISTRO_FOLDER
-    "$TOOLS_FOLDER"/modules/post-install/distro/post-menu.sh
+    "$TOOLS_FOLDER"/modules/post-install/distro/post-menu.sh "$FEDORA_VARIANT"
 elif [ "$1" == "game-profiles" ]
 then
     game_profiles
