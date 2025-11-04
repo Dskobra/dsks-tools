@@ -33,11 +33,11 @@ install_flatpaks(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 
     # most important
-    flatpak install --user -y flathub com.github.tchx84.Flatseal org.mozilla.firefox org.cockpit_project.CockpitClient
+    flatpak install --user -y flathub com.github.tchx84.Flatseal
 
     # tools
     flatpak install --user -y flathub  io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
-    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks app.devsuite.Ptyxis
+    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks
 
     # entertainment
     flatpak install --user -y flathub net.lutris.Lutris info.cemu.Cemu org.DolphinEmu.dolphin-emu \
@@ -45,17 +45,17 @@ install_flatpaks(){
     runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
 
     # misc
-    flatpak install --user -y flathub org.raspberrypi.rpi-imager com.obsproject.Studio io.podman_desktop.PodmanDesktop \
-    org.qownnotes.QOwnNotes
+    flatpak install --user -y flathub org.raspberrypi.rpi-imager org.videolan.VLC com.obsproject.Studio \
+    io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes
 
-    if [ "$DESKTOP_TYPE" == "KDE" ]
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         echo ""
-    elif [ "$DESKTOP_TYPE" == "GNOME" ]
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
-       flatpak install --user -y flathub com.mattjakeman.ExtensionManager org.kde.kleopatra
+       flatpak install --user -y flathub com.mattjakeman.ExtensionManager
     else
-        echo "$DESKTOP_TYPE is not supported."
+        echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
 }
 
