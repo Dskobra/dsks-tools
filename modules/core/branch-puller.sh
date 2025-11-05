@@ -49,7 +49,7 @@ ostree_check(){
     else
         echo "Running atomic version $OSTREE_VER"
         rm -r -f distro
-        git clone https://github.com/dskobra/dsks-tools -b fedora-atomic
+        git clone https://github.com/dskobra/dsks-tools -b fedora
         mv dsks-tools distro
         EDITION="atomic"
         echo $EDITION > "$TOOLS_FOLDER"/.edition.txt
