@@ -69,3 +69,4 @@ cd "$TOOLS_FOLDER"/temp || exit
 install_fedora_rpmfusion_packages
 install_other_apps
 install_flatpaks
+zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"

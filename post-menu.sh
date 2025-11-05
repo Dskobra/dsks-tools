@@ -217,25 +217,30 @@ atomic_menu(){
 
 desktop_atomic_menu(){
     echo "        ---Setup DESKTOP /W Fedora atomic---"
-    echo "(1) Install packages              (2) Setup hardware"
-    echo "(3) Setup system"
+    echo "(1) Lact                          (2) Install packages"
+    echo "(3) Setup hardware                (4) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
 
     case $input in
 
-
         1)
+            flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
+            flatpak install --user -y flathub io.github.ilya_zlobintsev.LACT
+            ;;
+
+
+        2)
             "$TOOLS_FOLDER"/modules/post-install/distro/shared/cleanup-atomic.sh
             "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/install-atomic-packages.sh
             ;;
 
-        2)
+        3)
             "$TOOLS_FOLDER"/modules/post-install/distro/shared/configure-atomic-hardware.sh
             ;;
 
-        3)
+        4)
             "$TOOLS_FOLDER"/modules/post-install/distro/shared/configure-atomic-system.sh
             "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/configure-atomic-system.sh
             ;;
@@ -261,25 +266,28 @@ desktop_atomic_menu(){
 
 laptop_atomic_menu(){
     echo "        ---Setup LAPTOP /W Fedora atomic---"
-    echo "(1) Install packages              (2) Setup hardware"
-    echo "(3) Setup system"
+    echo "(1) Nvidia Driver                 (2) Install packages"
+    echo "(3) Setup hardware                (4) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
 
     case $input in
 
-
         1)
-            "$TOOLS_FOLDER"/modules/post-install/distro/shared/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/distro/LAPTOP/install-atomic-packages.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/LAPTOP/install-atomic-nvidia.sh
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post-install/distro/shared/configure-atomic-hardware.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/shared/cleanup-atomic.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/shared/install-atomic-packages.sh
             ;;
 
         3)
+            "$TOOLS_FOLDER"/modules/post-install/distro/shared/configure-atomic-hardware.sh
+            ;;
+
+        4)
             "$TOOLS_FOLDER"/modules/post-install/distro/LAPTOP/configure-atomic-system.sh
             ;;
 

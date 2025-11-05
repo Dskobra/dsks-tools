@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-attempt_to_install_broken_apps(){
+install_nvidia(){
     # dev tools are sometimes broken due to mismatches
     #sudo sh -c 'echo "%_with_kmod_nvidia_open 1" > /etc/rpm/macros.nvidia-kmod'
     #sudo rpm-ostree install rpmfusion-nonfree-release-tainted
@@ -9,6 +9,4 @@ attempt_to_install_broken_apps(){
 
 }
 
-"$TOOLS_FOLDER"/modules/post-install/distro/shared/install-atomic-packages.sh
-attempt_to_install_broken_apps
-zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
+install_nvidia
