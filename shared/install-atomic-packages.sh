@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-install_fedora_rpmfusion_packages(){
+install_atomic_rpmfusion_packages(){
     sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
@@ -15,7 +15,7 @@ install_fedora_rpmfusion_packages(){
     sudo rpm-ostree apply-live
 }
 
-install_other_apps(){
+install_atomic_third_party_apps(){
     # distrobox
     curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
 

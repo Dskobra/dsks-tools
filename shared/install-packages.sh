@@ -1,7 +1,9 @@
 #!/usr/bin/bash
 
-### shared packages between my devices.
-install_fedora_rpmfusion_packages(){
+################################
+### section for fedora non atomic.
+################################
+install_nonatomic_rpmfusion_packages(){
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y rpmfusion-free-release-tainted
     sudo dnf install -y vim-enhanced toolbox distrobox openrgb cpu-x remmina isoimagewriter steam steam-devices gamemode.x86_64 \
@@ -38,7 +40,7 @@ install_fedora_rpmfusion_packages(){
 
 }
 
-install_other_apps(){
+install_nonatomic_third_party_apps(){
     cd "$TOOLS_FOLDER/temp" || exit
     sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
     sudo dnf install -y brave-browser
@@ -73,6 +75,51 @@ install_other_apps(){
     source ~/.bashrc
     nvm install lts/*
 }
+
+################################
+### end section
+################################
+
+################################
+### section for fedora atomic.
+################################
+install_atomic_rpmfusion_packages(){
+    sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
+    then
+        sudo rpm-ostree install virt-manager openrgb firewall-applet zenity cockpit-ws cockpit-selinux cockpit-ostree cockpit-kdump cockpit-files 
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
+    then
+        sudo rpm-ostree install virt-manager openrgb firewall-applet i2c-tools kde-partitionmanager cockpit-ws cockpit-selinux cockpit-ostree \
+        cockpit-kdump cockpit-files 
+    else
+        echo "$XDG_CURRENT_DESKTOP is not supported."
+    fi
+    sudo rpm-ostree apply-live
+}
+
+install_atomic_third_party_apps(){
+    # distrobox
+    curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+
+    # install nodejs
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+    source ~/.bashrc
+    nvm install lts/*
+
+    cd "$TOOLS_FOLDER"/temp || exit
+    wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
+    sudo rpm-ostree install *.rpm
+    sudo rpm-ostree apply-live
+    sudo rpm-ostree refresh-md && sudo rpm-ostree install proton-vpn-gnome-desktop
+}
+
+################################
+### end section
+################################
+
+
 install_flatpaks(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -103,13 +150,21 @@ install_flatpaks(){
     fi
 }
 
-cleanup(){
-    sudo dnf remove -y firefox firefox-langpacks vlc libreoffice*
-}
-
 echo "Desktop is $XDG_CURRENT_DESKTOP"
-install_fedora_rpmfusion_packages
-install_other_apps
+cd "$TOOLS_FOLDER"/temp || exit
+if [ "$1" == "nonatomic" ]
+then
+    install_nonatomic_rpmfusion_packages
+    install_nonatomic_third_party_apps
+    install_flatpaks
+    sudo dnf remove -y libreoffice*
+elif [ "$1" == "atomic" ]
+then
+    echo "Unfinished"
+    #install_atomic_rpmfusion_packages
+else
+    echo "error"
+fi
+
 install_flatpaks
-cleanup
 zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"

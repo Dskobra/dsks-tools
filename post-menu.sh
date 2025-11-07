@@ -63,7 +63,7 @@ desktop_reg_fedora(){
             sudo dnf install -y lact
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/distro/shared/install-packages.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/shared/install-packages.sh "nonatomic"
             ;;
 
         3)
@@ -104,7 +104,7 @@ laptop_reg_fedora(){
             "$TOOLS_FOLDER"/modules/post-install/distro/LAPTOP/install-nvidia.sh
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/distro/shared/install-packages.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/shared/install-packages.sh "nonatomic"
             ;;
 
         3)
@@ -233,7 +233,7 @@ desktop_atomic_menu(){
 
         2)
             "$TOOLS_FOLDER"/modules/post-install/distro/shared/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/install-atomic-packages.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/install-atomic-packages.sh "atomic"
             ;;
 
         3)
