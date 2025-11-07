@@ -156,12 +156,12 @@ if [ "$1" == "nonatomic" ]
 then
     install_nonatomic_rpmfusion_packages
     install_nonatomic_third_party_apps
-    install_flatpaks
     sudo dnf remove -y libreoffice*
 elif [ "$1" == "atomic" ]
 then
     echo "Unfinished"
-    #install_atomic_rpmfusion_packages
+    install_atomic_rpmfusion_packages
+    install_atomic_third_party_apps
 else
     echo "error"
 fi
