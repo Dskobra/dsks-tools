@@ -280,7 +280,7 @@ laptop_atomic_menu(){
 
         2)
             "$TOOLS_FOLDER"/modules/post-install/distro/shared/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/distro/shared/install-atomic-packages.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/shared/install-packages.sh "atomic"
             ;;
 
         3)

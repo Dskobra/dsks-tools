@@ -1,12 +1,7 @@
 #!/usr/bin/bash
-configure_security(){
-    sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
-    sudo freshclam
-    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
-    sudo semanage boolean -m -1 antivirus_can_scan_system
-
+configure_system(){
+    # general configuration for both atomic and non atomic go here
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
-
     sudo firewall-cmd --set-default-zone=home
     sudo firewall-cmd --permanent --add-service=kdeconnect
     sudo firewall-cmd --permanent --add-service=cockpit
@@ -15,23 +10,55 @@ configure_security(){
     sudo firewall-cmd --set-log-denied=all
     sudo firewall-cmd --reload
     sudo systemctl enable --now sshd
+    sudo systemctl enable --now libvirtd
     sudo systemctl enable --now cockpit.socket
-}
+    
 
-configure_system_settings(){
-    # set zram swap from default 8gb to 16gb
-    sudo cp /usr/lib/systemd/zram-generator.conf /usr/lib/systemd/zram-generator.conf.bak
-    sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
-    # Default Fedora hides the grub menu. I prefer it visible (like having the option when testing new kernels, nvidia driver breaks
-    # or just cause)
-
+    # Unhide grub menu (hidden by default)
     sudo grub2-editenv - unset menu_auto_hide
-    sudo usermod -aG libvirt "$USER"
+
+    # Load ntsync kernel mod and set it to auto load.
     sudo modprobe ntsync
     sudo touch /etc/modules-load.d/ntsync.conf
     echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
-    sudo sed -i '/GRUB_TIMEOUT=5/c GRUB_TIMEOUT=12' /etc/default/grub
+
+    sudo usermod -aG libvirt "$USER"
+
+    mkdir "$HOME"/.local/share/applications/
+    cp "$TOOLS_FOLDER/modules/configs/shortcuts/XIVFPS.desktop" "$HOME"/.local/share/applications/XIVFPS.desktop
+    npm i -g bash-language-server
 }
+
+configure_nonatomic_system(){
+    # set zram swap from default 8gb to 16gb
+    sudo cp /usr/lib/systemd/zram-generator.conf /usr/lib/systemd/zram-generator.conf.bak
+    sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
+
+    sudo sed -i '/GRUB_TIMEOUT=5/c GRUB_TIMEOUT=12' /etc/default/grub
+
+    # setup clamav daemon
+    sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
+    sudo freshclam
+    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
+    sudo semanage boolean -m -1 antivirus_can_scan_system
+}
+
+
+configure_atomic_system_settings(){
+    # set zram swap from default 8gb to 16gb
+    cd "$TOOLS_FOLDER"/temp || exit
+    touch zram-generator.conf
+    echo "[zram0]" >> zram-generator.conf
+    echo "zram-size = min(ram, 16500)" >> zram-generator.conf
+    sudo mv zram-generator.conf /etc/systemd/zram-generator.conf
+
+    # set time grub takes before auto selecting boot entry
+    echo "set timeout=12" | sudo tee /boot/grub2/user.cfg > /dev/null
+
+    # https://docs.fedoraproject.org/en-US/fedora-silverblue/troubleshooting/#_unable_to_add_user_to_group
+    grep -E '^libvirt:' /usr/lib/group | sudo tee -a /etc/group
+}
+
 configure_yaru_icon_pack(){
     cd "$TOOLS_FOLDER"/modules/configs/icons || exit
     unzip yaru-icon-repack.zip
@@ -52,14 +79,22 @@ personalize_desktop(){
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
 }
+
 flatpak_overrides(){
     flatpak override net.lutris.Lutris --user --filesystem=xdg-config/MangoHud:ro
     flatpak override dev.goats.xivlauncher --user --filesystem=xdg-config/MangoHud:ro
 }
-configure_security
-configure_system_settings
-flatpak_overrides
+
+if [ "$1" == "nonatomic" ]
+then
+    configure_nonatomic_system
+
+elif [ "$1" == "atomic" ]
+then
+    configure_atomic_system_settings
+else
+    echo "error"
+fi
+configure_system
 personalize_desktop
-mkdir "$HOME"/.local/share/applications/
-cp "$TOOLS_FOLDER/modules/configs/shortcuts/XIVFPS.desktop" "$HOME"/.local/share/applications/XIVFPS.desktop
-npm i -g bash-language-server
+flatpak_overrides
