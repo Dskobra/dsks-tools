@@ -6,19 +6,20 @@ install_packages(){
     patterns-containers-container_runtime distrobox OpenRGB cpu-x remmina steam steam-devices gamemode goverlay \
     virt-manager docker-compose-switch ShellCheck clamav firewall-applet i2c-tools python313-python-lsp-server \
     systemd-zram-service zram-generator v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload \
-    python313-devel opi vlc discord kdump
+    python313-devel opi vlc kdump
 
     sudo opi -n megasync
     sudo opi -n brave
 
-    if [ "$DESKTOP_TYPE" == "KDE" ]
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         sudo zypper -n install k3b kate kate-plugins kdiff3 kleopatra
-    elif [ "$DESKTOP_TYPE" == "GNOME" ]
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
-        sudo zypper -n install gnome-tweaks dconf-editor file-roller xfburn snapshot yaru-icon-theme
+        sudo zypper -n install gnome-tweaks dconf-editor file-roller xfburn snapshot yaru-icon-theme \
+        kde-partitionmanager
     else
-        echo "$DESKTOP_TYPE is not supported."
+        echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
     curl -L -o proton-mail.rpm https://proton.me/download/mail/linux/1.9.0/ProtonMail-desktop-beta.rpm
     curl -L -o proton-pass.rpm https://proton.me/download/pass/linux/proton-pass-1.32.3-1.x86_64.rpm
