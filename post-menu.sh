@@ -168,7 +168,7 @@ minipc(){
         minipc
 }
 
-if [ "$1" == "tumbleweed" ]
+if [ "$1" == "opensuse" ]
 then
     tumbleweed_menu
 else
