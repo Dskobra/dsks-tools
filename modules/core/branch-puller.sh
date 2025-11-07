@@ -3,8 +3,6 @@
 # checks what distro then pulls it from a sub branch
 
 CHECK_DISTRO_FOLDER(){
-    cd "$TOOLS_FOLDER"/modules/ || exit
-    DISTRO_FOLDER="$TOOLS_FOLDER"/modules/post-install/distro
     if [ -d "$DISTRO_FOLDER" ]; then
         cd "$DISTRO_FOLDER" || exit
         git stash
@@ -17,18 +15,19 @@ CHECK_DISTRO_FOLDER(){
 
 distro_check(){
     # check if fedora
+    cd "$TOOLS_FOLDER"/modules/post-install/ || exit
     if [ "$DISTRO_NAME" == "fedora" ]
     then
         fedora_release_check
-    elif [ "$DISTRO" == "opensuse-tumbleweed" ]
+    elif [ "$DISTRO_NAME" == "opensuse-tumbleweed" ]
     then
-        rm -r -f distro
         git clone https://github.com/dskobra/dsks-tools -b opensuse
         mv dsks-tools distro
         EDITION="opensuse"
-        echo $EDITION > "$TOOLS_FOLDER"/.edition.txt
+        echo $EDITION > "$TOOLS_FOLDER"/.edition.txt   
     else
         echo "Unupported distro."
+        "$TOOLS_FOLDER"/modules/core/menu.sh
     fi
 }
 
@@ -38,6 +37,7 @@ fedora_release_check(){
         ostree_check
     else
         echo "These scripts only support Fedora 42/43."
+        "$TOOLS_FOLDER"/modules/core/menu.sh
     fi
 
 }
@@ -47,14 +47,12 @@ ostree_check(){
     if [ -z  "$OSTREE_VER" ]
     then
         echo "Not running Fedora atomic"
-        rm -r -f distro
         git clone https://github.com/dskobra/dsks-tools -b fedora
         mv dsks-tools distro
         EDITION="fedora"
         echo $EDITION > "$TOOLS_FOLDER"/.edition.txt
     else
         echo "Running atomic version $OSTREE_VER"
-        rm -r -f distro
         git clone https://github.com/dskobra/dsks-tools -b fedora
         mv dsks-tools distro
         EDITION="atomic"
@@ -80,6 +78,7 @@ EDITION=""
 if [ "$1" == "distro" ]
 then
     CHECK_DISTRO_FOLDER
+    cd "$DISTRO_FOLDER" || exit
     "$TOOLS_FOLDER"/modules/post-install/distro/post-menu.sh "$EDITION"
 elif [ "$1" == "game-profiles" ]
 then
