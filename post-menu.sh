@@ -233,7 +233,7 @@ desktop_atomic_menu(){
 
         2)
             "$TOOLS_FOLDER"/modules/post-install/distro/shared/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/install-atomic-packages.sh "atomic"
+            "$TOOLS_FOLDER"/modules/post-install/distro/shared/install-packages.sh "atomic"
             ;;
 
         3)
