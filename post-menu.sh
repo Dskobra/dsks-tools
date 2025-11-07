@@ -50,7 +50,7 @@ tumbleweed_menu(){
 }
 
 desktop_tumbleweed(){
-    echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
+    echo "        ---Setup DESKTOP /W Tumbleweed---"
     echo "(1) Install packages              (2) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
@@ -87,7 +87,7 @@ desktop_tumbleweed(){
 }
 
 laptop_tumbleweed(){
-    echo "        ---Setup LAPTOP /W Fedora (non atomic)---"
+    echo "        ---Setup LAPTOP /W Tumbleweed---"
     echo "(1) Nvidia Driver                 (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
@@ -127,7 +127,7 @@ laptop_tumbleweed(){
 }
 
 minipc(){
-    echo "        ---Setup MiniPC /W Fedora (non atomic)---"
+    echo "        ---Setup MiniPC /W Tumbleweed---"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
