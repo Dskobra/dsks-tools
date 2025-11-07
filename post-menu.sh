@@ -50,7 +50,7 @@ fedora_menu(){
 
 desktop_reg_fedora(){
     echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
-    echo "(1) Install lact                  (2) Install packages"
+    echo "(1) Install CoolerControl         (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
@@ -59,8 +59,9 @@ desktop_reg_fedora(){
     case $input in
 
         1)
-            sudo dnf copr enable -y ilyaz/LACT
-            sudo dnf install -y lact
+            sudo dnf copr enable -y codifryed/CoolerControl
+            sudo dnf install -y coolercontrol
+            sudo systemctl enable --now coolercontrold
             ;;
         2)
             "$TOOLS_FOLDER"/modules/post-install/distro/shared/install-packages.sh "nonatomic"
