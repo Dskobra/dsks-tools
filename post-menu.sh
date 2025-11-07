@@ -67,7 +67,7 @@ desktop_reg_fedora(){
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/configure-system.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/configure-system.sh "nonatomic"
             ;;
 
 
@@ -108,7 +108,7 @@ laptop_reg_fedora(){
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/distro/LAPTOP/configure-system.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/LAPTOP/configure-system.sh "nonatomic"
             ;;
 
         m | M )
@@ -218,7 +218,7 @@ atomic_menu(){
 desktop_atomic_menu(){
     echo "        ---Setup DESKTOP /W Fedora atomic---"
     echo "(1) Lact                          (2) Install packages"
-    echo "(3) Setup hardware                (4) Setup system"
+    echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -237,12 +237,8 @@ desktop_atomic_menu(){
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/distro/shared/configure-atomic-hardware.sh
-            ;;
-
-        4)
             "$TOOLS_FOLDER"/modules/post-install/distro/shared/configure-atomic-system.sh
-            "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/configure-atomic-system.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/configure-system.sh "atomic"
             ;;
 
         m | M )
@@ -267,7 +263,7 @@ desktop_atomic_menu(){
 laptop_atomic_menu(){
     echo "        ---Setup LAPTOP /W Fedora atomic---"
     echo "(1) Nvidia Driver                 (2) Install packages"
-    echo "(3) Setup hardware                (4) Setup system"
+    echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -284,11 +280,7 @@ laptop_atomic_menu(){
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/distro/shared/configure-atomic-hardware.sh
-            ;;
-
-        4)
-            "$TOOLS_FOLDER"/modules/post-install/distro/LAPTOP/configure-atomic-system.sh
+            "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/configure-system.sh "atomic"
             ;;
 
         m | M )

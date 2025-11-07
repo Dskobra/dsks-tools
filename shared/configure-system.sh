@@ -22,6 +22,20 @@ configure_system(){
     sudo touch /etc/modules-load.d/ntsync.conf
     echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
 
+    # OpenRGB needs a a couple kernel mods loaded
+    # for smbus access. So make sure they are
+    # automatically loaded on boot
+    sudo modprobe i2c-dev
+    sudo modprobe i2c-piix4
+    sudo touch /etc/modules-load.d/i2c.conf
+    sudo sh -c 'echo "i2c-dev" >> /etc/modules-load.d/i2c.conf'
+    sudo sh -c 'echo "i2c-piix4" >> /etc/modules-load.d/i2c.conf'
+    sudo i2cdetect -l
+    
+    # set drives for passthrough
+    echo 'add_driver+=" vfio vfio_iommu_type1 vfio_pci vfio_virqfd "' | sudo tee /etc/dracut.conf.d/local.conf > /dev/null
+    sudo chown root:root "/etc/dracut.conf.d/local.conf"
+
     sudo usermod -aG libvirt "$USER"
 
     mkdir "$HOME"/.local/share/applications/
@@ -85,16 +99,17 @@ flatpak_overrides(){
     flatpak override dev.goats.xivlauncher --user --filesystem=xdg-config/MangoHud:ro
 }
 
+configure_system
+personalize_desktop
+flatpak_overrides
+
 if [ "$1" == "nonatomic" ]
 then
     configure_nonatomic_system
-
+    sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 elif [ "$1" == "atomic" ]
 then
     configure_atomic_system_settings
 else
     echo "error"
 fi
-configure_system
-personalize_desktop
-flatpak_overrides
