@@ -20,10 +20,16 @@ distro_check(){
     if [ "$DISTRO_NAME" == "fedora" ]
     then
         fedora_release_check
+    elif [ "$DISTRO" == "opensuse-tumbleweed" ]
+    then
+        rm -r -f distro
+        git clone https://github.com/dskobra/dsks-tools -b opensuse
+        mv dsks-tools distro
+        EDITION="opensuse"
+        echo $EDITION > "$TOOLS_FOLDER"/.edition.txt
     else
         echo "Unupported distro."
     fi
-
 }
 
 fedora_release_check(){
