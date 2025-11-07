@@ -2,7 +2,8 @@
 
 ### Main launch script which sets some variables
 
-export TOOLS_FOLDER                                                   
+export TOOLS_FOLDER
+export DISTRO_FOLDER                                                   
 export DISTRO_NAME=""                                
 export DISTRO_VER=""
 export OSTREE_VER=""
