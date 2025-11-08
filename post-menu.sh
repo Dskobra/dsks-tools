@@ -239,6 +239,7 @@ desktop_atomic_menu(){
 
         3)
             "$TOOLS_FOLDER"/modules/post-install/distro/DESKTOP/configure-system.sh "atomic"
+            "$TOOLS_FOLDER"/modules/post-install/distro/shared/configure-system.sh "atomic"
             ;;
 
         m | M )

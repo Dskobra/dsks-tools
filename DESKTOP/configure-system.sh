@@ -22,7 +22,7 @@ configure_atomic(){
     mkdir /var/home/jordan/Drives/data
     mkdir /var/home/jordan/Drives/games
     mkdir /var/home/jordan/Drives/vms
-    mkdir var/home/jordan/Drives/shared
+    mkdir /var/home/jordan/Drives/shared
     echo "LABEL=data                                  /var/home/jordan/Drives/data             btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
     echo "LABEL=games                                 /var/home/jordan/Drives/games            btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
     echo "LABEL=vms                                   /var/home/jordan/Drives/vms              btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
