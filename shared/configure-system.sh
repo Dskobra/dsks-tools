@@ -125,18 +125,21 @@ flatpak_overrides(){
     flatpak override dev.goats.xivlauncher --user --filesystem=xdg-config/MangoHud:ro
 }
 
-configure_system
-personalize_desktop
-flatpak_overrides
 
 if [ "$1" == "nonatomic" ]
 then
     configure_nonatomic_system
+    configure_system
+    personalize_desktop
+    flatpak_overrides
     sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 elif [ "$1" == "atomic" ]
 then
     configure_atomic_system_settings
     hide_firefox_from_desktop
+    configure_system
+    personalize_desktop
+    flatpak_overrides
 else
     echo "error"
 fi
