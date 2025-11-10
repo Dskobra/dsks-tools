@@ -1,5 +1,4 @@
 #!/usr/bin/bash
-"$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh
 #sudo sed -i '/GRUB_CMDLINE_LINUX="rhgb quiet rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core"/c GRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core crashkernel=512M rhgb quiet"' /etc/default/grub
 #sudo grubby --args="amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core crashkernel=512M rhgb quiet" --update-kernel=ALL
 sudo cp /etc/default/grub /etc/default/grub-og.bak

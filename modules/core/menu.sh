@@ -267,6 +267,7 @@ desktop_fedora_dnf_menu(){
 
         3)
             "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-dnf"
             ;;
 
 
@@ -307,7 +308,8 @@ laptop_fedora_dnf_menu(){
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/configure-system.sh 
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-dnf"
             ;;
 
         m | M )
@@ -479,7 +481,7 @@ laptop_fedora_ostree_menu(){
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-ostree"
             ;;
 
         m | M )
