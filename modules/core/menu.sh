@@ -261,11 +261,11 @@ desktop_reg_fedora(){
             sudo systemctl enable --now coolercontrold
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "nonatomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "nonatomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora"
             ;;
 
 
@@ -302,11 +302,11 @@ laptop_reg_fedora(){
             "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/install-nvidia.sh
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "nonatomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/configure-system.sh "nonatomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/configure-system.sh "fedora"
             ;;
 
         m | M )
@@ -431,12 +431,12 @@ desktop_atomic_menu(){
 
         2)
             "$TOOLS_FOLDER"/modules/post-install/fedora/shared/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "atomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-atomic"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "atomic"
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "atomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-atomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-atomic"
             ;;
 
         m | M )
@@ -474,11 +474,11 @@ laptop_atomic_menu(){
 
         2)
             "$TOOLS_FOLDER"/modules/post-install/fedora/shared/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "atomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-atomic"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "atomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-atomic"
             ;;
 
         m | M )

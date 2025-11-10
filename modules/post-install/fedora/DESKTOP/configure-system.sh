@@ -44,7 +44,7 @@ if [ "$1" == "fedora" ]
 then
     configure_nonatomic
     configure_system
-elif [ "$1" == "atomic" ]
+elif [ "$1" == "fedora-atomic" ]
 then
     configure_atomic
     configure_system

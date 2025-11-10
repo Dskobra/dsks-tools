@@ -126,14 +126,14 @@ flatpak_overrides(){
 }
 
 
-if [ "$1" == "nonatomic" ]
+if [ "$1" == "fedora" ]
 then
     configure_nonatomic_system
     configure_system
     personalize_desktop
     flatpak_overrides
     sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
-elif [ "$1" == "atomic" ]
+elif [ "$1" == "fedora-atomic" ]
 then
     configure_atomic_system_settings
     hide_firefox_from_desktop

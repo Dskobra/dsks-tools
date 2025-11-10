@@ -152,14 +152,13 @@ install_flatpaks(){
 
 echo "Desktop is $XDG_CURRENT_DESKTOP"
 cd "$TOOLS_FOLDER"/temp || exit
-if [ "$1" == "nonatomic" ]
+if [ "$1" == "fedora" ]
 then
     install_nonatomic_rpmfusion_packages
     install_nonatomic_third_party_apps
     sudo dnf remove -y libreoffice*
-elif [ "$1" == "atomic" ]
+elif [ "$1" == "fedora-atomic" ]
 then
-    echo "Unfinished"
     install_atomic_rpmfusion_packages
     install_atomic_third_party_apps
 else
