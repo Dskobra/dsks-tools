@@ -418,7 +418,7 @@ fedora_ostree_menu(){
 
 desktop_fedora_ostree_menu(){
     echo "-------------------------Setup Desktop /w Fedora Ostree-------------------------"
-    echo "(1) Lact                          (2) Install packages"
+    echo "(1) CoolerControl                 (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
@@ -427,8 +427,7 @@ desktop_fedora_ostree_menu(){
     case $input in
 
         1)
-            flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
-            flatpak install --user -y flathub io.github.ilya_zlobintsev.LACT
+            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/coolercontrol.sh "fedora-ostree"
             ;;
 
 

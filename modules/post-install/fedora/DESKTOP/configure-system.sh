@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-configure_nonatomic(){
+configure_dnf(){
     ## setup drive mount points/permissions
     mkdir /home/jordan/Drives/
     mkdir /home/jordan/Drives/data
@@ -19,7 +19,7 @@ configure_nonatomic(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
 }
 
-configure_atomic(){
+configure_ostree(){
     ## setup drive mount points/permissions
     mkdir /var/home/jordan/Drives/
     mkdir /var/home/jordan/Drives/data
@@ -39,17 +39,18 @@ configure_atomic(){
 configure_system(){
     sudo systemctl daemon-reload
     sudo mount -av
+    sudo systemctl enable --now coolercontrold
     cp -r "$TOOLS_FOLDER/modules/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
 }
 
 
 if [ "$1" == "fedora-dnf" ]
 then
-    configure_nonatomic
+    configure_dnf
     configure_system
 elif [ "$1" == "fedora-ostree" ]
 then
-    configure_atomic
+    configure_ostree
     configure_system
 else
     echo "error"
