@@ -504,6 +504,11 @@ laptop_fedora_ostree_menu(){
 ################################
 ### end section
 ################################
+
+################################
+### section for openSUSE device 
+### menus
+################################
 opensuse_menu(){
     echo "------------------"
     echo "|   Devices      |"
@@ -551,4 +556,124 @@ opensuse_menu(){
         unset input
         opensuse_menu
 }
+
+desktop_opensuse(){
+    echo "        ---Setup DESKTOP /W Tumbleweed---"
+    echo "(1) Install packages              (2) Setup system"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            "$TOOLS_FOLDER"/modules/post-install/opensuse/shared/install-packages.sh
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/post-install/opensuse/DESKTOP/configure-system.sh
+            ;;
+
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            desktop_opensuse
+            ;;
+
+        esac
+        unset input
+        desktop_opensuse
+}
+
+laptop_opensuse(){
+    echo "        ---Setup LAPTOP /W Tumbleweed---"
+    echo "(1) Nvidia Driver                 (2) Install packages"
+    echo "(3) Setup system"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            "$TOOLS_FOLDER"/modules/post-install/opensuse/LAPTOP/install-nvidia.sh
+            ;;
+        2)
+            "$TOOLS_FOLDER"/modules/post-install/opensuse/shared/install-packages.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post-install/opensuse/LAPTOP/configure-system.sh
+            ;;
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            laptop_opensuse
+            ;;
+
+        esac
+        unset input
+        laptop_opensuse
+}
+
+minipc_opensuse(){
+    echo "        ---Setup MiniPC /W Tumbleweed---"
+    echo "(1) Install packages              (2) Setup hardware"
+    echo "(3) Setup system"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            "$TOOLS_FOLDER"/modules/post-install/opensuse/MINIPC/install-packages.sh
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/post-install/opensuse/MINIPC/configure-hardware.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post-install/opensuse/MINIPC/configure-system.sh
+            ;;
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            minipc_opensuse
+            ;;
+
+        esac
+        unset input
+        minipc_opensuse
+}
+
 main_menu
