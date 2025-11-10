@@ -301,7 +301,7 @@ laptop_fedora_dnf_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/install-nvidia.sh
+            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/install-nvidia.sh "fedora-dnf"
             ;;
         2)
             "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-dnf"
@@ -471,7 +471,7 @@ laptop_fedora_ostree_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/install-atomic-nvidia.sh
+            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/install-nvidia.sh "fedora-ostree"
             ;;
 
         2)
