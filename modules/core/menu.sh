@@ -53,7 +53,7 @@ post_menu(){
     echo "|  Post install  |"
     echo "------------------"
     echo ""
-    echo "(1) Fedora                             (2) Fedora Atomic"
+    echo "(1) Fedora DNF                         (2) Fedora Ostree"
     echo "(3) openSUSE Tumbleweed"
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
@@ -63,11 +63,11 @@ post_menu(){
     case $input in
 
         1)
-            fedora_menu
+            fedora_dnf_menu
             ;;
 
         2)
-            atomic_menu
+            fedora_ostree_menu
             ;;
 
         3)
@@ -195,14 +195,15 @@ containers_menu(){
 }
 
 ################################
-### section for Fedora
+### section for Fedora device 
+### menus
 ################################
-fedora_menu(){
+fedora_dnf_menu(){
     echo "------------------"
     echo "|   Devices      |"
     echo "------------------"
     echo ""
-    echo "-------------------------Fedora (non atomic)-------------------------"
+    echo "-------------------------Fedora DNF-------------------------"
     echo "========================================================================="
     echo "(1) Desktop                            (2) Laptop"
     echo "(4) MiniPC"
@@ -215,11 +216,11 @@ fedora_menu(){
     case $input in
 
         1)
-            desktop_reg_fedora
+            desktop_fedora_dnf_menu
             ;;
 
         2)
-            laptop_reg_fedora
+            laptop_fedora_dnf_menu
             ;;
 
         3)
@@ -237,16 +238,16 @@ fedora_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            fedora_menu
+            fedora_dnf_menu
             ;;
 
         esac
         unset input
-        fedora_menu
+        fedora_dnf_menu
 }
 
-desktop_reg_fedora(){
-    echo "        ---Setup DESKTOP /W Fedora (non atomic)---"
+desktop_fedora_dnf_menu(){
+    echo "-------------------------Setup Desktop /w Fedora DNF-------------------------"
     echo "(1) Install CoolerControl         (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
@@ -261,11 +262,11 @@ desktop_reg_fedora(){
             sudo systemctl enable --now coolercontrold
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-dnf"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-dnf"
             ;;
 
 
@@ -280,16 +281,16 @@ desktop_reg_fedora(){
         *)
             echo -n "Unknown entry"
             echo ""
-            desktop_reg_fedora
+            desktop_fedora_dnf_menu
             ;;
 
         esac
         unset input
-        desktop_reg_fedora
+        desktop_fedora_dnf_menu
 }
 
-laptop_reg_fedora(){
-    echo "        ---Setup LAPTOP /W Fedora (non atomic)---"
+laptop_fedora_dnf_menu(){
+    echo "-------------------------Setup Laptop /w Fedora DNF-------------------------"
     echo "(1) Nvidia Driver                 (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
@@ -302,11 +303,11 @@ laptop_reg_fedora(){
             "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/install-nvidia.sh
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-dnf"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/configure-system.sh "fedora"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/configure-system.sh "fedora-dnf"
             ;;
 
         m | M )
@@ -320,16 +321,16 @@ laptop_reg_fedora(){
         *)
             echo -n "Unknown entry"
             echo ""
-            laptop_reg_fedora
+            laptop_fedora_dnf_menu
             ;;
 
         esac
         unset input
-        laptop_reg_fedora
+        laptop_fedora_dnf_menu
 }
 
-minipc(){
-    echo "        ---Setup MiniPC /W Fedora (non atomic)---"
+minipc_fedora_dnf_menu(){
+    echo "-------------------------Setup Minipc /w Fedora DNF-------------------------"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
@@ -362,20 +363,20 @@ minipc(){
         *)
             echo -n "Unknown entry"
             echo ""
-            minipc
+            minipc_fedora_dnf_menu
             ;;
 
         esac
         unset input
-        minipc
+        minipc_fedora_dnf_menu
 }
 
-atomic_menu(){
+fedora_ostree_menu(){
     echo "------------------"
     echo "|   Devices      |"
     echo "------------------"
     echo ""
-    echo "-------------------------Fedora atomic-------------------------"
+    echo "-------------------------Fedora ostree-------------------------"
     echo "========================================================================="
     echo "(1) Desktop Fedora Atomic              (2) Laptop Fedora Atomic"
     echo "========================================================================="
@@ -387,11 +388,11 @@ atomic_menu(){
     case $input in
 
         1)
-            desktop_atomic_menu
+            desktop_fedora_ostree_menu
             ;;
 
         2)
-            laptop_atomic_menu
+            laptop_fedora_ostree_menu
             ;;
 
         m | M)
@@ -405,16 +406,16 @@ atomic_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            atomic_menu
+            fedora_ostree_menu
             ;;
 
         esac
         unset input
-        atomic_menu
+        fedora_ostree_menu
 }
 
-desktop_atomic_menu(){
-    echo "        ---Setup DESKTOP /W Fedora atomic---"
+desktop_fedora_ostree_menu(){
+    echo "-------------------------Setup Desktop /w Fedora Ostree-------------------------"
     echo "(1) Lact                          (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
@@ -431,12 +432,12 @@ desktop_atomic_menu(){
 
         2)
             "$TOOLS_FOLDER"/modules/post-install/fedora/shared/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-atomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-ostree"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-atomic"
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-atomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-ostree"
             ;;
 
         m | M )
@@ -450,16 +451,16 @@ desktop_atomic_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            desktop_atomic_menu
+            desktop_fedora_ostree_menu
             ;;
 
         esac
         unset input
-        desktop_atomic_menu
+        desktop_fedora_ostree_menu
 }
 
-laptop_atomic_menu(){
-    echo "        ---Setup LAPTOP /W Fedora atomic---"
+laptop_fedora_ostree_menu(){
+    echo "-------------------------Setup Laptop /w Fedora Ostree-------------------------"
     echo "(1) Nvidia Driver                 (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
@@ -474,11 +475,11 @@ laptop_atomic_menu(){
 
         2)
             "$TOOLS_FOLDER"/modules/post-install/fedora/shared/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-atomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-ostree"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-atomic"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-ostree"
             ;;
 
         m | M )
@@ -492,14 +493,61 @@ laptop_atomic_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            laptop_atomic_menu
+            laptop_fedora_ostree_menu
             ;;
 
         esac
         unset input
-        laptop_atomic_menu
+        laptop_fedora_ostree_menu
 }
 ################################
 ### end section
 ################################
+opensuse_menu(){
+    echo "------------------"
+    echo "|   Devices      |"
+    echo "------------------"
+    echo ""
+    echo "-------------------------openSUSE Tumbleweed-------------------------"
+    echo "========================================================================="
+    echo "(1) Desktop                            (2) Laptop"
+    echo "(4) MiniPC"
+    echo "========================================================================="
+    echo "(m) Main Menu                          (0) Exit"
+    echo "(0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            desktop_opensuse
+            ;;
+
+        2)
+            laptop_opensuse
+            ;;
+
+        3)
+            echo "disabled"
+            ;;
+
+        m | M)
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            opensuse_menu
+            ;;
+
+        esac
+        unset input
+        opensuse_menu
+}
 main_menu

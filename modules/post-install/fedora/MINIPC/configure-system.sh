@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-"$TOOLS_FOLDER"/modules/post-install/distro/shared/configure_system.sh
+"$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure_system.sh
 hostnamectl set-hostname MINIPC
 
 sudo firewall-cmd --permanent --add-service=http

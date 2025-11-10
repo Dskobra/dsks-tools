@@ -40,11 +40,11 @@ configure_system(){
 }
 
 
-if [ "$1" == "fedora" ]
+if [ "$1" == "fedora-dnf" ]
 then
     configure_nonatomic
     configure_system
-elif [ "$1" == "fedora-atomic" ]
+elif [ "$1" == "fedora-ostree" ]
 then
     configure_atomic
     configure_system
