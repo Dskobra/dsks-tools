@@ -6,8 +6,6 @@ configure_fedora_dnf_zram(){
     # set zram swap from default 8gb to 16gb
     sudo cp /usr/lib/systemd/zram-generator.conf /usr/lib/systemd/zram-generator.conf.bak
     sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
-
-
 }
 
 ################################
@@ -18,7 +16,7 @@ configure_fedora_dnf_zram(){
 ### section for fedora /w ostree
 ################################
 
-configure_ostree_system(){
+configure_fedora_ostree(){
     # set zram swap from default 8gb to 16gb
     cd "$TOOLS_FOLDER"/temp || exit
     touch zram-generator.conf

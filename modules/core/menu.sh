@@ -382,7 +382,7 @@ fedora_ostree_menu(){
     echo ""
     echo "-------------------------Fedora ostree-------------------------"
     echo "========================================================================="
-    echo "(1) Desktop Fedora Atomic              (2) Laptop Fedora Atomic"
+    echo "(1) Desktop Fedora Ostree              (2) Laptop Fedora Ostree"
     echo "========================================================================="
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
@@ -429,19 +429,17 @@ desktop_fedora_ostree_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/coolercontrol.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/coolercontrol.sh "fedora-ostree"
             ;;
 
 
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/fedora/install-packages.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "fedora-ostree"
             ;;
 
         3)
-            DISTRO="ostree"
-            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-ostree"
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/configure-system.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/configure-system.sh "fedora-ostree"
             ;;
 
         m | M )
@@ -474,17 +472,15 @@ laptop_fedora_ostree_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/install-nvidia.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/LAPTOP/install-nvidia.sh "fedora-ostree"
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/fedora/install-packages.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "fedora-ostree"
             ;;
 
         3)
-            DISTRO="ostree"
-            "$TOOLS_FOLDER"/modules/post-install/fedora/configure-system.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/configure-system.sh "fedora-ostree"
             ;;
 
         m | M )
@@ -571,11 +567,11 @@ desktop_opensuse(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/opensuse/shared/install-packages.sh
+            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post-install/opensuse/DESKTOP/configure-system.sh
+            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/configure-system.sh
             ;;
 
 
