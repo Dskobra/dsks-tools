@@ -37,7 +37,6 @@ install_dnf_packages(){
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
 
-
 }
 
 install_dnf_third_party_packages(){
@@ -69,11 +68,6 @@ install_dnf_third_party_packages(){
 
     sudo dnf install -y *.rpm
     rm *.rpm
-
-    # install nodejs
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-    source ~/.bashrc
-    nvm install lts/*
 }
 
 ################################
@@ -103,11 +97,6 @@ install_ostree_third_party_packages(){
     # distrobox
     curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
 
-    # install nodejs
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-    source ~/.bashrc
-    nvm install lts/*
-
     cd "$TOOLS_FOLDER"/temp || exit
     wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
     sudo rpm-ostree install *.rpm
@@ -119,7 +108,6 @@ install_ostree_third_party_packages(){
 ### end section
 ################################
 
-echo "Desktop is $XDG_CURRENT_DESKTOP"
 cd "$TOOLS_FOLDER"/temp || exit
 if [ "$1" == "fedora-dnf" ]
 then
