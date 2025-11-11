@@ -40,7 +40,7 @@ configure_system(){
     sudo systemctl daemon-reload
     sudo mount -av
     sudo systemctl enable --now coolercontrold
-    cp -r "$TOOLS_FOLDER/modules/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
+    cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
 }
 
 

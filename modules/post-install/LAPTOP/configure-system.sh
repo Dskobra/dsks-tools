@@ -12,11 +12,11 @@ configure_grub(){
 if [ "$1" == "fedora-dnf" ]
 then
     configure_grub
-    cp -r "$TOOLS_FOLDER/modules/game-profiles/LAPTOP" "$HOME"/.config/MangoHud/
+    cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/LAPTOP" "$HOME"/.config/MangoHud/
     flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
 elif [ "$1" == "fedora-ostree" ]
 then
-    cp -r "$TOOLS_FOLDER/modules/game-profiles/LAPTOP" "$HOME"/.config/MangoHud/
+    cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/LAPTOP" "$HOME"/.config/MangoHud/
     flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
 else
     echo "error"
