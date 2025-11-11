@@ -1,6 +1,51 @@
 #!/usr/bin/bash
+################################
+### section for fedora /w dnf
+################################
+configure_fedora_dnf_zram(){
+    # set zram swap from default 8gb to 16gb
+    sudo cp /usr/lib/systemd/zram-generator.conf /usr/lib/systemd/zram-generator.conf.bak
+    sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
+
+
+}
+
+################################
+### end section
+################################
+
+################################
+### section for fedora /w ostree
+################################
+
+configure_ostree_system(){
+    # set zram swap from default 8gb to 16gb
+    cd "$TOOLS_FOLDER"/temp || exit
+    touch zram-generator.conf
+    echo "[zram0]" >> zram-generator.conf
+    echo "zram-size = min(ram, 16500)" >> zram-generator.conf
+    sudo mv zram-generator.conf /etc/systemd/zram-generator.conf
+
+    # set time grub takes before auto selecting boot entry
+    echo "set timeout=12" | sudo tee /boot/grub2/user.cfg > /dev/null
+
+    # https://docs.fedoraproject.org/en-US/fedora-silverblue/troubleshooting/#_unable_to_add_user_to_group
+    grep -E '^libvirt:' /usr/lib/group | sudo tee -a /etc/group
+}
+
+hide_firefox_from_ostree_desktop(){
+    # hides firefox from gnome/kde
+    sudo mkdir -p /usr/local/share/applications/
+    sudo cp /usr/share/applications/org.mozilla.firefox.desktop /usr/local/share/applications/
+    sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.mozilla.firefox.desktop
+    sudo update-desktop-database /usr/local/share/applications/
+}
+
+################################
+### end section
+################################
+
 configure_system(){
-    # general configuration for both atomic and non atomic go here
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
     sudo firewall-cmd --set-default-zone=home
     sudo firewall-cmd --permanent --add-service=kdeconnect
@@ -45,19 +90,21 @@ configure_system(){
     npm i -g bash-language-server
 }
 
-
 if [ "$1" == "fedora-dnf" ]
 then
+    configure_fedora_dnf_zram
+    # Unhide grub menu (hidden by default)
     configure_system
-    "$TOOLS_FOLDER"/modules/post-install/fedora/configure-system.sh "fedora-dnf"
+    sudo grub2-editenv - unset menu_auto_hide
 elif [ "$1" == "fedora-ostree" ]
 then
+    configure_ostree_system
+    # Unhide grub menu (hidden by default)
     configure_system
-    "$TOOLS_FOLDER"/modules/post-install/fedora/configure-system.sh "fedora-ostree"
+    sudo grub2-editenv - unset menu_auto_hide
 elif [ "$1" == "opensuse" ]
 then
     configure_system
-    "$TOOLS_FOLDER"/modules/post-install/opensuse/configure-system.sh
 else
     echo "error"
 fi
