@@ -49,14 +49,15 @@ configure_system(){
 if [ "$1" == "fedora-dnf" ]
 then
     configure_system
-    "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-dnf"
+    "$TOOLS_FOLDER"/modules/post-install/fedora/configure-system.sh "fedora-dnf"
 elif [ "$1" == "fedora-ostree" ]
 then
     configure_system
-    "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-ostree"
+    "$TOOLS_FOLDER"/modules/post-install/fedora/configure-system.sh "fedora-ostree"
 elif [ "$1" == "opensuse" ]
 then
     configure_system
+    "$TOOLS_FOLDER"/modules/post-install/opensuse/configure-system.sh
 else
     echo "error"
 fi

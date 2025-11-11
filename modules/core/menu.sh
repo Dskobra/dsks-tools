@@ -262,13 +262,13 @@ desktop_fedora_dnf_menu(){
             sudo systemctl enable --now coolercontrold
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/shared/install-packages.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "fedora-dnf"
             ;;
 
         3)
             DISTRO="fedora-dnf"
             "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-dnf"
-            "$TOOLS_FOLDER"/modules/post-install/shared/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/configure-system.sh "fedora-dnf"
             ;;
 
 
