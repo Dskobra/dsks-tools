@@ -12,18 +12,12 @@ configure_system(){
     sudo systemctl enable --now sshd
     sudo systemctl enable --now libvirtd
     sudo systemctl enable --now cockpit.socket
-
+    
     # setup clamav daemon
     sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
     sudo freshclam
     sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
     sudo semanage boolean -m -1 antivirus_can_scan_system
-
-    # set zram swap from default 8gb to 16gb
-    sudo touch /usr/lib/systemd/zram-generator.conf
-    sudo chown root:root /usr/lib/systemd/zram-generator.conf
-    echo "[zram0]" | sudo tee -a /usr/lib/systemd/zram-generator.conf > /dev/null
-    echo "zram-size = min(ram, 16500)" | sudo tee -a /usr/lib/systemd/zram-generator.conf > /dev/null
 
     # Load ntsync kernel mod and set it to auto load.
     sudo modprobe ntsync
@@ -40,7 +34,7 @@ configure_system(){
     sudo sh -c 'echo "i2c-piix4" >> /etc/modules-load.d/i2c.conf'
     sudo i2cdetect -l
     
-    # set drives for passthrough
+    # set drivers for passthrough
     echo 'add_driver+=" vfio vfio_iommu_type1 vfio_pci vfio_virqfd "' | sudo tee /etc/dracut.conf.d/local.conf > /dev/null
     sudo chown root:root "/etc/dracut.conf.d/local.conf"
 
@@ -50,3 +44,19 @@ configure_system(){
     cp "$TOOLS_FOLDER/modules/configs/shortcuts/XIVFPS.desktop" "$HOME"/.local/share/applications/XIVFPS.desktop
     npm i -g bash-language-server
 }
+
+
+if [ "$1" == "fedora-dnf" ]
+then
+    configure_system
+    "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-dnf"
+elif [ "$1" == "fedora-ostree" ]
+then
+    configure_system
+    "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-ostree"
+elif [ "$1" == "opensuse" ]
+then
+    configure_system
+else
+    echo "error"
+fi

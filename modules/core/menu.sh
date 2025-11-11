@@ -262,12 +262,13 @@ desktop_fedora_dnf_menu(){
             sudo systemctl enable --now coolercontrold
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/shared/install-packages.sh "fedora-dnf"
             ;;
 
         3)
+            DISTRO="fedora-dnf"
             "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-dnf"
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/shared/configure-system.sh "fedora-dnf"
             ;;
 
 
@@ -304,12 +305,13 @@ laptop_fedora_dnf_menu(){
             "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/install-nvidia.sh "fedora-dnf"
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/install-packages.sh "fedora-dnf"
             ;;
 
         3)
+            DISTRO="fedora-dnf"
             "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/configure-system.sh 
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/configure-system.sh "fedora-dnf"
             ;;
 
         m | M )
@@ -432,11 +434,12 @@ desktop_fedora_ostree_menu(){
 
 
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/cleanup-atomic.sh
+            "$TOOLS_FOLDER"/modules/post-install/fedora/install-packages.sh "fedora-ostree"
             ;;
 
         3)
+            DISTRO="ostree"
             "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-ostree"
             "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-ostree"
             ;;
@@ -475,12 +478,13 @@ laptop_fedora_ostree_menu(){
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/cleanup-atomic.sh
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/install-packages.sh "fedora-ostree"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/cleanup-atomic.sh
+            "$TOOLS_FOLDER"/modules/post-install/fedora/install-packages.sh "fedora-ostree"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/shared/configure-system.sh "fedora-ostree"
+            DISTRO="ostree"
+            "$TOOLS_FOLDER"/modules/post-install/fedora/configure-system.sh "fedora-ostree"
             ;;
 
         m | M )

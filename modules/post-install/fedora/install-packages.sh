@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 
 ################################
-### section for fedora non atomic.
+### section for fedora /w dnf
 ################################
-install_nonatomic_rpmfusion_packages(){
+install_dnf_packages(){
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y rpmfusion-free-release-tainted
     sudo dnf install -y vim-enhanced toolbox distrobox openrgb cpu-x remmina isoimagewriter steam steam-devices gamemode.x86_64 \
@@ -40,7 +40,7 @@ install_nonatomic_rpmfusion_packages(){
 
 }
 
-install_nonatomic_third_party_apps(){
+install_dnf_third_party_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
     sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
     sudo dnf install -y brave-browser
@@ -81,9 +81,9 @@ install_nonatomic_third_party_apps(){
 ################################
 
 ################################
-### section for fedora atomic.
+### section for fedora /w ostree
 ################################
-install_atomic_rpmfusion_packages(){
+install_ostree_packages(){
     sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
@@ -99,7 +99,7 @@ install_atomic_rpmfusion_packages(){
     sudo rpm-ostree apply-live
 }
 
-install_atomic_third_party_apps(){
+install_ostree_third_party_packages(){
     # distrobox
     curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
 
@@ -119,51 +119,17 @@ install_atomic_third_party_apps(){
 ### end section
 ################################
 
-
-install_flatpaks(){
-    flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
-
-    # most important
-    flatpak install --user -y flathub com.github.tchx84.Flatseal
-
-    # tools
-    flatpak install --user -y flathub  io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
-    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks
-
-    # entertainment
-    flatpak install --user -y flathub net.lutris.Lutris info.cemu.Cemu org.DolphinEmu.dolphin-emu \
-    dev.goats.xivlauncher com.pokemmo.PokeMMO runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08 \
-    runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
-
-    # misc
-    flatpak install --user -y flathub org.raspberrypi.rpi-imager org.videolan.VLC com.obsproject.Studio \
-    io.podman_desktop.PodmanDesktop org.qownnotes.QOwnNotes
-
-    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
-    then
-        echo ""
-    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
-    then
-       flatpak install --user -y flathub com.mattjakeman.ExtensionManager
-    else
-        echo "$XDG_CURRENT_DESKTOP is not supported."
-    fi
-}
-
 echo "Desktop is $XDG_CURRENT_DESKTOP"
 cd "$TOOLS_FOLDER"/temp || exit
 if [ "$1" == "fedora-dnf" ]
 then
-    install_nonatomic_rpmfusion_packages
-    install_nonatomic_third_party_apps
+    install_dnf_packages
+    install_dnf_third_party_packages
     sudo dnf remove -y libreoffice*
 elif [ "$1" == "fedora-ostree" ]
 then
-    install_atomic_rpmfusion_packages
-    install_atomic_third_party_apps
+    install_ostree_packages
+    install_ostree_third_party_packages
 else
     echo "error"
 fi
-
-install_flatpaks
-zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"

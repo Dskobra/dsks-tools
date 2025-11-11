@@ -3,7 +3,7 @@
 ### section for fedora non atomic.
 ################################
 
-configure_nonatomic_system(){
+configure_dnf_system(){
     # set zram swap from default 8gb to 16gb
     sudo cp /usr/lib/systemd/zram-generator.conf /usr/lib/systemd/zram-generator.conf.bak
     sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
@@ -25,7 +25,7 @@ configure_nonatomic_system(){
 ### section for fedora atomic.
 ################################
 
-configure_atomic_system_settings(){
+configure_ostree_system_settings(){
     # set zram swap from default 8gb to 16gb
     cd "$TOOLS_FOLDER"/temp || exit
     touch zram-generator.conf
@@ -128,14 +128,14 @@ flatpak_overrides(){
 
 if [ "$1" == "fedora-dnf" ]
 then
-    configure_nonatomic_system
+    configure_dnf_system
     configure_system
     personalize_desktop
     flatpak_overrides
     sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 elif [ "$1" == "fedora-ostree" ]
 then
-    configure_atomic_system_settings
+    configure_ostree_system_settings
     hide_firefox_from_desktop
     configure_system
     personalize_desktop
