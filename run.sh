@@ -7,7 +7,6 @@ export DISTRO_FOLDER
 export DISTRO_NAME=""                                
 export DISTRO_VER=""
 export OSTREE_VER=""
-export DISTRO=""
 export COPYRIGHT="Copyright (c) 2024-2025 Jordan Bottoms"
 
 DISTRO_NAME=$(source /etc/os-release ; echo $ID)                      # store basic distro name

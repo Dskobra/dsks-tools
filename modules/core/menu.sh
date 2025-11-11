@@ -260,6 +260,7 @@ desktop_fedora_dnf_menu(){
             sudo dnf copr enable -y codifryed/CoolerControl
             sudo dnf install -y coolercontrol
             sudo systemctl enable --now coolercontrold
+            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/coolercontrol.sh "fedora-dnf"
             ;;
         2)
             "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "fedora-dnf"
@@ -309,8 +310,7 @@ laptop_fedora_dnf_menu(){
             ;;
 
         3)
-            DISTRO="fedora-dnf"
-            "$TOOLS_FOLDER"/modules/post-install/LAPTOP/configure-system.sh 
+            "$TOOLS_FOLDER"/modules/post-install/LAPTOP/configure-system.sh  "fedora-dnf"
             "$TOOLS_FOLDER"/modules/post-install/configure-system.sh "fedora-dnf"
             ;;
 

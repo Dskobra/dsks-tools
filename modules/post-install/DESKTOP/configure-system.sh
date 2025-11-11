@@ -14,7 +14,7 @@ configure_dnf(){
     #sudo sed -i '/GRUB_CMDLINE_LINUX="rhgb quiet"/c GRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff crashkernel=512M rhgb quiet"' /etc/default/grub
     #sudo grubby --args="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff crashkernel=512M rhgb quiet" --update-kernel=ALL
     sudo cp /etc/default/grub /etc/default/grub-og.bak
-    sudo cp "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/grub-desktop /etc/default/grub
+    sudo cp "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/grub-fedora-desktop /etc/default/grub
     sudo chown root:root /etc/default/grub
     sudo grub2-mkconfig -o /etc/grub2.cfg
 }

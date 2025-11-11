@@ -96,6 +96,7 @@ then
     # Unhide grub menu (hidden by default)
     configure_system
     sudo grub2-editenv - unset menu_auto_hide
+    sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 elif [ "$1" == "fedora-ostree" ]
 then
     configure_ostree_system
