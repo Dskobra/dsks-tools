@@ -267,7 +267,7 @@ desktop_fedora_dnf_menu(){
 
         3)
             DISTRO="fedora-dnf"
-            "$TOOLS_FOLDER"/modules/post-install/fedora/DESKTOP/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/configure-system.sh "fedora-dnf"
             "$TOOLS_FOLDER"/modules/post-install/configure-system.sh "fedora-dnf"
             ;;
 
@@ -302,16 +302,16 @@ laptop_fedora_dnf_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/install-nvidia.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/LAPTOP/install-nvidia.sh "fedora-dnf"
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/install-packages.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "fedora-dnf"
             ;;
 
         3)
             DISTRO="fedora-dnf"
-            "$TOOLS_FOLDER"/modules/post-install/fedora/LAPTOP/configure-system.sh 
-            "$TOOLS_FOLDER"/modules/post-install/fedora/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/post-install/LAPTOP/configure-system.sh 
+            "$TOOLS_FOLDER"/modules/post-install/configure-system.sh "fedora-dnf"
             ;;
 
         m | M )
