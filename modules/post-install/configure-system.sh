@@ -2,10 +2,10 @@
 ################################
 ### section for fedora /w dnf
 ################################
-configure_fedora_dnf_zram(){
-    # set zram swap from default 8gb to 16gb
-    sudo cp /usr/lib/systemd/zram-generator.conf /usr/lib/systemd/zram-generator.conf.bak
-    sudo sed -i '/zram-size = min(ram, 8192)/c zram-size = min(ram, 16500)' /usr/lib/systemd/zram-generator.conf
+configure_zram(){
+    cd "$TOOLS_FOLDER"/modules/configs/ || exit
+    sudo cp zram-generator.conf /usr/lib/systemd/zram-generator.conf
+    sudo chown root:root /usr/lib/systemd/zram-generator.conf
 }
 
 ################################
@@ -42,7 +42,6 @@ hide_firefox_from_ostree_desktop(){
 ################################
 ### end section
 ################################
-
 configure_system(){
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
     sudo firewall-cmd --set-default-zone=home
@@ -59,7 +58,6 @@ configure_system(){
     # setup clamav daemon
     sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
     sudo freshclam
-    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
     sudo semanage boolean -m -1 antivirus_can_scan_system
 
     # Load ntsync kernel mod and set it to auto load.
@@ -91,19 +89,21 @@ configure_system(){
 if [ "$1" == "fedora-dnf" ]
 then
     configure_fedora_dnf_zram
-    # Unhide grub menu (hidden by default)
     configure_system
+    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
     sudo grub2-editenv - unset menu_auto_hide
     sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 elif [ "$1" == "fedora-ostree" ]
 then
     configure_ostree_system
-    # Unhide grub menu (hidden by default)
     configure_system
+    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
     sudo grub2-editenv - unset menu_auto_hide
 elif [ "$1" == "opensuse" ]
 then
     configure_system
+    configure_zram
+    sudo systemctl enable --now clamd
 else
     echo "error"
 fi
