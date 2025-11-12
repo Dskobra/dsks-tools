@@ -375,132 +375,6 @@ minipc_fedora_dnf_menu(){
         minipc_fedora_dnf_menu
 }
 
-fedora_ostree_menu(){
-    echo "------------------"
-    echo "|   Devices      |"
-    echo "------------------"
-    echo ""
-    echo "-------------------------Fedora ostree-------------------------"
-    echo "========================================================================="
-    echo "(1) Desktop Fedora Ostree              (2) Laptop Fedora Ostree"
-    echo "========================================================================="
-    echo "(m) Main Menu                          (0) Exit"
-    echo "(0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            desktop_fedora_ostree_menu
-            ;;
-
-        2)
-            laptop_fedora_ostree_menu
-            ;;
-
-        m | M)
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            fedora_ostree_menu
-            ;;
-
-        esac
-        unset input
-        fedora_ostree_menu
-}
-
-desktop_fedora_ostree_menu(){
-    echo "-------------------------Setup Desktop /w Fedora Ostree-------------------------"
-    echo "(1) CoolerControl                 (2) Install packages"
-    echo "(3) Setup system"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/coolercontrol.sh "fedora-ostree"
-            ;;
-
-
-        2)
-            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "fedora-ostree"
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/configure-system.sh "fedora-ostree"
-            "$TOOLS_FOLDER"/modules/post-install/configure-system.sh "fedora-ostree"
-            ;;
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            desktop_fedora_ostree_menu
-            ;;
-
-        esac
-        unset input
-        desktop_fedora_ostree_menu
-}
-
-laptop_fedora_ostree_menu(){
-    echo "-------------------------Setup Laptop /w Fedora Ostree-------------------------"
-    echo "(1) Nvidia Driver                 (2) Install packages"
-    echo "(3) Setup system"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            "$TOOLS_FOLDER"/modules/post-install/LAPTOP/install-nvidia.sh "fedora-ostree"
-            ;;
-
-        2)
-            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "fedora-ostree"
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/post-install/configure-system.sh "fedora-ostree"
-            ;;
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            laptop_fedora_ostree_menu
-            ;;
-
-        esac
-        unset input
-        laptop_fedora_ostree_menu
-}
 ################################
 ### end section
 ################################
@@ -559,7 +433,8 @@ opensuse_menu(){
 
 desktop_opensuse(){
     echo "        ---Setup DESKTOP /W Tumbleweed---"
-    echo "(1) Install packages              (2) Setup system"
+    echo "(1) CoolerControl                 (2) Install packages"
+    echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -567,11 +442,16 @@ desktop_opensuse(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh
+            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/coolercontrol.sh "opensuse"
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/configure-system.sh
+            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "opensuse"
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/configure-system.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/post-install/configure_system.sh "opensuse"
             ;;
 
 

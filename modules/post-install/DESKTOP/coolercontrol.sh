@@ -1,27 +1,24 @@
 #!/usr/bin/bash   
    
-install_cooler_control_dnf(){
+install_fedora_cooler_control(){
     sudo dnf copr enable -y codifryed/CoolerControl
     sudo dnf install -y coolercontrol
     sudo systemctl enable --now coolercontrold
 }
 
-install_cooler_control_ostree(){
-    # Install the Copr repository manually for your base Fedora release version:
-    wget https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-$(rpm -E %fedora)/codifryed-CoolerControl-fedora-$(rpm -E %fedora).repo
-    sudo mv codifryed-CoolerControl-fedora-$(rpm -E %fedora).repo /etc/yum.repos.d/
-    sudo rpm-ostree refresh-md
-    sudo rpm-ostree install coolercontrol
-    
+install_opensuse_cooler_control(){
+    sudo zypper addrepo https://download.opensuse.org/repositories/home:codifryed/openSUSE_Tumbleweed/home:codifryed.repo
+    sudo zypper refresh
+    sudo zypper -n install coolercontrol
+    sudo systemctl enable --now coolercontrold
+
 }
-
-
 if [ "$1" == "fedora-dnf" ]
 then
-    install_cooler_control_dnf
-elif [ "$1" == "fedora-ostree" ]
+    install_fedora_cooler_control
+elif [ "$1" == "opensuse" ]
 then
-    install_cooler_control_ostree
+    install_opensuse_cooler_control
 else
     echo "error"
 fi

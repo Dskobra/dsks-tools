@@ -2,13 +2,13 @@
 ################################
 ### section for fedora /w dnf
 ################################
-install_fedora_dnf_packages(){
+install_fedora_packages(){
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y rpmfusion-free-release-tainted
     sudo dnf install -y vim-enhanced toolbox distrobox openrgb cpu-x remmina isoimagewriter steam steam-devices gamemode.x86_64 \
     gamemode.i686 goverlay virt-manager qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch \
     wget curl flatpak dnf-plugins-core clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump \
-    cockpit-selinux cockpit-session-recording vlc openshot 
+    cockpit-selinux cockpit-session-recording vlc openshot tilix
 
     # codecs some stuff is taken from the below guide
     # https://github.com/devangshekhawat/Fedora-43-Post-Install-Guide
@@ -27,7 +27,7 @@ install_fedora_dnf_packages(){
 
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
-        sudo dnf install -y ptyxis k3b
+        sudo dnf install -y k3b
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller xfburn \
@@ -38,11 +38,10 @@ install_fedora_dnf_packages(){
 
 }
 
-install_fedora_dnf_third_party_packages(){
+install_fedora_third_party_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
     sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
     sudo dnf install -y brave-browser
-    #wget https://mega.nz/linux/repo/Fedora_42/x86_64/megasync-Fedora_42.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_42.x86_64.rpm"
     wget https://mega.nz/linux/repo/Fedora_43/x86_64/megasync-Fedora_43.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_43.x86_64.rpm"
     wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
     sudo dnf install -y ./protonvpn-stable-release-1.0.3-1.noarch.rpm && sudo dnf check-update -y --refresh
@@ -51,74 +50,15 @@ install_fedora_dnf_third_party_packages(){
 
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
-        #curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
         curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
-        #curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_42/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
         curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
-
-    curl -L -o proton-mail.rpm https://proton.me/download/mail/linux/1.9.1/ProtonMail-desktop-beta.rpm
-    curl -L -o proton-pass.rpm https://proton.me/download/pass/linux/proton-pass-1.32.3-1.x86_64.rpm
-    curl -L -o proton-authenticator.rpm https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.0.0-1.x86_64.rpm
-
-    sudo dnf install -y *.rpm
-    rm *.rpm
 }
 
-################################
-### end section
-################################
-
-################################
-### section for fedora /w ostree
-################################
-install_fedora_ostree_packages(){
-    sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    
-    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
-    then
-        sudo rpm-ostree install virt-manager openrgb firewall-applet zenity cockpit-ws cockpit-selinux cockpit-ostree cockpit-kdump cockpit-files 
-    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
-    then
-        sudo rpm-ostree install virt-manager openrgb firewall-applet i2c-tools kde-partitionmanager cockpit-ws cockpit-selinux cockpit-ostree \
-        cockpit-kdump cockpit-files 
-    else
-        echo "$XDG_CURRENT_DESKTOP is not supported."
-    fi
-    sudo rpm-ostree apply-live
-}
-
-install_fedora_ostree_third_party_packages(){
-    # distrobox
-    curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
-
-    cd "$TOOLS_FOLDER"/temp || exit
-    wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
-    sudo rpm-ostree install *.rpm
-    sudo rpm-ostree apply-live
-    sudo rpm-ostree refresh-md && sudo rpm-ostree install proton-vpn-gnome-desktop
-}
-
-cleanup_fedora_ostree(){
-    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
-    then
-        flatpak remove -y org.kde.skanpage org.kde.okular org.kde.krdc org.kde.kolourpaint org.kde.kmines org.kde.kcalc \
-        org.kde.gwenview org.kde.elisa org.kde.kmahjongg org.fedoraproject.Platform.tessdata org.fedoraproject.Platform.Locale \
-        org.fedoraproject.Platform.GL.default org.fedoraproject.KDE6Platform org.kde.skanpage org.kde.okular
-    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
-    then
-        flatpak remove -y org.gnome.font-viewer org.gnome.clocks org.gnome.baobab org.gnome.Weather org.gnome.TextEditor org.gnome.Snapshot \
-        org.gnome.NautilusPreviewer org.gnome.Maps org.gnome.Loupe org.gnome.Logs org.gnome.Extensions org.gnome.Evince org.gnome.Contacts \
-        org.gnome.Connections org.gnome.Characters org.gnome.Calendar org.gnome.Calculator org.fedoraproject.MediaWriter \
-        org.fedoraproject.Platform.Locale org.fedoraproject.Platform.GL.default org.fedoraproject.Platform
-    else
-        echo "Uknown error."
-    fi
-}
 ################################
 ### end section
 ################################
@@ -147,13 +87,6 @@ install_opensuse_packages(){
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
-    curl -L -o proton-mail.rpm https://proton.me/download/mail/linux/1.9.0/ProtonMail-desktop-beta.rpm
-    curl -L -o proton-pass.rpm https://proton.me/download/pass/linux/proton-pass-1.32.3-1.x86_64.rpm
-    curl -L -o proton-authenticator.rpm https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.0.0-1.x86_64.rpm
-
-
-    sudo zypper -n --no-gpg-checks install  *.rpm
-    rm *.rpm
 }
 
 cleanup_opensuse_packages(){
@@ -193,6 +126,11 @@ install_packages(){
     flatpak install --user -y flathub org.raspberrypi.rpi-imager com.obsproject.Studio io.podman_desktop.PodmanDesktop \
     org.qownnotes.QOwnNotes
 
+    cd "$TOOLS_FOLDER/temp" || exit
+    curl -L -o proton-mail.rpm https://proton.me/download/mail/linux/1.10.1/ProtonMail-desktop-beta.rpm
+    curl -L -o proton-pass.rpm https://proton.me/download/pass/linux/proton-pass-1.32.11-1.x86_64.rpm
+    curl -L -o proton-authenticator.rpm https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm
+
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         echo ""
@@ -207,18 +145,19 @@ install_packages(){
 echo "Desktop is $XDG_CURRENT_DESKTOP"
 if [ "$1" == "fedora-dnf" ]
 then
-    install_fedora_dnf_packages
-    install_fedora_dnf_third_party_packages
+    install_fedora_packages
+    install_fedora_third_party_packages
+    cd "$TOOLS_FOLDER/temp" || exit
+    sudo dnf install -y *.rpm
+    rm *.rpm
     sudo dnf remove -y libreoffice*
-elif [ "$1" == "fedora-ostree" ]
-then
-    install_fedora_ostree_packages
-    install_fedora_ostree_third_party_packages
-    cleanup_fedora_ostree
 elif [ "$1" == "opensuse" ]
 then
     install_opensuse_packages
     cleanup_opensuse_packages
+    cd "$TOOLS_FOLDER/temp" || exit
+    sudo zypper -n --no-gpg-checks install  *.rpm
+    rm *.rpm
 else
     echo "error"
 fi

@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 ################################
-### section for fedora /w dnf
+### section for opensuse
 ################################
 configure_zram(){
     cd "$TOOLS_FOLDER"/modules/configs/ || exit
@@ -12,36 +12,6 @@ configure_zram(){
 ### end section
 ################################
 
-################################
-### section for fedora /w ostree
-################################
-
-configure_fedora_ostree(){
-    # set zram swap from default 8gb to 16gb
-    cd "$TOOLS_FOLDER"/temp || exit
-    touch zram-generator.conf
-    echo "[zram0]" >> zram-generator.conf
-    echo "zram-size = min(ram, 16500)" >> zram-generator.conf
-    sudo mv zram-generator.conf /etc/systemd/zram-generator.conf
-
-    # set time grub takes before auto selecting boot entry
-    echo "set timeout=12" | sudo tee /boot/grub2/user.cfg > /dev/null
-
-    # https://docs.fedoraproject.org/en-US/fedora-silverblue/troubleshooting/#_unable_to_add_user_to_group
-    grep -E '^libvirt:' /usr/lib/group | sudo tee -a /etc/group
-}
-
-hide_firefox_from_ostree_desktop(){
-    # hides firefox from gnome/kde
-    sudo mkdir -p /usr/local/share/applications/
-    sudo cp /usr/share/applications/org.mozilla.firefox.desktop /usr/local/share/applications/
-    sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.mozilla.firefox.desktop
-    sudo update-desktop-database /usr/local/share/applications/
-}
-
-################################
-### end section
-################################
 configure_system(){
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
     sudo firewall-cmd --set-default-zone=home
@@ -93,12 +63,6 @@ then
     sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
     sudo grub2-editenv - unset menu_auto_hide
     sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
-elif [ "$1" == "fedora-ostree" ]
-then
-    configure_ostree_system
-    configure_system
-    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
-    sudo grub2-editenv - unset menu_auto_hide
 elif [ "$1" == "opensuse" ]
 then
     configure_system

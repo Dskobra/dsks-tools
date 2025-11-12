@@ -9,20 +9,10 @@ install_nvidia_dnf(){
     sudo dracut --regenerate-all --force
     sudo reboot
 }
-install_nvidia_ostree(){
-    sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    sudo rpm-ostree apply-live
-    sudo rpm-ostree install akmod-nvidia-open xorg-x11-drv-nvidia akmod-nvidia xorg-x11-drv-nvidia-cuda
-    sudo rpm-ostree kargs --append="amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core crashkernel=512M"
-
-}
 
 if [ "$1" == "fedora-dnf" ]
 then
     install_nvidia_dnf
-elif [ "$1" == "fedora-ostree" ]
-then
-    install_nvidia_ostree
 else
     echo "error"
 fi
