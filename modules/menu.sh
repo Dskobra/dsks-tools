@@ -234,7 +234,7 @@ fedora_menu(){
 
         esac
         unset input
-        fedora_dnf_menu
+        fedora_menu
 }
 
 desktop_fedora_menu(){
@@ -325,8 +325,7 @@ laptop_fedora_menu(){
 
 minipc_fedora_menu(){
     echo "-------------------------Setup Minipc /w Fedora DNF-------------------------"
-    echo "(1) Install packages              (2) Setup hardware"
-    echo "(3) Setup system"
+    echo "(1) Install packages              (2) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -335,15 +334,11 @@ minipc_fedora_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/setup/fedora/MINIPC/install-packages.sh
+            "$TOOLS_FOLDER"/modules/setup/MINIPC/install-packages.sh
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/setup/fedora/MINIPC/configure-hardware.sh
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/setup/fedora/MINIPC/configure-system.sh
+            "$TOOLS_FOLDER"/modules/setup/MINIPC/configure-system.sh
             ;;
 
         m | M )
@@ -357,12 +352,12 @@ minipc_fedora_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            minipc_fedora_dnf_menu
+            minipc_fedora_menu
             ;;
 
         esac
         unset input
-        minipc_fedora_dnf_menu
+        minipc_fedora_menu
 }
 
 ################################
@@ -391,11 +386,11 @@ opensuse_menu(){
     case $input in
 
         1)
-            desktop_opensuse
+            desktop_opensuse_menu
             ;;
 
         2)
-            laptop_opensuse
+            laptop_opensuse_menu
             ;;
 
         3)
@@ -421,7 +416,7 @@ opensuse_menu(){
         opensuse_menu
 }
 
-desktop_opensuse(){
+desktop_opensuse_menu(){
     echo "        ---Setup DESKTOP /W Tumbleweed---"
     echo "(1) CoolerControl                 (2) Install packages"
     echo "(3) Setup system"
@@ -456,15 +451,15 @@ desktop_opensuse(){
         *)
             echo -n "Unknown entry"
             echo ""
-            desktop_opensuse
+            desktop_opensuse_menu
             ;;
 
         esac
         unset input
-        desktop_opensuse
+        desktop_opensuse_menu
 }
 
-laptop_opensuse(){
+laptop_opensuse_menu(){
     echo "        ---Setup LAPTOP /W Tumbleweed---"
     echo "(1) Nvidia Driver                 (2) Install packages"
     echo "(3) Setup system"
@@ -497,18 +492,17 @@ laptop_opensuse(){
         *)
             echo -n "Unknown entry"
             echo ""
-            laptop_opensuse
+            laptop_opensuse_menu
             ;;
 
         esac
         unset input
-        laptop_opensuse
+        laptop_opensuse_menu
 }
 
-minipc_opensuse(){
+minipc_opensuse_menu(){
     echo "        ---Setup MiniPC /W Tumbleweed---"
-    echo "(1) Install packages              (2) Setup hardware"
-    echo "(3) Setup system"
+    echo "(1) Install packages              (2) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
@@ -517,15 +511,11 @@ minipc_opensuse(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/setup/opensuse/MINIPC/install-packages.sh
+            "$TOOLS_FOLDER"/modules/setup/MINIPC/install-packages.sh
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/setup/opensuse/MINIPC/configure-hardware.sh
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/setup/opensuse/MINIPC/configure-system.sh
+            "$TOOLS_FOLDER"/modules/setup/MINIPC/configure-system.sh
             ;;
 
         m | M )
@@ -539,12 +529,12 @@ minipc_opensuse(){
         *)
             echo -n "Unknown entry"
             echo ""
-            minipc_opensuse
+            minipc_opensuse_menu
             ;;
 
         esac
         unset input
-        minipc_opensuse
+        minipc_opensuse_menu
 }
 
 main_menu

@@ -68,6 +68,7 @@ then
     configure_system
     configure_zram
     sudo systemctl enable --now clamd
+    sudo sdbootutil set-timeout -- 12
 else
     echo "error"
 fi

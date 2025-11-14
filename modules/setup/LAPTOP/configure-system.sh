@@ -9,12 +9,6 @@ configure_fedora_grub(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
 }
 
-configure_opensuse_grub(){
-    sudo cp /etc/default/grub /etc/default/grub-og.bak
-    sudo cp "$TOOLS_FOLDER"/modules/post-install/LAPTOP/grub-opensuse-laptop /etc/default/grub
-    sudo chown root:root /etc/default/grub
-    sudo grub2-mkconfig -o /etc/grub2.cfg
-}
 if [ "$1" == "fedora" ]
 then
     configure_fedora_grub
@@ -22,7 +16,6 @@ then
     flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
 elif [ "$1" == "opensuse" ]
 then
-    configure_opensuse_grub
     cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/LAPTOP" "$HOME"/.config/MangoHud/
     flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
 else
