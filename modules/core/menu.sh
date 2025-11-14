@@ -53,8 +53,7 @@ post_menu(){
     echo "|  Post install  |"
     echo "------------------"
     echo ""
-    echo "(1) Fedora DNF                         (2) Fedora Ostree"
-    echo "(3) openSUSE Tumbleweed"
+    echo "(1) Fedora DNF                         (2) openSUSE Tumbleweed"
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
@@ -67,11 +66,7 @@ post_menu(){
             ;;
 
         2)
-            fedora_ostree_menu
-            ;;
-
-        3)
-            echo "Disabled"
+            opensuse_menu
             ;;
 
         m | M)
@@ -198,7 +193,7 @@ containers_menu(){
 ### section for Fedora device 
 ### menus
 ################################
-fedora_dnf_menu(){
+fedora_menu(){
     echo "------------------"
     echo "|   Devices      |"
     echo "------------------"
@@ -216,15 +211,15 @@ fedora_dnf_menu(){
     case $input in
 
         1)
-            desktop_fedora_dnf_menu
+            desktop_fedora_menu
             ;;
 
         2)
-            laptop_fedora_dnf_menu
+            laptop_fedora_menu
             ;;
 
         3)
-            minipc
+            minipc_fedora_menu
             ;;
 
         m | M)
@@ -246,7 +241,7 @@ fedora_dnf_menu(){
         fedora_dnf_menu
 }
 
-desktop_fedora_dnf_menu(){
+desktop_fedora_menu(){
     echo "-------------------------Setup Desktop /w Fedora DNF-------------------------"
     echo "(1) Install CoolerControl         (2) Install packages"
     echo "(3) Setup system"
@@ -284,15 +279,15 @@ desktop_fedora_dnf_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            desktop_fedora_dnf_menu
+            desktop_fedora_menu
             ;;
 
         esac
         unset input
-        desktop_fedora_dnf_menu
+        desktop_fedora_menu
 }
 
-laptop_fedora_dnf_menu(){
+laptop_fedora_menu(){
     echo "-------------------------Setup Laptop /w Fedora DNF-------------------------"
     echo "(1) Nvidia Driver                 (2) Install packages"
     echo "(3) Setup system"
@@ -325,15 +320,15 @@ laptop_fedora_dnf_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            laptop_fedora_dnf_menu
+            laptop_fedora_menu
             ;;
 
         esac
         unset input
-        laptop_fedora_dnf_menu
+        laptop_fedora_menu
 }
 
-minipc_fedora_dnf_menu(){
+minipc_fedora_menu(){
     echo "-------------------------Setup Minipc /w Fedora DNF-------------------------"
     echo "(1) Install packages              (2) Setup hardware"
     echo "(3) Setup system"
