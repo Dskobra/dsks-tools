@@ -62,7 +62,7 @@ post_menu(){
     case $input in
 
         1)
-            fedora_dnf_menu
+            fedora_menu
             ;;
 
         2)
