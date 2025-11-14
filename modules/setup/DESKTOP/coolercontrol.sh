@@ -8,7 +8,7 @@ install_fedora_cooler_control(){
 
 install_opensuse_cooler_control(){
     sudo zypper addrepo https://download.opensuse.org/repositories/home:codifryed/openSUSE_Tumbleweed/home:codifryed.repo
-    sudo zypper refresh
+    sudo zypper --gpg-auto-import-keys refresh
     sudo zypper -n install coolercontrol
     sudo systemctl enable --now coolercontrold
 
