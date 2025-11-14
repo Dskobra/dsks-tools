@@ -10,7 +10,7 @@ main_menu(){
     echo ""
     echo ""
     echo "(1) Post Install                       (2) Various Fixes"
-    echo "(3) Containers                         (4) Game profiles"
+    echo "(3) Containers"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -18,7 +18,7 @@ main_menu(){
     case $input in
 
         1)
-            post_menu
+            setup_menu
             ;;
 
         2)
@@ -27,10 +27,6 @@ main_menu(){
 
         3)
             containers_menu
-            ;;
-
-        4)
-            "$TOOLS_FOLDER"/modules/core/branch-puller.sh "game-profiles"
             ;;
 
         0)
@@ -48,12 +44,12 @@ main_menu(){
         main_menu
 }
 
-post_menu(){
+setup_menu(){
     echo "------------------"
     echo "|  Post install  |"
     echo "------------------"
     echo ""
-    echo "(1) Fedora DNF                         (2) openSUSE Tumbleweed"
+    echo "(1) Fedora                             (2) openSUSE Tumbleweed"
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
@@ -80,12 +76,12 @@ post_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            post_menu
+            setup_menu
             ;;
 
         esac
         unset input
-        post_menu
+        setup_menu
 }
 
 fixes_menu(){
@@ -255,16 +251,16 @@ desktop_fedora_menu(){
             sudo dnf copr enable -y codifryed/CoolerControl
             sudo dnf install -y coolercontrol
             sudo systemctl enable --now coolercontrold
-            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/coolercontrol.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/DESKTOP/coolercontrol.sh "fedora-dnf"
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "fedora-dnf"
             ;;
 
         3)
             DISTRO="fedora-dnf"
-            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/configure-system.sh "fedora-dnf"
-            "$TOOLS_FOLDER"/modules/post-install/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/DESKTOP/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "fedora-dnf"
             ;;
 
 
@@ -298,15 +294,15 @@ laptop_fedora_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/LAPTOP/install-nvidia.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/LAPTOP/install-nvidia.sh "fedora-dnf"
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "fedora-dnf"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/LAPTOP/configure-system.sh  "fedora-dnf"
-            "$TOOLS_FOLDER"/modules/post-install/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/LAPTOP/configure-system.sh  "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "fedora-dnf"
             ;;
 
         m | M )
@@ -340,15 +336,15 @@ minipc_fedora_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/MINIPC/install-packages.sh
+            "$TOOLS_FOLDER"/modules/setup/fedora/MINIPC/install-packages.sh
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/MINIPC/configure-hardware.sh
+            "$TOOLS_FOLDER"/modules/setup/fedora/MINIPC/configure-hardware.sh
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/fedora/MINIPC/configure-system.sh
+            "$TOOLS_FOLDER"/modules/setup/fedora/MINIPC/configure-system.sh
             ;;
 
         m | M )
@@ -437,16 +433,16 @@ desktop_opensuse(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/coolercontrol.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/DESKTOP/coolercontrol.sh "opensuse"
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post-install/install-packages.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "opensuse"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/DESKTOP/configure-system.sh "opensuse"
-            "$TOOLS_FOLDER"/modules/post-install/configure_system.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/DESKTOP/configure-system.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/configure_system.sh "opensuse"
             ;;
 
 
@@ -480,14 +476,14 @@ laptop_opensuse(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/opensuse/LAPTOP/install-nvidia.sh
+            "$TOOLS_FOLDER"/modules/setup/opensuse/LAPTOP/install-nvidia.sh
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/post-install/opensuse/shared/install-packages.sh
+            "$TOOLS_FOLDER"/modules/setup/opensuse/shared/install-packages.sh
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/opensuse/LAPTOP/configure-system.sh
+            "$TOOLS_FOLDER"/modules/setup/opensuse/LAPTOP/configure-system.sh
             ;;
 
         m | M )
@@ -521,15 +517,15 @@ minipc_opensuse(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/post-install/opensuse/MINIPC/install-packages.sh
+            "$TOOLS_FOLDER"/modules/setup/opensuse/MINIPC/install-packages.sh
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/post-install/opensuse/MINIPC/configure-hardware.sh
+            "$TOOLS_FOLDER"/modules/setup/opensuse/MINIPC/configure-hardware.sh
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/post-install/opensuse/MINIPC/configure-system.sh
+            "$TOOLS_FOLDER"/modules/setup/opensuse/MINIPC/configure-system.sh
             ;;
 
         m | M )

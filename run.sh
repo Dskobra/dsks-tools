@@ -11,4 +11,4 @@ OSTREE_VER=$(source /etc/os-release ; echo "$OSTREE_VERSION")
 
 TOOLS_FOLDER=$(pwd)                                                   # stores full path for dsks-tools
 mkdir "$TOOLS_FOLDER"/temp                                            # check if supported distro
-"$TOOLS_FOLDER"/modules/core/menu.sh
+"$TOOLS_FOLDER"/modules/menu.sh
