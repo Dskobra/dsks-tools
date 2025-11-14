@@ -143,7 +143,7 @@ install_packages(){
 }
 
 echo "Desktop is $XDG_CURRENT_DESKTOP"
-if [ "$1" == "fedora-dnf" ]
+if [ "$1" == "fedora" ]
 then
     install_fedora_packages
     install_fedora_third_party_packages

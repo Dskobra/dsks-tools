@@ -13,7 +13,7 @@ install_opensuse_cooler_control(){
     sudo systemctl enable --now coolercontrold
 
 }
-if [ "$1" == "fedora-dnf" ]
+if [ "$1" == "fedora" ]
 then
     install_fedora_cooler_control
 elif [ "$1" == "opensuse" ]

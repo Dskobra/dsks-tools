@@ -197,7 +197,7 @@ fedora_menu(){
     echo "-------------------------Fedora DNF-------------------------"
     echo "========================================================================="
     echo "(1) Desktop                            (2) Laptop"
-    echo "(4) MiniPC"
+    echo "(3) MiniPC"
     echo "========================================================================="
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
@@ -215,7 +215,7 @@ fedora_menu(){
             ;;
 
         3)
-            minipc_fedora_menu
+            echo "Disabled"
             ;;
 
         m | M)
@@ -251,16 +251,15 @@ desktop_fedora_menu(){
             sudo dnf copr enable -y codifryed/CoolerControl
             sudo dnf install -y coolercontrol
             sudo systemctl enable --now coolercontrold
-            "$TOOLS_FOLDER"/modules/setup/DESKTOP/coolercontrol.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/DESKTOP/coolercontrol.sh "fedora"
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "fedora"
             ;;
 
         3)
-            DISTRO="fedora-dnf"
-            "$TOOLS_FOLDER"/modules/setup/DESKTOP/configure-system.sh "fedora-dnf"
-            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/DESKTOP/configure-system.sh "fedora"
+            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "fedora"
             ;;
 
 
@@ -294,15 +293,15 @@ laptop_fedora_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/setup/LAPTOP/install-nvidia.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/LAPTOP/install-nvidia.sh "fedora"
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "fedora"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/setup/LAPTOP/configure-system.sh  "fedora-dnf"
-            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "fedora-dnf"
+            "$TOOLS_FOLDER"/modules/setup/LAPTOP/configure-system.sh  "fedora"
+            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "fedora"
             ;;
 
         m | M )
@@ -382,7 +381,7 @@ opensuse_menu(){
     echo "-------------------------openSUSE Tumbleweed-------------------------"
     echo "========================================================================="
     echo "(1) Desktop                            (2) Laptop"
-    echo "(4) MiniPC"
+    echo "(3) MiniPC"
     echo "========================================================================="
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
@@ -442,7 +441,7 @@ desktop_opensuse(){
 
         3)
             "$TOOLS_FOLDER"/modules/setup/DESKTOP/configure-system.sh "opensuse"
-            "$TOOLS_FOLDER"/modules/setup/configure_system.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "opensuse"
             ;;
 
 
@@ -476,14 +475,15 @@ laptop_opensuse(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/setup/opensuse/LAPTOP/install-nvidia.sh
+            "$TOOLS_FOLDER"/modules/setup/opensuse/LAPTOP/install-nvidia.sh "opensuse"
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/setup/opensuse/shared/install-packages.sh
+            "$TOOLS_FOLDER"/modules/setup/opensuse/shared/install-packages.sh "opensuse"
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/setup/opensuse/LAPTOP/configure-system.sh
+            "$TOOLS_FOLDER"/modules/setup/LAPTOP/configure-system.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "opensuse"
             ;;
 
         m | M )

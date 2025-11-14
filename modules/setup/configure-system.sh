@@ -56,7 +56,7 @@ configure_system(){
     npm i -g bash-language-server
 }
 
-if [ "$1" == "fedora-dnf" ]
+if [ "$1" == "fedora" ]
 then
     configure_fedora_dnf_zram
     configure_system

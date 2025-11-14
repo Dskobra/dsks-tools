@@ -15,7 +15,7 @@ configure_opensuse_grub(){
     sudo chown root:root /etc/default/grub
     sudo grub2-mkconfig -o /etc/grub2.cfg
 }
-if [ "$1" == "fedora-dnf" ]
+if [ "$1" == "fedora" ]
 then
     configure_fedora_grub
     cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/LAPTOP" "$HOME"/.config/MangoHud/
