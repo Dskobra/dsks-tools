@@ -8,6 +8,21 @@ configure_zram(){
     sudo chown root:root /usr/lib/systemd/zram-generator.conf
 }
 
+configure_opensuse_root_editor(){
+    # distros like fedora if you edit a system config with kate/kwrite
+    # it asks for password in order to save. opensuse has this patched 
+    # out. So use a custom shortcut that calls kwrite (kate doesnt work)
+    # with kdesu
+
+    # weird bug if you open kwrite after putting your password in with 
+    # kdesu and no config is present it gets created as root (not writable)
+    # when you close kwrite. If you hit ignore on password entry it gets created
+    # as your user if no file is present.
+    touch "$HOME"/.config/kwriterc  
+    cp "$TOOLS_FOLDER"/modules/configs/kwrite-su.desktop "$HOME"/.local/share/applications/kwrite-su.desktop
+
+
+}
 ################################
 ### end section
 ################################
@@ -52,7 +67,6 @@ configure_system(){
     sudo usermod -aG libvirt "$USER"
 
     mkdir "$HOME"/.local/share/applications/
-    cp "$TOOLS_FOLDER/modules/configs/shortcuts/XIVFPS.desktop" "$HOME"/.local/share/applications/XIVFPS.desktop
     npm i -g bash-language-server
 }
 
@@ -68,7 +82,8 @@ then
     configure_system
     configure_zram
     sudo systemctl enable --now clamd
-    sudo sdbootutil set-timeout -- 12
+    kdesu yast2 bootloader
+    #sudo sdbootutil set-timeout -- 12
 else
     echo "error"
 fi
