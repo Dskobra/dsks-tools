@@ -9,7 +9,7 @@ main_menu(){
     echo "Released under the MIT license"
     echo ""
     echo ""
-    echo "(1) Post Install                       (2) Various Fixes"
+    echo "(1) Setup                              (2) Various Fixes"
     echo "(3) Containers"
     echo "(0) Exit"
     printf "Option: "
@@ -194,7 +194,7 @@ fedora_menu(){
     echo "|   Devices      |"
     echo "------------------"
     echo ""
-    echo "-------------------------Fedora DNF-------------------------"
+    echo "-------------------------Fedora-------------------------"
     echo "========================================================================="
     echo "(1) Desktop                            (2) Laptop"
     echo "(3) MiniPC"
@@ -238,7 +238,7 @@ fedora_menu(){
 }
 
 desktop_fedora_menu(){
-    echo "-------------------------Setup Desktop /w Fedora DNF-------------------------"
+    echo "-------------------------Setup Desktop /w Fedora-------------------------"
     echo "(1) Install CoolerControl         (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
@@ -283,7 +283,7 @@ desktop_fedora_menu(){
 }
 
 laptop_fedora_menu(){
-    echo "-------------------------Setup Laptop /w Fedora DNF-------------------------"
+    echo "-------------------------Setup Laptop /w Fedora-------------------------"
     echo "(1) Nvidia Driver                 (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
@@ -324,7 +324,7 @@ laptop_fedora_menu(){
 }
 
 minipc_fedora_menu(){
-    echo "-------------------------Setup Minipc /w Fedora DNF-------------------------"
+    echo "-------------------------Setup Minipc /w Fedora-------------------------"
     echo "(1) Install packages              (2) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
@@ -417,7 +417,7 @@ opensuse_menu(){
 }
 
 desktop_opensuse_menu(){
-    echo "        ---Setup DESKTOP /W Tumbleweed---"
+    echo "        ---Setup DESKTOP /w Tumbleweed---"
     echo "(1) CoolerControl                 (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
@@ -460,7 +460,7 @@ desktop_opensuse_menu(){
 }
 
 laptop_opensuse_menu(){
-    echo "        ---Setup LAPTOP /W Tumbleweed---"
+    echo "        ---Setup LAPTOP /w Tumbleweed---"
     echo "(1) Nvidia Driver                 (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
@@ -501,7 +501,7 @@ laptop_opensuse_menu(){
 }
 
 minipc_opensuse_menu(){
-    echo "        ---Setup MiniPC /W Tumbleweed---"
+    echo "        ---Setup MiniPC /w Tumbleweed---"
     echo "(1) Install packages              (2) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "

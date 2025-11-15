@@ -72,7 +72,7 @@ install_opensuse_packages(){
     curl -L -o proton-mail.rpm $PROTON_MAIL
     curl -L -o proton-pass.rpm $PROTON_PASS
     curl -L -o proton-authenticator.rpm $PROTON_AUTH
-    sudo zypper -n install *.rpm
+    sudo zypper -n install --allow-unsigned-rpm *.rpm
     rm *.rpm
     
     sudo zypper -n dup
