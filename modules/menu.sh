@@ -473,7 +473,7 @@ laptop_opensuse_menu(){
             "$TOOLS_FOLDER"/modules/setup/LAPTOP/install-nvidia.sh "opensuse"
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/setup/shared/install-packages.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "opensuse"
             ;;
 
         3)

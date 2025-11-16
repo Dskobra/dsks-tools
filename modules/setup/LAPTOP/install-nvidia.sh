@@ -16,7 +16,7 @@ install_opensuse_nvidia(){
 if [ "$1" == "fedora" ]
 then
     install_fedora_nvidia
-if [ "$1" == "opensuse" ]
+elif [ "$1" == "opensuse" ]
 then
     echo "unfinished"
     #install_opensuse_nvidia
