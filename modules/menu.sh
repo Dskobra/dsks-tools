@@ -334,11 +334,11 @@ minipc_fedora_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/setup/MINIPC/install-packages.sh
+            "$TOOLS_FOLDER"/modules/setup/MINIPC/install-packages.sh "fedora"
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/setup/MINIPC/configure-system.sh
+            "$TOOLS_FOLDER"/modules/setup/MINIPC/configure-system.sh "fedora"
             ;;
 
         m | M )
@@ -511,11 +511,11 @@ minipc_opensuse_menu(){
 
 
         1)
-            "$TOOLS_FOLDER"/modules/setup/MINIPC/install-packages.sh
+            "$TOOLS_FOLDER"/modules/setup/MINIPC/install-packages.sh "opensuse"
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/setup/MINIPC/configure-system.sh
+            "$TOOLS_FOLDER"/modules/setup/MINIPC/configure-system.sh "opensuse"
             ;;
 
         m | M )
