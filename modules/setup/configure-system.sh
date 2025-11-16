@@ -2,13 +2,7 @@
 ################################
 ### section for opensuse
 ################################
-configure_zram(){
-    cd "$TOOLS_FOLDER"/modules/configs/ || exit
-    sudo cp zram-generator.conf /usr/lib/systemd/zram-generator.conf
-    sudo chown root:root /usr/lib/systemd/zram-generator.conf
-}
-
-configure_opensuse_root_editor(){
+configure_opensuse(){
     # distros like fedora if you edit a system config with kate/kwrite
     # it asks for password in order to save. opensuse has this patched 
     # out. So use a custom shortcut that calls kwrite (kate doesnt work)
@@ -21,12 +15,27 @@ configure_opensuse_root_editor(){
     touch "$HOME"/.config/kwriterc  
     cp "$TOOLS_FOLDER"/modules/configs/kwrite-su.desktop "$HOME"/.local/share/applications/kwrite-su.desktop
 
+    sudo systemctl enable --now clamd
+    kdesu yast2 bootloader
+
+    ## note need to figure out how to use grub2-bls
+    # and set kernel cmds. Enable this once I do
+    #sudo sdbootutil set-timeout -- 12
+
+    cd "$TOOLS_FOLDER"/modules/configs/ || exit
+    sudo cp zram-generator.conf /usr/lib/systemd/zram-generator.conf
+    sudo chown root:root /usr/lib/systemd/zram-generator.conf
+
 
 }
 ################################
 ### end section
 ################################
-
+configure_fedora(){
+    sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
+    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
+    sudo grub2-editenv - unset menu_auto_hide
+}
 configure_system(){
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
     sudo firewall-cmd --set-default-zone=home
@@ -41,7 +50,6 @@ configure_system(){
     sudo systemctl enable --now cockpit.socket
     
     # setup clamav daemon
-    sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
     sudo freshclam
     sudo semanage boolean -m -1 antivirus_can_scan_system
 
@@ -68,22 +76,17 @@ configure_system(){
 
     mkdir "$HOME"/.local/share/applications/
     npm i -g bash-language-server
+    sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 }
 
 if [ "$1" == "fedora" ]
 then
-    configure_fedora_dnf_zram
+    configure_fedora
     configure_system
-    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
-    sudo grub2-editenv - unset menu_auto_hide
-    sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 elif [ "$1" == "opensuse" ]
 then
+    configure_opensuse
     configure_system
-    configure_zram
-    sudo systemctl enable --now clamd
-    kdesu yast2 bootloader
-    #sudo sdbootutil set-timeout -- 12
 else
     echo "error"
 fi

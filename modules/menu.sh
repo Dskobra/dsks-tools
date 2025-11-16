@@ -215,7 +215,7 @@ fedora_menu(){
             ;;
 
         3)
-            echo "Disabled"
+            minipc_fedora_menu
             ;;
 
         m | M)
@@ -394,7 +394,7 @@ opensuse_menu(){
             ;;
 
         3)
-            echo "disabled"
+            minipc_opensuse_menu
             ;;
 
         m | M)

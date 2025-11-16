@@ -4,26 +4,11 @@ install_fedora_packages(){
     sudo dnf install -y rpmfusion-free-release-tainted
     sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
     wget https://mega.nz/linux/repo/Fedora_43/x86_64/megasync-Fedora_43.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_43.x86_64.rpm"
-    sudo dnf install -y vim-enhanced toolbox distrobox openrgb cpu-x remmina isoimagewriter steam steam-devices gamemode.x86_64 \
-    gamemode.i686 goverlay virt-manager qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch \
-    wget curl flatpak dnf-plugins-core clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump \
-    cockpit-selinux cockpit-session-recording vlc openshot tilix brave-browser
-    
+    sudo dnf install -y vim-enhanced distrobox openrgb cpu-x remmina isoimagewriter steam goverlay virt-manager flatpak  vlc openshot \
+    tilix brave-browser clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump cockpit-selinux \
+    cockpit-session-recording qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch wget curl \
+    dnf-plugins-core gamemode.x86_64 gamemode.i686 steam-devices
 
-    # codecs some stuff is taken from the below guide
-    # https://github.com/devangshekhawat/Fedora-43-Post-Install-Guide
-    sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
-    sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
-
-    sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-    sudo dnf swap -y mesa-va-drivers.i686 mesa-va-drivers-freeworld.i686
-
-    sudo dnf swap -y mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
-    sudo dnf swap -y mesa-vulkan-drivers.i686 mesa-vulkan-drivers-freeworld.i686
-
-    sudo dnf group install -y multimedia
-    sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264 libdvdcss
-    sudo dnf upgrade -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
     cd "$TOOLS_FOLDER/temp" || exit
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
@@ -44,16 +29,32 @@ install_fedora_packages(){
     curl -L -o proton-authenticator.rpm $PROTON_AUTH
     sudo dnf install -y *.rpm
     rm *.rpm
+
+    # codecs some stuff is taken from the below guide
+    # https://github.com/devangshekhawat/Fedora-43-Post-Install-Guide
+    sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+    sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
+
+    sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
+    sudo dnf swap -y mesa-va-drivers.i686 mesa-va-drivers-freeworld.i686
+
+    sudo dnf swap -y mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
+    sudo dnf swap -y mesa-vulkan-drivers.i686 mesa-vulkan-drivers-freeworld.i686
+
+    sudo dnf group install -y multimedia
+    sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264 libdvdcss
+    sudo dnf upgrade -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
     sudo dnf remove -y libreoffice*
 
 }
+
 install_opensuse_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
-    sudo zypper -n install --auto-agree-with-licenses setroubleshoot-server git git-gui gh git-cola python313-idle \
-    patterns-containers-container_runtime distrobox OpenRGB cpu-x remmina steam steam-devices gamemode goverlay \
-    virt-manager docker-compose-switch ShellCheck clamav firewall-applet i2c-tools python313-python-lsp-server \
-    systemd-zram-service zram-generator v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload \
-    python313-devel opi vlc kdump
+    sudo zypper -n install --auto-agree-with-licenses  git git-gui gh git-cola python313-idle \
+    distrobox OpenRGB cpu-x remmina steam  goverlay opi vlc clamav firewall-applet virt-manager \
+    steam-devices gamemode docker-compose-switch ShellCheck setroubleshoot-server patterns-containers-container_runtime\
+    i2c-tools python313-python-lsp-server python313-devel kdump systemd-zram-service zram-generator \
+    v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload
 
     sudo opi -n megasync
     sudo opi -n brave
