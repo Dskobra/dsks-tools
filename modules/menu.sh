@@ -470,10 +470,10 @@ laptop_opensuse_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/setup/opensuse/LAPTOP/install-nvidia.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/LAPTOP/install-nvidia.sh "opensuse"
             ;;
         2)
-            "$TOOLS_FOLDER"/modules/setup/opensuse/shared/install-packages.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/shared/install-packages.sh "opensuse"
             ;;
 
         3)
