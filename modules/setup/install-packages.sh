@@ -121,11 +121,8 @@ install_other(){
     fi
 }
 
-PROTON_MAIL="https://proton.me/download/mail/linux/1.10.1/ProtonMail-desktop-beta.rpm"
-PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.32.11-1.x86_64.rpm"
-PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"
-echo "Desktop is $XDG_CURRENT_DESKTOP"
 
+echo "Desktop is $XDG_CURRENT_DESKTOP"
 if [ "$1" == "fedora" ]
 then
     install_fedora_packages

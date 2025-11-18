@@ -2,13 +2,10 @@
 
 ### Main launch script which sets some variables
 
-export TOOLS_FOLDER
+export TOOLS_FOLDER=$(pwd)  # stores full path for dsks-tools
 export COPYRIGHT="Copyright (c) 2024-2025 Jordan Bottoms"
-
-DISTRO_NAME=$(source /etc/os-release ; echo $ID)                      # store basic distro name
-DISTRO_VER=$(source /etc/os-release ; echo "$VERSION_ID")             # store distro version number
-OSTREE_VER=$(source /etc/os-release ; echo "$OSTREE_VERSION")
-
-TOOLS_FOLDER=$(pwd)                                                   # stores full path for dsks-tools
-mkdir "$TOOLS_FOLDER"/temp                                            # check if supported distro
+export PROTON_MAIL="https://proton.me/download/mail/linux/1.10.1/ProtonMail-desktop-beta.rpm"
+export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.32.11-1.x86_64.rpm"
+export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"                                              
+mkdir "$TOOLS_FOLDER"/temp
 "$TOOLS_FOLDER"/modules/menu.sh
