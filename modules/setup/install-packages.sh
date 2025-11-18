@@ -52,15 +52,15 @@ install_opensuse_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox OpenRGB cpu-x remmina steam \
     goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
-    setroubleshoot-server patterns-containers-container_runtime i2c-tools kdump systemd-zram-service \
-    zram-generator v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload
+    setroubleshoot-server podman i2c-tools kdump systemd-zram-service zram-generator \
+    v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload
 
     sudo opi -n megasync
     sudo opi -n brave
 
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
-        sudo zypper -n install k3b kate kate-plugins kdiff3 kleopatra
+        sudo zypper -n install k3b kate kate-plugins kleopatra
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         sudo zypper -n install gnome-tweaks dconf-editor file-roller xfburn snapshot yaru-icon-theme \
