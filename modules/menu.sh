@@ -132,7 +132,6 @@ containers_menu(){
     echo ""
     echo "(1) Create dev container               (2) Install apps"
     echo "(3) Create apps container              (4) Install apps"
-    echo "(5) Create codecs container            (6) Install apps"
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
@@ -141,8 +140,7 @@ containers_menu(){
     case $input in
 
         1)
-            #distrobox create --name tooling --image fedora:42 
-            "$TOOLS_FOLDER"/modules/containers/containers.sh "tooling"
+            "$TOOLS_FOLDER"/modules/containers/create.sh "tooling"
             ;;
 
         2)
@@ -150,20 +148,11 @@ containers_menu(){
             ;;
 
         3)
-            #distrobox create --name apps --image fedora:42
-            "$TOOLS_FOLDER"/modules/containers/containers.sh "apps" 
+            "$TOOLS_FOLDER"/modules/containers/create.sh "apps" 
             ;;
 
         4)
             "$TOOLS_FOLDER"/modules/containers/apps.sh
-            ;;
-
-        5)
-            "$TOOLS_FOLDER"/modules/containers/containers.sh "codecs"
-            ;;
-
-        6)
-            "$TOOLS_FOLDER"/modules/containers/codecs.sh
             ;;
 
         m | M)
