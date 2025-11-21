@@ -13,7 +13,7 @@ gcache(){
 
     # wowup, raider.io and warcraft logs 3rd party world of warcraft
     # addons/services
-    rm -r ~/config/WowUpCf/GPUCache/
+    rm -r ~/.config/WowUpCf/GPUCache/
     rm -r ~/.config/RaiderIO/GPUCache/
     rm -r ~/.config/"Warcraft Logs Uploader"/GPUCache/
 
