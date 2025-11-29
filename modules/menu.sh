@@ -186,8 +186,6 @@ fedora_menu(){
     echo "-------------------------Fedora-------------------------"
     echo "========================================================================="
     echo "(1) Desktop                            (2) Laptop"
-    echo "(3) MiniPC"
-    echo "========================================================================="
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
@@ -201,10 +199,6 @@ fedora_menu(){
 
         2)
             laptop_fedora_menu
-            ;;
-
-        3)
-            minipc_fedora_menu
             ;;
 
         m | M)
@@ -312,43 +306,6 @@ laptop_fedora_menu(){
         laptop_fedora_menu
 }
 
-minipc_fedora_menu(){
-    echo "-------------------------Setup Minipc /w Fedora-------------------------"
-    echo "(1) Install packages              (2) Setup system"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-
-        1)
-            "$TOOLS_FOLDER"/modules/setup/MINIPC/install-packages.sh "fedora"
-            ;;
-
-        2)
-            "$TOOLS_FOLDER"/modules/setup/MINIPC/configure-system.sh "fedora"
-            ;;
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            minipc_fedora_menu
-            ;;
-
-        esac
-        unset input
-        minipc_fedora_menu
-}
-
 ################################
 ### end section
 ################################
@@ -365,8 +322,6 @@ opensuse_menu(){
     echo "-------------------------openSUSE Tumbleweed-------------------------"
     echo "========================================================================="
     echo "(1) Desktop                            (2) Laptop"
-    echo "(3) MiniPC"
-    echo "========================================================================="
     echo "(m) Main Menu                          (0) Exit"
     echo "(0) Exit"
     printf "Option: "
@@ -380,10 +335,6 @@ opensuse_menu(){
 
         2)
             laptop_opensuse_menu
-            ;;
-
-        3)
-            minipc_opensuse_menu
             ;;
 
         m | M)
@@ -487,43 +438,6 @@ laptop_opensuse_menu(){
         esac
         unset input
         laptop_opensuse_menu
-}
-
-minipc_opensuse_menu(){
-    echo "        ---Setup MiniPC /w Tumbleweed---"
-    echo "(1) Install packages              (2) Setup system"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-
-        1)
-            "$TOOLS_FOLDER"/modules/setup/MINIPC/install-packages.sh "opensuse"
-            ;;
-
-        2)
-            "$TOOLS_FOLDER"/modules/setup/MINIPC/configure-system.sh "opensuse"
-            ;;
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            minipc_opensuse_menu
-            ;;
-
-        esac
-        unset input
-        minipc_opensuse_menu
 }
 
 main_menu
