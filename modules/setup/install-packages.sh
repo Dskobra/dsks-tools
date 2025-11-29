@@ -4,8 +4,8 @@ install_fedora_packages(){
     sudo dnf install -y rpmfusion-free-release-tainted
     sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
     wget https://mega.nz/linux/repo/Fedora_43/x86_64/megasync-Fedora_43.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_43.x86_64.rpm"
-    sudo dnf install -y vim-enhanced distrobox openrgb cpu-x remmina isoimagewriter steam goverlay virt-manager flatpak vlc openshot \
-    tilix brave-browser clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump cockpit-selinux \
+    sudo dnf install -y vim-enhanced distrobox openrgb cpu-x remmina isoimagewriter nextcloud-client steam goverlay virt-manager flatpak vlc \
+    openshot tilix brave-browser clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump cockpit-selinux \
     cockpit-session-recording qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch wget curl \
     dnf-plugins-core gamemode.x86_64 gamemode.i686 steam-devices
 
@@ -52,8 +52,10 @@ install_opensuse_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox OpenRGB cpu-x remmina steam \
     goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
-    setroubleshoot-server podman i2c-tools kdump systemd-zram-service zram-generator \
-    v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload
+    setroubleshoot-server podman i2c-tools kdump systemd-zram-service zram-generator nextcloud-desktop \
+    v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload cockpit cockpit-kdump \
+    cockpit-selinux 
+
 
     sudo opi -n megasync
     sudo opi -n brave
