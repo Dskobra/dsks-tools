@@ -16,7 +16,7 @@ configure_opensuse(){
     cp "$TOOLS_FOLDER"/modules/configs/kwrite-su.desktop "$HOME"/.local/share/applications/kwrite-su.desktop
 
     sudo systemctl enable --now clamd
-    kdesu yast2 bootloader
+    #kdesu yast2 bootloader
 
     ## note need to figure out how to use grub2-bls
     # and set kernel cmds. Enable this once I do
@@ -36,6 +36,7 @@ configure_fedora(){
     sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
     sudo grub2-editenv - unset menu_auto_hide
 }
+
 configure_system(){
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
     sudo firewall-cmd --set-default-zone=home

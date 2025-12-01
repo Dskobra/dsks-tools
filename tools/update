@@ -5,9 +5,9 @@ distro_commands(){
     then
         sudo dnf upgrade -y
         sudo dnf autoremove -y
-    elif [ "$DISTRO" == "opensuse-tumbleweed" ] || [ "$DISTRO" == "opensuse-leap" ]
+    elif [ "$DISTRO" == "opensuse-tumbleweed" ]
     then
-        sudo zypper -n dup
+        sudo zypper -n dup --auto-agree-with-licenses
     else
         echo ""
     fi
