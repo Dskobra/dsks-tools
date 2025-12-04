@@ -12,7 +12,8 @@ configure_opensuse(){
     # kdesu and no config is present it gets created as root (not writable)
     # when you close kwrite. If you hit ignore on password entry it gets created
     # as your user if no file is present.
-    touch "$HOME"/.config/kwriterc  
+    touch "$HOME"/.config/kwriterc
+    mkdir "$HOME"/.local/share/applications
     cp "$TOOLS_FOLDER"/modules/configs/kwrite-su.desktop "$HOME"/.local/share/applications/kwrite-su.desktop
 
     sudo systemctl enable --now clamd
