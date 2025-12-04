@@ -54,7 +54,7 @@ install_opensuse_packages(){
     goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
     setroubleshoot-server podman i2c-tools kdump systemd-zram-service zram-generator nextcloud-desktop \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload cockpit cockpit-kdump \
-    cockpit-selinux 
+    cockpit-selinux libvirt
 
 
     sudo opi -n megasync
