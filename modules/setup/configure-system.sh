@@ -29,6 +29,16 @@ configure_opensuse(){
 
 
 }
+
+build_cockpit_files(){
+    cd "$TOOLS_FOLDER"/temp || exit
+    git clone https://github.com/cockpit-project/cockpit-files.git
+    cd "cockpit-files" || exit
+    make
+    sudo make install
+    cd "$TOOLS_FOLDER"/temp || exit
+    rm -r cockpit-files
+}
 ################################
 ### end section
 ################################
@@ -89,6 +99,7 @@ elif [ "$1" == "opensuse" ]
 then
     configure_opensuse
     configure_system
+    build_cockpit_files
 else
     echo "error"
 fi
