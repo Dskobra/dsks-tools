@@ -103,8 +103,8 @@ install_other(){
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks
 
     # entertainment
-    flatpak install --user -y flathub net.lutris.Lutris info.cemu.Cemu org.DolphinEmu.dolphin-emu \
-    dev.goats.xivlauncher com.pokemmo.PokeMMO runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08 \
+    flatpak install --user -y flathub info.cemu.Cemu org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO \
+    runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08 \
     runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
 
     # misc
