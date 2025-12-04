@@ -36,8 +36,7 @@ build_cockpit_files(){
     cd "cockpit-files" || exit
     make
     sudo make install
-    cd "$TOOLS_FOLDER"/temp || exit
-    rm -r cockpit-files
+    rm -r -f "$TOOLS_FOLDER"/temp/cockpit-files
 }
 ################################
 ### end section
