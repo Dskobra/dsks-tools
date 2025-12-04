@@ -87,7 +87,7 @@ install_opensuse_packages(){
     totem gnome-photos xterm yast2-kdump
 }
 
-build_cockpit_files()
+build_cockpit_files(){
     cd "$TOOLS_FOLDER"/temp || exit
     git clone https://github.com/cockpit-project/cockpit-files.git
     cd "cockpit-files" || exit
@@ -95,6 +95,8 @@ build_cockpit_files()
     sudo make install
     cd "$TOOLS_FOLDER"/temp || exit
     rm -r cockpit-files
+}
+
 install_other(){
     # install nodejs
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
