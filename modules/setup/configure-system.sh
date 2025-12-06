@@ -17,11 +17,7 @@ configure_opensuse(){
     cp "$TOOLS_FOLDER"/modules/configs/kwrite-su.desktop "$HOME"/.local/share/applications/kwrite-su.desktop
 
     sudo systemctl enable --now clamd
-    #kdesu yast2 bootloader
-
-    ## note need to figure out how to use grub2-bls
-    # and set kernel cmds. Enable this once I do
-    #sudo sdbootutil set-timeout -- 12
+    sudo sdbootutil set-timeout -- 12
 
     cd "$TOOLS_FOLDER"/modules/configs/ || exit
     sudo cp zram-generator.conf /usr/lib/systemd/zram-generator.conf

@@ -14,7 +14,7 @@ install_opensuse_nvidia(){
     sudo zypper -n install  openSUSE-repos-Tumbleweed-NVIDIA
     sudo zypper -n --gpg-auto-import-keys ref
     sudo zypper -n install --auto-agree-with-licenses nvidia-open-driver-G06-signed-kmp-meta nvidia-open-driver-G06-signed-kmp-longterm \
-    nvidia-userspace-meta-G06 nvidia-modprobe nvidia-persistenced nvidia-settings
+    nvidia-open-driver-G06-signed-kmp-default nvidia-userspace-meta-G06 nvidia-modprobe nvidia-persistenced nvidia-settings
 }
 if [ "$1" == "fedora" ]
 then

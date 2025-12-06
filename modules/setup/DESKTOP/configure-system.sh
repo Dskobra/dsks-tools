@@ -21,6 +21,10 @@ configure_fedora_grub(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
 }
 
+configure_opensuse_grub(){
+    echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff crashkernel=512M splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+}
+
 configure_system(){
     sudo systemctl daemon-reload
     sudo mount -av
@@ -36,6 +40,7 @@ then
 elif [ "$1" == "opensuse" ]
 then
     configure_drives
+    configure_opensuse_grub
     configure_system
 else
     echo "error"
