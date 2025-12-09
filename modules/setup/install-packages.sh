@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+
 install_fedora_packages(){
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y rpmfusion-free-release-tainted
@@ -77,14 +78,20 @@ install_opensuse_packages(){
     sudo zypper -n install --allow-unsigned-rpm *.rpm
     rm *.rpm
     
-    sudo zypper -n dup
-    sudo opi -n codecs
+    sudo zypper -n rm vlc vlc-qt vlc-codec-gstreamer vlc-noX
+    sudo zypper addrepo -cfp 80 'https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/' packman
+    sudo zypper addrepo -cfp 99 'https://opensuse-guide.org/repo/openSUSE_Tumbleweed/' libdvdcss
+    sudo zypper --gpg-auto-import-keys ref
+    sudo zypper -n install --from packman ffmpeg gstreamer-plugins-good gstreamer-plugins-bad \
+    gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec vlc-qt vlc-codec-gstreamer \
+    vlc-codecs discord libdvdcss2
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
     yast2-services-manager xscreensaver xscreensaver-data gnome-mahjongg swell-foop \
     quadrapassel gnome-mines gnome-chess lightsoff gnome-sudoku cheese gnome-extensions \
     totem gnome-photos xterm yast2-kdump
+    sudo zypper -n dup
 }
 
 install_other(){
