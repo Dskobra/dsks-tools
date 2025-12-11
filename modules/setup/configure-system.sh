@@ -54,6 +54,7 @@ configure_system(){
     sudo firewall-cmd --reload
     sudo systemctl enable --now sshd
     sudo systemctl enable --now libvirtd
+    sudo systemctl enable --now virtnetworkd
     sudo systemctl enable --now cockpit.socket
     
     # setup clamav daemon
