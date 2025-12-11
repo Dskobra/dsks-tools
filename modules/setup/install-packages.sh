@@ -83,7 +83,7 @@ install_opensuse_packages(){
     sudo zypper addrepo -cfp 99 'https://opensuse-guide.org/repo/openSUSE_Tumbleweed/' libdvdcss
     sudo zypper --gpg-auto-import-keys ref
     sudo zypper -n install --from packman ffmpeg gstreamer-plugins-good gstreamer-plugins-bad \
-    gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec vlc-qt vlc-codec-gstreamer \
+    gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec vlc vlc-qt vlc-codec-gstreamer \
     vlc-codecs discord libdvdcss2
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \

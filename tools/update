@@ -37,13 +37,13 @@ update(){
 }
 
 update_tools(){
-    mkdir -p ~/bin/update_temp
-    cd ~/bin/update_temp || exit
+    mkdir -p ~/.local/bin/update_temp
+    cd ~/.local/bin/update_temp || exit
     git clone https://github.com/Dskobra/dsks-tools
     cd dsks-tools/tools || exit
-    mv update ~/bin/update
-    mv gcache ~/bin/gcache
-    rm -r -f ~/bin/update_temp
+    mv update ~/.local/bin/update
+    mv gcache ~/.local/bin/gcache
+    rm -r -f ~/.local/bin/update_temp
     exit
 }
 
@@ -59,7 +59,7 @@ update_help(){
     echo ""
     echo "Available arguments:"
     echo "  --apps, -a, apps            # update flatpaks"
-    echo "  --system, -s, system        # update just fedora"
+    echo "  --system, -s, system        # update just fedora/tumbleweed packages"
     echo "  --all, -A, all              # update all of the above"
     echo "  --tools, -t, tools          # updates this script and gcache"
 }
