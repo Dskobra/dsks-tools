@@ -29,8 +29,13 @@ update(){
     elif [ "$1" == "--tools" ] || [ "$1" == "-t" ] || [ "$1" == "tools" ]
     then
         update_tools
+    elif [ -z "$1" ]
+    then
+        echo "update: no option given"
+        echo "Usage: update [OPTION]"
+        echo "Try 'update --system' or 'update --help' to see options"
     else
-        echo "Invalid argument: $1"
+        echo "Invalid option: $1"
         echo ""
         update_help
     fi
