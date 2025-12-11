@@ -1,0 +1,18 @@
+### below is meant to be copy/pasted into .bashrc
+alias amdgpu="amdgpu_top"
+PS1="\[\e[0;32m\][\u@\h \W]\$ \[\e[0m\]"
+
+winekill(){
+    # https://forum.level1techs.com/t/kill-all-wine-process/186576/6
+    pgrep -i '(.*\.(exe|dll|msi|bat|com|lnk)$)|(.*(wine|proton).*))' |xargs -n1 kill -9
+}
+
+clean(){
+    sudo zypper clean -a
+}
+
+rebuild(){
+    sudo dracut --regenerate-all --force
+}
+
+

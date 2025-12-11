@@ -1,5 +1,5 @@
 ### below is meant to be copy/pasted into .bashrc
-# for fedora. Only winekill works on atomic.
+# for fedora.
 export EDITOR=/usr/bin/vim
 
 winekill(){
