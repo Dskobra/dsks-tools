@@ -56,6 +56,9 @@ configure_system(){
     sudo systemctl enable --now libvirtd
     sudo systemctl enable --now virtnetworkd
     sudo systemctl enable --now cockpit.socket
+
+    sudo virsh net-start default
+    sudo virsh net-autostart default
     
     # setup clamav daemon
     sudo freshclam
