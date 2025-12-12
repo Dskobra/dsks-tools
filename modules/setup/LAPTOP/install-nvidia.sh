@@ -15,6 +15,9 @@ install_opensuse_nvidia(){
     sudo zypper -n --gpg-auto-import-keys ref
     sudo zypper -n install --auto-agree-with-licenses nvidia-open-driver-G06-signed-kmp-meta nvidia-open-driver-G06-signed-kmp-longterm \
     nvidia-open-driver-G06-signed-kmp-default nvidia-userspace-meta-G06 nvidia-modprobe nvidia-persistenced nvidia-settings
+
+    #sudo zypper -n install --auto-agree-with-licenses dkms nvidia-settings nvidia-driver-G06-kmp-default \
+    #nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
 }
 if [ "$1" == "fedora" ]
 then
