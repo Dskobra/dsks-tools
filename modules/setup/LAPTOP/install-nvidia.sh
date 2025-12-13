@@ -11,13 +11,24 @@ install_fedora_nvidia(){
 }
 
 install_opensuse_nvidia(){
-    sudo zypper -n install  openSUSE-repos-Tumbleweed-NVIDIA
-    sudo zypper -n --gpg-auto-import-keys ref
-    sudo zypper -n install --auto-agree-with-licenses nvidia-open-driver-G06-signed-kmp-meta nvidia-open-driver-G06-signed-kmp-longterm \
-    nvidia-open-driver-G06-signed-kmp-default nvidia-userspace-meta-G06 nvidia-modprobe nvidia-persistenced nvidia-settings
+    # main drivers
+    sudo zypper al nvidia-open-driver-G06-signed-kmp-default
+    sudo zypper al nvidia-open-driver-G07-signed-kmp-default
 
-    #sudo zypper -n install --auto-agree-with-licenses dkms nvidia-settings nvidia-driver-G06-kmp-default \
-    #nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
+    sudo zypper al nvidia-open-driver-G06-signed-kmp-longterm
+    sudo zypper al nvidia-open-driver-G07-signed-kmp-longterm
+
+    sudo zypper al nvidia-open-driver-G06-signed-cuda-kmp-default
+    sudo zypper al nvidia-open-driver-G07-signed-cuda-kmp-default
+
+    # cuda drivers
+    sudo zypper al nvidia-open-driver-G06-signed-cuda-kmp-longterm
+    sudo zypper al nvidia-open-driver-G07-signed-cuda-kmp-longterm
+
+    sudo zypper dup
+    sudo zypper --gpg-auto-import-keys -n ref
+    sudo zypper -n install --auto-agree-with-licenses dkms nvidia-settings nvidia-driver-G06-kmp-default \
+    nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
 }
 if [ "$1" == "fedora" ]
 then

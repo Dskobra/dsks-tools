@@ -51,29 +51,22 @@ install_fedora_packages(){
 
 install_opensuse_packages(){
     cd "$TOOLS_FOLDER/temp" || exit
-    sudo zypper addrepo -cfp 80 'https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/' packman
-    sudo zypper addrepo -cfp 99 'https://opensuse-guide.org/repo/openSUSE_Tumbleweed/' libdvdcss
-    sudo zypper --gpg-auto-import-keys -n ref
-    sudo zypper -n install --from packman --allow-vendor-change ffmpeg gstreamer-plugins-good \
-    gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec \
-    vlc vlc-qt vlc-codec-gstreamer vlc-codecs discord libdvdcss2
-    
     sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox OpenRGB cpu-x remmina steam \
     goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
     setroubleshoot-server podman i2c-tools systemd-zram-service zram-generator nextcloud-desktop \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload cockpit cockpit-selinux \
-    libvirt
+    libvirt lutris
 
     sudo opi -n megasync
     sudo opi -n brave
 
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
-        sudo zypper -n install k3b kate kate-plugins kleopatra
+        sudo zypper -n install k3b kate kate-plugins kleopatra partitionmanager
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         sudo zypper -n install gnome-tweaks dconf-editor file-roller xfburn snapshot yaru-icon-theme \
-        kde-partitionmanager
+        partitionmanager
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
@@ -83,6 +76,16 @@ install_opensuse_packages(){
     curl -L -o proton-authenticator.rpm $PROTON_AUTH
     sudo zypper -n install --allow-unsigned-rpm *.rpm
     rm *.rpm
+    
+    sudo zypper addrepo -cfp 80 'https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/' packman
+    sudo zypper addrepo -cfp 99 'https://opensuse-guide.org/repo/openSUSE_Tumbleweed/' libdvdcss
+    sudo zypper --gpg-auto-import-keys -n ref
+
+    sudo zypper -n install libdvdcss2
+    sudo zypper -n install --from packman --allow-vendor-change ffmpeg gstreamer-plugins-good \
+    gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec \
+    vlc vlc-qt vlc-codec-gstreamer vlc-codecs discord 
+
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
