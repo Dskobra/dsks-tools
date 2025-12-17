@@ -111,13 +111,10 @@ install_other(){
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks
 
     # entertainment
-    flatpak install --user -y flathub info.cemu.Cemu org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO \
-    runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08 \
-    runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
+    flatpak install --user -y flathub info.cemu.Cemu org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO
 
     # misc
-    flatpak install --user -y flathub org.raspberrypi.rpi-imager com.obsproject.Studio io.podman_desktop.PodmanDesktop \
-    org.qownnotes.QOwnNotes
+    flatpak install --user -y flathub org.raspberrypi.rpi-imager com.obsproject.Studio io.podman_desktop.PodmanDesktop
 
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
