@@ -8,18 +8,17 @@ install_fedora_packages(){
     sudo dnf install -y vim-enhanced distrobox openrgb cpu-x remmina isoimagewriter nextcloud-client steam goverlay virt-manager flatpak vlc \
     openshot tilix brave-browser clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump cockpit-selinux \
     cockpit-session-recording qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch wget curl \
-    dnf-plugins-core gamemode.x86_64 gamemode.i686 steam-devices
+    dnf-plugins-core gamemode.x86_64 gamemode.i686 steam-devices xfburn
 
 
     cd "$TOOLS_FOLDER/temp" || exit
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
-        sudo dnf install -y k3b
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
         curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
-        sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller xfburn \
+        sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller \
         i2c-tools kde-partitionmanager
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
@@ -55,17 +54,17 @@ install_opensuse_packages(){
     goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
     setroubleshoot-server podman i2c-tools systemd-zram-service zram-generator nextcloud-desktop \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload cockpit cockpit-selinux \
-    libvirt lutris
+    libvirt lutris xfburn
 
     sudo opi -n megasync
     sudo opi -n brave
 
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
-        sudo zypper -n install k3b kate kate-plugins kleopatra partitionmanager
+        sudo zypper -n install kate kate-plugins kleopatra partitionmanager
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
-        sudo zypper -n install gnome-tweaks dconf-editor file-roller xfburn snapshot yaru-icon-theme \
+        sudo zypper -n install gnome-tweaks dconf-editor file-roller snapshot yaru-icon-theme \
         partitionmanager
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
