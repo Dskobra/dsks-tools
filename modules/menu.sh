@@ -222,7 +222,7 @@ fedora_menu(){
 
 desktop_fedora_menu(){
     echo "-------------------------Setup Desktop /w Fedora-------------------------"
-    echo "(1) Install CoolerControl         (2) Install packages"
+    echo "(1) Install Lact                  (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
@@ -231,10 +231,7 @@ desktop_fedora_menu(){
     case $input in
 
         1)
-            sudo dnf copr enable -y codifryed/CoolerControl
-            sudo dnf install -y coolercontrol
-            sudo systemctl enable --now coolercontrold
-            "$TOOLS_FOLDER"/modules/setup/DESKTOP/coolercontrol.sh "fedora"
+            "$TOOLS_FOLDER"/modules/setup/DESKTOP/lact.sh "fedora"
             ;;
         2)
             "$TOOLS_FOLDER"/modules/setup/install-packages.sh "fedora"
@@ -358,7 +355,7 @@ opensuse_menu(){
 
 desktop_opensuse_menu(){
     echo "        ---Setup DESKTOP /w Tumbleweed---"
-    echo "(1) CoolerControl                 (2) Install packages"
+    echo "(1) install Lact                  (2) Install packages"
     echo "(3) Setup system"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
@@ -367,7 +364,7 @@ desktop_opensuse_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/setup/DESKTOP/coolercontrol.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/DESKTOP/lact.sh "opensuse"
             ;;
 
         2)

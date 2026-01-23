@@ -3,15 +3,13 @@
 ### section for opensuse
 ################################
 configure_opensuse(){
-    # distros like fedora if you edit a system config with kate/kwrite
-    # it asks for password in order to save. opensuse has this patched 
-    # out. So use a custom shortcut that calls kwrite (kate doesnt work)
-    # with kdesu
-
-    # weird bug if you open kwrite after putting your password in with 
-    # kdesu and no config is present it gets created as root (not writable)
-    # when you close kwrite. If you hit ignore on password entry it gets created
-    # as your user if no file is present.
+    # openSUSE patches out calling kdesu to save files as root.
+    # Workaround create shortcut for kwrite (kate doesnt work) 
+    # called by kdesu.
+    
+    # weird bug when saving if using kwrite with kdesu and kwriterc doesnt exist
+    # it will get set as root when clicking ok. Clicking cancel it'll be set
+    # as user.
     touch "$HOME"/.config/kwriterc
     mkdir "$HOME"/.local/share/applications
     cp "$TOOLS_FOLDER"/modules/configs/kwrite-su.desktop "$HOME"/.local/share/applications/kwrite-su.desktop

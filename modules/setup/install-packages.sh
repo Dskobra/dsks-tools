@@ -56,6 +56,7 @@ install_opensuse_packages(){
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload cockpit cockpit-selinux \
     libvirt lutris xfburn
 
+
     sudo opi -n megasync
     sudo opi -n brave
 
@@ -100,20 +101,20 @@ install_other(){
     source ~/.bashrc
     nvm install lts/*
 
-    flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
     # most important
-    flatpak install --user -y flathub com.github.tchx84.Flatseal
+    flatpak install -y flathub com.github.tchx84.Flatseal
 
     # tools
-    flatpak install --user -y flathub  io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
+    flatpak install -y flathub io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks
 
     # entertainment
-    flatpak install --user -y flathub info.cemu.Cemu org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO
+    flatpak install -y flathub info.cemu.Cemu org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO
 
     # misc
-    flatpak install --user -y flathub org.raspberrypi.rpi-imager com.obsproject.Studio io.podman_desktop.PodmanDesktop
+    flatpak install -y flathub org.raspberrypi.rpi-imager com.obsproject.Studio io.podman_desktop.PodmanDesktop
 
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
