@@ -16,15 +16,15 @@ distro_commands(){
 update(){
     if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ]
     then
-        flatpak update -y
-        flatpak remove --unused -y
+        $FLATPAK_UPDATE
+        $FLATPAK_CLEANUP
     elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
     then
         distro_commands
     elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
     then
-        flatpak update -y
-        flatpak remove --unused -y
+        $FLATPAK_UPDATE
+        $FLATPAK_CLEANUP
         distro_commands
     elif [ "$1" == "--tools" ] || [ "$1" == "-t" ] || [ "$1" == "tools" ]
     then
@@ -69,4 +69,6 @@ update_help(){
     echo "  --tools, -t, tools          # updates this script and gcache"
 }
 DISTRO=$(source /etc/os-release ; echo $ID)
+FLATPAK_UPDATE="sudo flatpak update -y"
+FLATPAK_CLEANUP="sudo flatpak remove --unused -y"
 update "$1"
