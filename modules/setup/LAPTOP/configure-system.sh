@@ -1,17 +1,13 @@
 #!/usr/bin/bash
 
 configure_fedora_grub(){
-    #sudo sed -i '/GRUB_CMDLINE_LINUX="rhgb quiet rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core"/c GRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core crashkernel=512M rhgb quiet"' /etc/default/grub
-    #sudo grubby --args="amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core crashkernel=512M rhgb quiet" --update-kernel=ALL
     sudo cp /etc/default/grub /etc/default/grub-og.bak
-    sudo cp "$TOOLS_FOLDER"/modules/post-install/LAPTOP/grub-fedora-laptop /etc/default/grub
-    sudo chown root:root /etc/default/grub
-    sudo grub2-mkconfig -o /etc/grub2.cfg
+    sudo grubby --args="amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core rhgb quiet" --update-kernel=ALL
+}
+configure_opensuse_grub(){
+    echo "amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
 }
 
-configure_opensuse_grub(){
-    echo "amd_iommu=on iommu=pt crashkernel=512M rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
-}
 if [ "$1" == "fedora" ]
 then
     configure_fedora_grub

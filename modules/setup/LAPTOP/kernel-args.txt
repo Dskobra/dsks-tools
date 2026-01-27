@@ -1,1 +1,0 @@
-amd_iommu=on iommu=pt crashkernel=512M  rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1

@@ -1,1 +1,0 @@
-amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff crashkernel=512M splash=silent mitigations=auto quiet security=selinux selinux=1
