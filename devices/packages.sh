@@ -128,11 +128,11 @@ install_other(){
 }
 
 echo "Desktop is $XDG_CURRENT_DESKTOP"
-if [ "$1" == "fedora" ]
+if [ "$DISTRO" == "fedora" ]
 then
     install_packages_fedora
     install_other
-elif [ "$1" == "opensuse" ]
+elif [ "$DISTRO" == "opensuse-tumbleweed" ]
 then
     install_packages_opensuse
     install_other
