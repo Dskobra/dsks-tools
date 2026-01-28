@@ -101,27 +101,25 @@ install_other(){
     source ~/.bashrc
     nvm install lts/*
 
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
     # most important
-    flatpak install -y flathub com.github.tchx84.Flatseal
+    sudo flatpak install -y flathub com.github.tchx84.Flatseal
 
     # tools
-    flatpak install -y flathub io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
+    sudo flatpak install -y flathub io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks
 
     # entertainment
-    flatpak install -y flathub info.cemu.Cemu org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO
+    sudo flatpak install -y flathub info.cemu.Cemu org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO
 
     # misc
-    flatpak install -y flathub org.raspberrypi.rpi-imager com.obsproject.Studio io.podman_desktop.PodmanDesktop
+    sudo flatpak install -y flathub org.raspberrypi.rpi-imager com.obsproject.Studio io.podman_desktop.PodmanDesktop
 
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         echo ""
     elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
     then
-       flatpak install --user -y flathub com.mattjakeman.ExtensionManager
+       sudo flatpak install --user -y flathub com.mattjakeman.ExtensionManager
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
