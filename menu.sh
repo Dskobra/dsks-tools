@@ -456,7 +456,7 @@ new_menu(){
             ;;
 
         3)
-            "$TOOLS_FOLDER"/packages.sh "$DISTRO"
+            "$TOOLS_FOLDER"/devices/packages.sh "$DISTRO"
             ;;
 
         4)
