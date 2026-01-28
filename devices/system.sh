@@ -3,28 +3,11 @@
 ### section for opensuse
 ################################
 configure_opensuse(){
-    # openSUSE patches out calling kdesu to save files as root.
-    # Workaround create shortcut for kwrite (kate doesnt work) 
-    # called by kdesu.
-    
-    # weird bug when saving if using kwrite with kdesu and kwriterc doesnt exist
-    # it will get set as root when clicking ok. Clicking cancel it'll be set
-    # as user.
-    touch "$HOME"/.config/kwriterc
-    mkdir "$HOME"/.local/share/applications
-    cp "$TOOLS_FOLDER"/configs/kwrite-su.desktop "$HOME"/.local/share/applications/kwrite-su.desktop
-
     sudo systemctl enable --now clamd
     sudo sdbootutil set-timeout -- 12
 
 
     touch "$TOOLS_FOLDER"/temp/zram-generator.conf
-    echo "# This config file enables a /dev/zram0 device with the default settings:"  >> zram-generator.conf
-    echo "# — size — same as available RAM or 8GB, whichever is less" >> zram-generator.conf
-    echo "# — compression — most likely lzo-rle" >> zram-generator.conf
-    echo "#" >> zram-generator.conf
-    echo "# To disable, uninstall zram-generator-defaults or create empty" >> zram-generator.conf
-    echo "# /etc/systemd/zram-generator.conf file." >> zram-generator.conf
     echo "[zram0]" >> zram-generator.conf
     echo "zram-size = min(ram, 8192)" >> zram-generator.conf
 
