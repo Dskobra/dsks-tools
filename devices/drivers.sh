@@ -12,6 +12,8 @@ install_nvidia_fedora(){
 
 install_nvidia_opensuse(){
     # main drivers
+    sudo zypper -n install --auto-agree-with-licenses openSUSE-repos-Tumbleweed-NVIDIA
+
     sudo zypper al nvidia-open-driver-G06-signed-kmp-default
     sudo zypper al nvidia-open-driver-G07-signed-kmp-default
 
@@ -25,7 +27,6 @@ install_nvidia_opensuse(){
     sudo zypper al nvidia-open-driver-G06-signed-cuda-kmp-longterm
     sudo zypper al nvidia-open-driver-G07-signed-cuda-kmp-longterm
 
-    sudo zypper dup
     sudo zypper --gpg-auto-import-keys -n ref
     sudo zypper -n install --auto-agree-with-licenses dkms nvidia-settings nvidia-driver-G06-kmp-default \
     nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
@@ -40,19 +41,19 @@ install_lact_fedora(){
 
 install_lact_opensuse(){
     sudo zypper -n install dbus-1-daemon
-    flatpak install -y flathub io.github.ilya_zlobintsev.LACT
+    sudo flatpak install -y flathub io.github.ilya_zlobintsev.LACT
 
 }
-if [ "$1" == "lact" ] || [ "$DISTRO" == "fedora" ]
+if [ "$1" == "lact" ] && [ "$DISTRO" == "fedora" ]
 then
     install_lact_fedora
-elif [ "$1" == "lact" ] || [ "$DISTRO" == "opensuse-tumbleweed" ]
+elif [ "$1" == "lact" ] && [ "$DISTRO" == "opensuse-tumbleweed" ]
 then
     install_lact_opensuse
-elif [ "$1" == "nvidia" ] || [ "$DISTRO" == "fedora" ]
+elif [ "$1" == "nvidia" ] && [ "$DISTRO" == "fedora" ]
 then
     install_nvidia_fedora
-elif [ "$1" == "nvidia" ] || [ "$DISTRO" == "opensuse-tumbleweed" ]
+elif [ "$1" == "nvidia" ] && [ "$DISTRO" == "opensuse-tumbleweed" ]
 then
     install_nvidia_opensuse
 else
