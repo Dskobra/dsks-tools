@@ -10,31 +10,30 @@ configure_drives(){
     echo "LABEL=shared                                /mnt/shared           ntfs    nofail,users,exec             0 0 " | sudo tee -a /etc/fstab > /dev/null
 }
 
-configure_fedora_grub(){
+configure_grub_fedora(){
     sudo cp /etc/default/grub /etc/default/grub-og.bak
     sudo grubby --args="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff rhgb quiet" --update-kernel=ALL
 }
 
-configure_opensuse_grub(){
+configure_grub_opensuse(){
     echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
 }
 
 configure_system(){
     sudo systemctl daemon-reload
     sudo mount -av
-    sudo systemctl enable --now coolercontrold
     cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
 }
 
-if [ "$1" == "fedora" ]
+if [ "$DISTRO" == "fedora" ]
 then
     configure_drives
-    configure_fedora_grub
+    configure_grub_fedora
     configure_system
-elif [ "$1" == "opensuse" ]
+elif [ "$DISTRO" == "opensuse-tumbleweed" ]
 then
     configure_drives
-    configure_opensuse_grub
+    configure_grub_opensuse
     configure_system
 else
     echo "error"

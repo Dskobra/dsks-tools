@@ -460,8 +460,8 @@ new_menu(){
             ;;
 
         4)
-            "$TOOLS_FOLDER"/modules/setup/DESKTOP/configure-system.sh "opensuse"
-            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "opensuse"
+            "$TOOLS_FOLDER"/devices/desktop.sh 
+            "$TOOLS_FOLDER"/modules/setup/configure-system.sh
             ;;
 
 
