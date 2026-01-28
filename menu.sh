@@ -18,7 +18,7 @@ main_menu(){
     case $input in
 
         1)
-            setup_menu
+            new_menu
             ;;
 
         2)
@@ -435,6 +435,50 @@ laptop_opensuse_menu(){
         esac
         unset input
         laptop_opensuse_menu
+}
+
+new_menu(){
+    echo "        ---Setup DESKTOP---"
+    echo "(1) install Lact                  (2) Nvidia Driver"
+    echo "(3) Install packages              "
+    echo "(4) Configure Desktop             (5) Configure Laptop"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            "$TOOLS_FOLDER"/devices/drivers.sh "$DISTRO" "lact"
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "opensuse"
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/setup/DESKTOP/configure-system.sh "opensuse"
+            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "opensuse"
+            ;;
+
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            new_menu
+            ;;
+
+        esac
+        unset input
+        new_menu
 }
 
 main_menu

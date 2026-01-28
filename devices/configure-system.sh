@@ -1,4 +1,38 @@
 #!/usr/bin/bash
+
+################################
+### section for my desktop
+################################
+configure_desktop_drives(){
+    ## setup drive mount points/permissions
+    sudo mkdir data games vms shared
+    sudo /mnt/data /mnt/games /mnt/vms /mnt/shared
+    sudo chown "$USER":"$USER" /mnt/data /mnt/games /mnt/vms /mnt/shared -R
+    echo "LABEL=data                                  /mnt/data             btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=games                                 /mnt/games            btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=vms                                   /mnt/vms              btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=shared                                /mnt/shared           ntfs    nofail,users,exec             0 0 " | sudo tee -a /etc/fstab > /dev/null
+}
+
+configure_fedora_grub(){
+    sudo cp /etc/default/grub /etc/default/grub-og.bak
+    sudo grubby --args="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff rhgb quiet" --update-kernel=ALL
+}
+
+configure_opensuse_grub(){
+    echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+}
+
+configure_system(){
+    sudo systemctl daemon-reload
+    sudo mount -av
+    sudo systemctl enable --now coolercontrold
+    cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
+}
+################################
+### end section
+################################
+
 ################################
 ### section for opensuse
 ################################
@@ -17,10 +51,18 @@ configure_opensuse(){
     sudo systemctl enable --now clamd
     sudo sdbootutil set-timeout -- 12
 
-    cd "$TOOLS_FOLDER"/modules/configs/ || exit
-    sudo cp zram-generator.conf /usr/lib/systemd/zram-generator.conf
-    sudo chown root:root /usr/lib/systemd/zram-generator.conf
+    touch "$TOOLS_FOLDER"/temp/zram-generator.conf
+    echo "# This config file enables a /dev/zram0 device with the default settings:" >> zram-generator.conf
+    echo "# — size — same as available RAM or 8GB, whichever is less" >> zram-generator.conf
+    echo "# — compression — most likely lzo-rle" >> zram-generator.conf
+    echo "#" >> zram-generator.conf
+    echo "# To disable, uninstall zram-generator-defaults or create empty" >> zram-generator.conf
+    echo "# /etc/systemd/zram-generator.conf file." >> zram-generator.conf
+    echo "[zram0]" >> zram-generator.conf
+    echo "zram-size = min(ram, 8192)" >> zram-generator.conf
 
+    sudo cp "$TOOLS_FOLDER"/temp/zram-generator.conf /usr/lib/systemd/zram-generator.conf
+    sudo chown root:root /usr/lib/systemd/zram-generator.conf
 
 }
 

@@ -7,10 +7,6 @@ winekill(){
     pgrep -i '(.*\.(exe|dll|msi|bat|com|lnk)$)|(.*(wine|proton).*))' |xargs -n1 kill -9
 }
 
-grub(){
-    sudo grub2-mkconfig -o /etc/grub2.cfg
-}
-
 
 clean(){
     sudo dnf clean all
