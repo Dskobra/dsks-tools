@@ -17,11 +17,19 @@ configure_opensuse(){
     sudo systemctl enable --now clamd
     sudo sdbootutil set-timeout -- 12
 
-    cd "$TOOLS_FOLDER"/configs/ || exit
-    sudo cp zram-generator.conf /usr/lib/systemd/zram-generator.conf
+
+    touch "$TOOLS_FOLDER"/temp/zram-generator.conf
+    echo "# This config file enables a /dev/zram0 device with the default settings:"  >> zram-generator.conf
+    echo "# — size — same as available RAM or 8GB, whichever is less" >> zram-generator.conf
+    echo "# — compression — most likely lzo-rle" >> zram-generator.conf
+    echo "#" >> zram-generator.conf
+    echo "# To disable, uninstall zram-generator-defaults or create empty" >> zram-generator.conf
+    echo "# /etc/systemd/zram-generator.conf file." >> zram-generator.conf
+    echo "[zram0]" >> zram-generator.conf
+    echo "zram-size = min(ram, 8192)" >> zram-generator.conf
+
+    sudo cp "$TOOLS_FOLDER"/temp/zram-generator.conf /usr/lib/systemd/zram-generator.conf
     sudo chown root:root /usr/lib/systemd/zram-generator.conf
-
-
 }
 
 build_cockpit_files(){
