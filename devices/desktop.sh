@@ -22,17 +22,17 @@ configure_grub_opensuse(){
 configure_system(){
     sudo systemctl daemon-reload
     sudo mount -av
-    cp -r "$TOOLS_FOLDER/modules/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
+    cp -r "$TOOLS_FOLDER/configs/game-profiles/DESKTOP" "$HOME"/.config/MangoHud/
 }
 
 if [ "$DISTRO" == "fedora" ]
 then
-    configure_drives
+    #configure_drives
     configure_grub_fedora
     configure_system
 elif [ "$DISTRO" == "opensuse-tumbleweed" ]
 then
-    configure_drives
+    #configure_drives
     configure_grub_opensuse
     configure_system
 else
