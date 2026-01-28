@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-install_fedora_packages(){
+install_packages_fedora(){
     sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install -y rpmfusion-free-release-tainted
     sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
@@ -48,7 +48,7 @@ install_fedora_packages(){
 
 }
 
-install_opensuse_packages(){
+install_packages_opensuse(){
     cd "$TOOLS_FOLDER/temp" || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox OpenRGB cpu-x remmina steam \
     goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
@@ -130,11 +130,11 @@ install_other(){
 echo "Desktop is $XDG_CURRENT_DESKTOP"
 if [ "$1" == "fedora" ]
 then
-    install_fedora_packages
+    install_packages_fedora
     install_other
 elif [ "$1" == "opensuse" ]
 then
-    install_opensuse_packages
+    install_packages_opensuse
     install_other
 else
     echo "error"

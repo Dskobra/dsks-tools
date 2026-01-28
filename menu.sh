@@ -456,7 +456,7 @@ new_menu(){
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "$DISTRO"
+            "$TOOLS_FOLDER"/packages.sh "$DISTRO"
             ;;
 
         4)
