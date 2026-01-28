@@ -9,7 +9,7 @@ main_menu(){
     echo "Released under the MIT license"
     echo ""
     echo ""
-    echo "(1) Setup                              (2) Various Fixes"
+    echo "(1) Devices                           (2) Various Fixes"
     echo "(3) Containers"
     echo "(0) Exit"
     printf "Option: "
@@ -44,28 +44,40 @@ main_menu(){
         main_menu
 }
 
-setup_menu(){
-    echo "------------------"
-    echo "|  Post install  |"
-    echo "------------------"
-    echo ""
-    echo "(1) Fedora                             (2) openSUSE Tumbleweed"
-    echo "(m) Main Menu                          (0) Exit"
-    echo "(0) Exit"
+new_menu(){
+    echo "(1) Install Lact                  (2) Install Nvidia Driver"
+    echo "(3) Install packages              "
+    echo "(4) Configure Desktop             (5) Configure Laptop"
+    echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
 
     case $input in
 
         1)
-            fedora_menu
+            "$TOOLS_FOLDER"/devices/drivers.sh "lact" "$DISTRO" 
             ;;
 
         2)
-            opensuse_menu
+            "$TOOLS_FOLDER"/devices/drivers.sh "nvidia" "$DISTRO" 
             ;;
 
-        m | M)
+        3)
+            "$TOOLS_FOLDER"/devices/packages.sh "$DISTRO"
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/devices/desktop.sh 
+            "$TOOLS_FOLDER"/devices/system.sh
+            ;;
+
+        5)
+            "$TOOLS_FOLDER"/devices/laptop.sh 
+            "$TOOLS_FOLDER"/devices/system.sh
+            ;;
+
+
+        m | M )
             main_menu
             ;;
 
@@ -76,14 +88,13 @@ setup_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            setup_menu
+            new_menu
             ;;
 
         esac
         unset input
-        setup_menu
+        new_menu
 }
-
 fixes_menu(){
     echo "(1) Nvidia gsk fix                (2) Steam launch fix"
     echo "(3) Remove RPMFusion"
@@ -307,181 +318,6 @@ laptop_fedora_menu(){
 ### end section
 ################################
 
-################################
-### section for openSUSE device 
-### menus
-################################
-opensuse_menu(){
-    echo "------------------"
-    echo "|   Devices      |"
-    echo "------------------"
-    echo ""
-    echo "-------------------------openSUSE Tumbleweed-------------------------"
-    echo "========================================================================="
-    echo "(1) Desktop                            (2) Laptop"
-    echo "(m) Main Menu                          (0) Exit"
-    echo "(0) Exit"
-    printf "Option: "
-    read -r input
 
-    case $input in
-
-        1)
-            desktop_opensuse_menu
-            ;;
-
-        2)
-            laptop_opensuse_menu
-            ;;
-
-        m | M)
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            opensuse_menu
-            ;;
-
-        esac
-        unset input
-        opensuse_menu
-}
-
-desktop_opensuse_menu(){
-    echo "        ---Setup DESKTOP /w Tumbleweed---"
-    echo "(1) install Lact                  (2) Install packages"
-    echo "(3) Setup system"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            "$TOOLS_FOLDER"/modules/setup/DESKTOP/lact.sh "opensuse"
-            ;;
-
-        2)
-            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "opensuse"
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/setup/DESKTOP/configure-system.sh "opensuse"
-            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "opensuse"
-            ;;
-
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            desktop_opensuse_menu
-            ;;
-
-        esac
-        unset input
-        desktop_opensuse_menu
-}
-
-laptop_opensuse_menu(){
-    echo "        ---Setup LAPTOP /w Tumbleweed---"
-    echo "(1) Nvidia Driver                 (2) Install packages"
-    echo "(3) Setup system"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            "$TOOLS_FOLDER"/modules/setup/LAPTOP/install-nvidia.sh "opensuse"
-            ;;
-        2)
-            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "opensuse"
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/setup/LAPTOP/configure-system.sh "opensuse"
-            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "opensuse"
-            ;;
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            laptop_opensuse_menu
-            ;;
-
-        esac
-        unset input
-        laptop_opensuse_menu
-}
-
-new_menu(){
-    echo "(1) Install Lact                  (2) Install Nvidia Driver"
-    echo "(3) Install packages              "
-    echo "(4) Configure Desktop             (5) Configure Laptop"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            "$TOOLS_FOLDER"/devices/drivers.sh "lact" "$DISTRO" 
-            ;;
-
-        2)
-            "$TOOLS_FOLDER"/devices/drivers.sh "nvidia" "$DISTRO" 
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/devices/packages.sh "$DISTRO"
-            ;;
-
-        4)
-            "$TOOLS_FOLDER"/devices/desktop.sh 
-            "$TOOLS_FOLDER"/devices/configure-system.sh
-            ;;
-
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            new_menu
-            ;;
-
-        esac
-        unset input
-        new_menu
-}
 
 main_menu
