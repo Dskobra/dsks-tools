@@ -10,4 +10,4 @@ export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.32.11-1.
 export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"
 DISTRO=$(source /etc/os-release ; echo $ID)                                                
 mkdir "$TOOLS_FOLDER"/temp
-"$TOOLS_FOLDER"/modules/menu.sh
+"$TOOLS_FOLDER"/menu.sh
