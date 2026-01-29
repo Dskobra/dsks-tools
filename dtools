@@ -1,13 +1,241 @@
 #!/usr/bin/bash
 
 ### Main launch script which sets some variables
+main_menu(){
+    echo "------------------"   
+    echo "|   DSK's Tools  |"
+    echo "------------------" 
+    echo ""
+    echo "$COPYRIGHT"
+    echo "Released under the MIT license"
+    echo ""
+    echo ""
+    echo "(1) Devices                           (2) Various Fixes"
+    echo "(3) Containers"
+    echo "(0) Exit"
+    printf "Option: "
+    read -r input
 
-export TOOLS_FOLDER=$(pwd)  # stores full path for dsks-tools
+    case $input in
+
+        1)
+            device_menu
+            ;;
+
+        2)
+            fixes_menu
+            ;;
+
+        3)
+            containers_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            main_menu
+            ;;
+
+        esac
+        unset input
+        main_menu
+}
+
+device_menu(){
+    echo "(1) Install Lact                  (2) Install Nvidia Driver"
+    echo "(3) Install packages              "
+    echo "(4) Configure Desktop             (5) Configure Laptop"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            "$TOOLS_FOLDER"/devices/drivers.sh "lact" "$DISTRO" 
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/devices/drivers.sh "nvidia" "$DISTRO" 
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/devices/packages.sh "$DISTRO"
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/devices/desktop.sh 
+            "$TOOLS_FOLDER"/devices/system.sh
+            ;;
+
+        5)
+            "$TOOLS_FOLDER"/devices/laptop.sh 
+            "$TOOLS_FOLDER"/devices/system.sh
+            ;;
+
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            device_menu
+            ;;
+
+        esac
+        unset input
+        device_menu
+}
+
+fixes_menu(){
+    echo "(1) Nvidia gsk fix                (2) Steam launch fix"
+    echo "(3) Remove RPMFusion"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+
+        1)
+            "$TOOLS_FOLDER"/modules/fixes/nvidia.sh
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/fixes/steam.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/fixes/rpmfusion.sh
+            ;;
+
+        m | M)
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            fixes_menu
+            ;;
+
+        esac
+        unset input
+        fixes_menu
+}
+
+containers_menu(){
+    echo "------------------"
+    echo "|  Containers    |"
+    echo "------------------"
+    echo ""
+    echo "(1) Create dev container               (2) Install apps"
+    echo "(3) Create apps container              (4) Install apps"
+    echo "(m) Main Menu                          (0) Exit"
+    echo "(0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            "$TOOLS_FOLDER"/modules/containers/create.sh "tooling"
+            ;;
+
+        2)
+            "$TOOLS_FOLDER"/modules/containers/tooling.sh
+            ;;
+
+        3)
+            "$TOOLS_FOLDER"/modules/containers/create.sh "apps" 
+            ;;
+
+        4)
+            "$TOOLS_FOLDER"/modules/containers/apps.sh
+            ;;
+
+        m | M)
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            containers_menu
+            ;;
+
+        esac
+        unset input
+        containers_menu
+}
+
+dsks_tools(){
+    if [ "$1" == "--devices" ] || [ "$1" == "-d" ] || [ "$1" == "devices" ]
+    then
+        device_menu
+    elif [ "$1" == "--containers" ] || [ "$1" == "-c" ] || [ "$1" == "containers" ]
+    then
+        containers_menu
+    elif [ "$1" == "--fixes" ] || [ "$1" == "-f" ] || [ "$1" == "fixes" ]
+    then
+        fixes_menu
+    elif [ "$1" == "--update" ] || [ "$1" == "-u" ] || [ "$1" == "update" ]
+    then
+        cd "$TOOLS_FOLDER" || exit
+        git stash && git pull
+    elif [ -z "$1" ]
+    then
+        echo "dtools: no option given"
+        echo "Usage: dtools [OPTION]"
+        echo "Try 'dtools --devices' or 'dtools --help' to see options"
+    else
+        echo "Invalid option: $1"
+        echo ""
+        dsks_tools_help
+    fi
+}
+
+dsks_tools_help(){
+    echo "dtools [args]"
+    echo ""
+    echo ""
+    echo "Examples: "
+    echo "  dtools --devices"
+    echo "  dtools --containers"
+    echo "  dtools --fixes"
+    echo ""
+    echo ""
+    echo "Available arguments:"
+    echo "  --devices, -d, devices          # opens menu for setting up my devices"
+    echo "  --containers, -c, containers    # opens menu for creating containers"
+    echo "  --fixes, -f, fixes              # opens menu for possible fixes"
+    echo "  --update, -u, update            # updates these tools"
+}
+export TOOLS_FOLDER
 export DISTRO
 export COPYRIGHT="Copyright (c) 2024-2026 Jordan Bottoms"
 export PROTON_MAIL="https://proton.me/download/mail/linux/1.10.1/ProtonMail-desktop-beta.rpm"
 export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.32.11-1.x86_64.rpm"
 export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"
+TOOLS_FOLDER=$(pwd)  # stores full path for dsks-tools
 DISTRO=$(source /etc/os-release ; echo $ID)                                                
 mkdir "$TOOLS_FOLDER"/temp
 "$TOOLS_FOLDER"/menu.sh

@@ -18,7 +18,7 @@ main_menu(){
     case $input in
 
         1)
-            new_menu
+            device_menu
             ;;
 
         2)
@@ -44,7 +44,7 @@ main_menu(){
         main_menu
 }
 
-new_menu(){
+device_menu(){
     echo "(1) Install Lact                  (2) Install Nvidia Driver"
     echo "(3) Install packages              "
     echo "(4) Configure Desktop             (5) Configure Laptop"
@@ -88,12 +88,12 @@ new_menu(){
         *)
             echo -n "Unknown entry"
             echo ""
-            new_menu
+            device_menu
             ;;
 
         esac
         unset input
-        new_menu
+        device_menu
 }
 fixes_menu(){
     echo "(1) Nvidia gsk fix                (2) Steam launch fix"
@@ -184,140 +184,5 @@ containers_menu(){
         unset input
         containers_menu
 }
-
-################################
-### section for Fedora device 
-### menus
-################################
-fedora_menu(){
-    echo "------------------"
-    echo "|   Devices      |"
-    echo "------------------"
-    echo ""
-    echo "-------------------------Fedora-------------------------"
-    echo "========================================================================="
-    echo "(1) Desktop                            (2) Laptop"
-    echo "(m) Main Menu                          (0) Exit"
-    echo "(0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            desktop_fedora_menu
-            ;;
-
-        2)
-            laptop_fedora_menu
-            ;;
-
-        m | M)
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            fedora_dnf_menu
-            ;;
-
-        esac
-        unset input
-        fedora_menu
-}
-
-desktop_fedora_menu(){
-    echo "-------------------------Setup Desktop /w Fedora-------------------------"
-    echo "(1) Install Lact                  (2) Install packages"
-    echo "(3) Setup system"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            "$TOOLS_FOLDER"/modules/setup/DESKTOP/lact.sh "fedora"
-            ;;
-        2)
-            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "fedora"
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/setup/DESKTOP/configure-system.sh "fedora"
-            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "fedora"
-            ;;
-
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            desktop_fedora_menu
-            ;;
-
-        esac
-        unset input
-        desktop_fedora_menu
-}
-
-laptop_fedora_menu(){
-    echo "-------------------------Setup Laptop /w Fedora-------------------------"
-    echo "(1) Nvidia Driver                 (2) Install packages"
-    echo "(3) Setup system"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            "$TOOLS_FOLDER"/modules/setup/LAPTOP/install-nvidia.sh "fedora"
-            ;;
-        2)
-            "$TOOLS_FOLDER"/modules/setup/install-packages.sh "fedora"
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/setup/LAPTOP/configure-system.sh  "fedora"
-            "$TOOLS_FOLDER"/modules/setup/configure-system.sh "fedora"
-            ;;
-
-        m | M )
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            laptop_fedora_menu
-            ;;
-
-        esac
-        unset input
-        laptop_fedora_menu
-}
-
-################################
-### end section
-################################
-
-
 
 main_menu
