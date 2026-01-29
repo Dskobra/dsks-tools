@@ -186,6 +186,23 @@ containers_menu(){
         containers_menu
 }
 
+updater(){
+    if [ "$DISTRO" == "fedora" ] && [ -z "$OSTREE" ]
+    then
+        sudo dnf upgrade -y
+        sudo dnf autoremove -y
+        sudo flatpak update -y
+        sudo flatpak remove --unused -y
+    elif [ "$DISTRO" == "opensuse-tumbleweed" ]
+    then
+        sudo zypper -n dup --auto-agree-with-licenses
+        sudo flatpak update -y
+        sudo flatpak remove --unused -y
+    else
+        echo ""
+    fi
+}
+
 dsks_tools(){
     if [ "$1" == "--devices" ] || [ "$1" == "-d" ] || [ "$1" == "devices" ]
     then
@@ -199,6 +216,9 @@ dsks_tools(){
     elif [ "$1" == "--menu" ] || [ "$1" == "-m" ] || [ "$1" == "menu" ]
     then
         main_menu
+    elif [ "$1" == "--updater" ] || [ "$1" == "-s" ] || [ "$1" == "updater" ]
+    then
+        updater
     elif [ "$1" == "--update" ] || [ "$1" == "-u" ] || [ "$1" == "update" ]
     then
         cd "$TOOLS_FOLDER" || exit
@@ -231,8 +251,10 @@ dsks_tools_help(){
     echo "  --containers, -c, containers    # opens menu for creating containers"
     echo "  --fixes, -f, fixes              # opens menu for possible fixes"
     echo "  --menu, -m, menu                # opens main menu"
+    echo "  --updater, -sm updater          # update system"
     echo "  --update, -u, update            # updates these tools"
 }
+
 export TOOLS_FOLDER
 export DISTRO
 export COPYRIGHT="Copyright (c) 2024-2026 Jordan Bottoms"
