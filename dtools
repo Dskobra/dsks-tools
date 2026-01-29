@@ -146,7 +146,6 @@ containers_menu(){
     echo "(1) Create dev container               (2) Install apps"
     echo "(3) Create apps container              (4) Install apps"
     echo "(m) Main Menu                          (0) Exit"
-    echo "(0) Exit"
     printf "Option: "
     read -r input
 
@@ -197,6 +196,9 @@ dsks_tools(){
     elif [ "$1" == "--fixes" ] || [ "$1" == "-f" ] || [ "$1" == "fixes" ]
     then
         fixes_menu
+    elif [ "$1" == "--menu" ] || [ "$1" == "-m" ] || [ "$1" == "menu" ]
+    then
+        main_menu
     elif [ "$1" == "--update" ] || [ "$1" == "-u" ] || [ "$1" == "update" ]
     then
         cd "$TOOLS_FOLDER" || exit
@@ -221,12 +223,14 @@ dsks_tools_help(){
     echo "  dtools --devices"
     echo "  dtools --containers"
     echo "  dtools --fixes"
+    echo "  dtools --menu"
     echo ""
     echo ""
     echo "Available arguments:"
     echo "  --devices, -d, devices          # opens menu for setting up my devices"
     echo "  --containers, -c, containers    # opens menu for creating containers"
     echo "  --fixes, -f, fixes              # opens menu for possible fixes"
+    echo "  --menu, -m, menu                # opens main menu"
     echo "  --update, -u, update            # updates these tools"
 }
 export TOOLS_FOLDER
@@ -238,4 +242,4 @@ export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthent
 TOOLS_FOLDER=$(pwd)  # stores full path for dsks-tools
 DISTRO=$(source /etc/os-release ; echo $ID)                                                
 mkdir "$TOOLS_FOLDER"/temp
-"$TOOLS_FOLDER"/menu.sh
+dsks_tools "$1"
