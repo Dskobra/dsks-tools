@@ -98,25 +98,15 @@ device_menu(){
 }
 
 fixes_menu(){
-    echo "(1) Nvidia gsk fix                (2) Steam launch fix"
-    echo "(3) Remove RPMFusion"
+    echo "(1) Remove RPMFusion"
     echo "(m) Main Menu                     (0) Exit"
     printf "Option: "
     read -r input
 
     case $input in
 
-
-        1)
-            "$TOOLS_FOLDER"/modules/fixes/nvidia.sh
-            ;;
-
-        2)
-            "$TOOLS_FOLDER"/modules/fixes/steam.sh
-            ;;
-
-        3)
-            "$TOOLS_FOLDER"/modules/fixes/rpmfusion.sh
+       1)
+            "$TOOLS_FOLDER"/fixes/rpmfusion.sh
             ;;
 
         m | M)

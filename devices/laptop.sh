@@ -11,13 +11,13 @@ configure_opensuse_grub(){
 if [ "$DISTRO" == "fedora" ]
 then
     configure_fedora_grub
-    cp -r "$TOOLS_FOLDER/configs/game-profiles/LAPTOP" "$HOME"/.config/MangoHud/
+    cp -r "$TOOLS_FOLDER"/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
     flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
 elif [ "$DISTRO" == "opensuse-tumbleweed" ]
 then
     configure_opensuse_grub
-    cp -r "$TOOLS_FOLDER/configs/game-profiles/LAPTOP" "$HOME"/.config/MangoHud/
-    flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
+    cp -r "$TOOLS_FOLDER"/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
+    sudo flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
 else
     echo "error"
 fi
