@@ -186,6 +186,23 @@ containers_menu(){
         containers_menu
 }
 
+gcache(){
+    # brave-browser from rpm and flatpak (user)
+    rm -r ~/.config/BraveSoftware/Brave-Browser/Default/GPUCache/
+    rm -r ~/.var/app/com.brave.Browser/config/BraveSoftware/Brave-Browser/Default/GPUCache/
+
+    # discord from rpm/tarball and flatpak (user)
+    rm -r ~/.config/discord/GPUCache/
+    rm -r ~/.var/app/com.discordapp.Discord/config/discord/GPUCache/
+
+    # wowup, raider.io and warcraft logs 3rd party world of warcraft
+    # addons/services
+    rm -r ~/.config/WowUpCf/GPUCache/
+    rm -r ~/.config/RaiderIO/GPUCache/
+    rm -r ~/.config/"Warcraft Logs Uploader"/GPUCache/
+
+
+}
 updater(){
     if [ "$DISTRO" == "fedora" ] && [ -z "$OSTREE" ]
     then
@@ -216,6 +233,9 @@ dsks_tools(){
     elif [ "$1" == "--menu" ] || [ "$1" == "-m" ] || [ "$1" == "menu" ]
     then
         main_menu
+    elif [ "$1" == "--gcache" ] || [ "$1" == "-g" ] || [ "$1" == "gcache" ]
+    then
+        gcache
     elif [ "$1" == "--updater" ] || [ "$1" == "-s" ] || [ "$1" == "updater" ]
     then
         updater
@@ -244,6 +264,9 @@ dsks_tools_help(){
     echo "  dtools --containers"
     echo "  dtools --fixes"
     echo "  dtools --menu"
+    echo "  dtools --gcache"
+    echo "  dtools --updater"
+    echo "  dtools --update"
     echo ""
     echo ""
     echo "Available arguments:"
@@ -251,7 +274,8 @@ dsks_tools_help(){
     echo "  --containers, -c, containers    # opens menu for creating containers"
     echo "  --fixes, -f, fixes              # opens menu for possible fixes"
     echo "  --menu, -m, menu                # opens main menu"
-    echo "  --updater, -sm updater          # update system"
+    echo "  --gcache, -g, gcache            # cleans shader caches for select electron apps"
+    echo "  --updater, -s updater           # update system"
     echo "  --update, -u, update            # updates these tools"
 }
 
