@@ -56,25 +56,25 @@ device_menu(){
     case $input in
 
         1)
-            "$HOME"/.local/share/dsks-tools/bin/drivers.sh "lact" "$DISTRO" 
+            "$HOME"/.local/share/dsks-tools/bin/drivers "lact" "$DISTRO" 
             ;;
 
         2)
-            "$HOME"/.local/share/dsks-tools/bin/drivers.sh "nvidia" "$DISTRO" 
+            "$HOME"/.local/share/dsks-tools/bin/drivers "nvidia" "$DISTRO" 
             ;;
 
         3)
-            "$HOME"/.local/share/dsks-tools/bin/packages.sh "$DISTRO"
+            "$HOME"/.local/share/dsks-tools/bin/packages "$DISTRO"
             ;;
 
         4)
-            "$HOME"/.local/share/dsks-tools/bin/desktop.sh 
-            "$HOME"/.local/share/dsks-tools/bin/system.sh
+            "$HOME"/.local/share/dsks-tools/bin/desktop 
+            "$HOME"/.local/share/dsks-tools/bin/system
             ;;
 
         5)
-            "$HOME"/.local/share/dsks-tools/bin/laptop.sh 
-            "$HOME"/.local/share/dsks-tools/bin/system.sh
+            "$HOME"/.local/share/dsks-tools/bin/laptop 
+            "$HOME"/.local/share/dsks-tools/bin/system
             ;;
 
 
@@ -142,19 +142,19 @@ containers_menu(){
     case $input in
 
         1)
-            "$HOME"/.local/share/dsks-tools/bin/create.sh "tooling"
+            "$HOME"/.local/share/dsks-tools/bin/create "tooling"
             ;;
 
         2)
-            "$HOME"/.local/share/dsks-tools/bin/tooling.sh
+            "$HOME"/.local/share/dsks-tools/bin/tooling
             ;;
 
         3)
-            "$HOME"/.local/share/dsks-tools/bin/create.sh "apps" 
+            "$HOME"/.local/share/dsks-tools/bin/create "apps" 
             ;;
 
         4)
-            "$HOME"/.local/share/dsks-tools/bin/apps.sh
+            "$HOME"/.local/share/dsks-tools/bin/apps
             ;;
 
         m | M)
