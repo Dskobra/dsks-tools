@@ -56,25 +56,25 @@ device_menu(){
     case $input in
 
         1)
-            "$HOME"/.local/share/dsks-tools/devices/drivers.sh "lact" "$DISTRO" 
+            "$HOME"/.local/share/dsks-tools/bin/drivers.sh "lact" "$DISTRO" 
             ;;
 
         2)
-            "$HOME"/.local/share/dsks-tools/devices/drivers.sh "nvidia" "$DISTRO" 
+            "$HOME"/.local/share/dsks-tools/bin/drivers.sh "nvidia" "$DISTRO" 
             ;;
 
         3)
-            "$HOME"/.local/share/dsks-tools/devices/packages.sh "$DISTRO"
+            "$HOME"/.local/share/dsks-tools/bin/packages.sh "$DISTRO"
             ;;
 
         4)
-            "$HOME"/.local/share/dsks-tools/devices/desktop.sh 
-            "$HOME"/.local/share/dsks-tools/devices/system.sh
+            "$HOME"/.local/share/dsks-tools/bin/desktop.sh 
+            "$HOME"/.local/share/dsks-tools/bin/system.sh
             ;;
 
         5)
-            "$HOME"/.local/share/dsks-tools/devices/laptop.sh 
-            "$HOME"/.local/share/dsks-tools/devices/system.sh
+            "$HOME"/.local/share/dsks-tools/bin/laptop.sh 
+            "$HOME"/.local/share/dsks-tools/bin/system.sh
             ;;
 
 
@@ -106,7 +106,7 @@ fixes_menu(){
     case $input in
 
        1)
-            "$HOME"/.local/share/dsks-tools/fixes/rpmfusion.sh
+            "$HOME"/.local/share/dsks-tools/bin/fixes "rpmfusion"
             ;;
 
         m | M)
@@ -142,19 +142,19 @@ containers_menu(){
     case $input in
 
         1)
-            "$HOME"/.local/share/dsks-tools/containers/create.sh "tooling"
+            "$HOME"/.local/share/dsks-tools/bin/create.sh "tooling"
             ;;
 
         2)
-            "$HOME"/.local/share/dsks-tools/containers/tooling.sh
+            "$HOME"/.local/share/dsks-tools/bin/tooling.sh
             ;;
 
         3)
-            "$HOME"/.local/share/dsks-tools/containers/create.sh "apps" 
+            "$HOME"/.local/share/dsks-tools/bin/create.sh "apps" 
             ;;
 
         4)
-            "$HOME"/.local/share/dsks-tools/containers/apps.sh
+            "$HOME"/.local/share/dsks-tools/bin/apps.sh
             ;;
 
         m | M)
@@ -267,24 +267,10 @@ dsks_tools_help(){
     echo "  --pull, -p, pull                # updates these tools"
 }
 
-install(){
-    if [ -d "$HOME/.local/share/dsks-tools" ]; then
-        dsks_tools "$1"
-    else
-        echo "dsks-tools not found under $HOME/.local/share."
-        echo "This will be copied over and run from there"
-        TOOLS_FOLDER=$(pwd)  # stores full path for dsks-tools
-        cp -r "$TOOLS_FOLDER" "$HOME"/.local/share/dsks-tools
-        ln -s "$HOME"/.local/share/dsks-tools/dtools "$HOME"/.local/bin/dtools
-        mkdir "$HOME"/.local/share/dsks-tools/temp
-    fi
-    
-}
-
 export DISTRO
 export COPYRIGHT="Copyright (c) 2024-2026 Jordan Bottoms"
 export PROTON_MAIL="https://proton.me/download/mail/linux/1.10.1/ProtonMail-desktop-beta.rpm"
 export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.32.11-1.x86_64.rpm"
 export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"
 DISTRO=$(source /etc/os-release ; echo $ID)                                                
-install "$1"
+dsks_tools "$1"
