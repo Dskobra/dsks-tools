@@ -193,7 +193,8 @@ gcache(){
 
 
 }
-updater(){
+
+update(){
     if [ "$DISTRO" == "fedora" ] && [ -z "$OSTREE" ]
     then
         sudo dnf upgrade -y
@@ -226,13 +227,16 @@ dsks_tools(){
     elif [ "$1" == "--gcache" ] || [ "$1" == "-g" ] || [ "$1" == "gcache" ]
     then
         gcache
-    elif [ "$1" == "--updater" ] || [ "$1" == "-s" ] || [ "$1" == "updater" ]
-    then
-        updater
     elif [ "$1" == "--update" ] || [ "$1" == "-u" ] || [ "$1" == "update" ]
+    then
+        update
+    elif [ "$1" == "--pull" ] || [ "$1" == "-p" ] || [ "$1" == "pull" ]
     then
         cd "$TOOLS_FOLDER" || exit
         git stash && git pull
+    elif [ "$1" == "--install" ] || [ "$1" == "-i" ] || [ "$1" == "install" ]
+    then
+        install
     elif [ -z "$1" ]
     then
         echo "dtools: no option given"
@@ -252,11 +256,9 @@ dsks_tools_help(){
     echo "Examples: "
     echo "  dtools --devices"
     echo "  dtools --containers"
-    echo "  dtools --fixes"
-    echo "  dtools --menu"
-    echo "  dtools --gcache"
-    echo "  dtools --updater"
+    echo "  dtools --pull"
     echo "  dtools --update"
+    echo "  dtools --install"
     echo ""
     echo ""
     echo "Available arguments:"
@@ -265,10 +267,15 @@ dsks_tools_help(){
     echo "  --fixes, -f, fixes              # opens menu for possible fixes"
     echo "  --menu, -m, menu                # opens main menu"
     echo "  --gcache, -g, gcache            # cleans shader caches for select electron apps"
-    echo "  --updater, -s updater           # update system"
-    echo "  --update, -u, update            # updates these tools"
+    echo "  --update, -u update             # update system"
+    echo "  --pull, -p, pull                # updates these tools"
+    echo "  --install, -i, install          # copies dsks-tools to $HOME/.local/share"
 }
 
+install(){
+    cp -r "$TOOLS_FOLDER" "$HOME"/.local/share/dsks-tools
+    ln -s "$HOME"/.local/share/dsks-tools/dtools "$HOME"/.local/bin/dtools
+}
 export TOOLS_FOLDER
 export DISTRO
 export COPYRIGHT="Copyright (c) 2024-2026 Jordan Bottoms"
