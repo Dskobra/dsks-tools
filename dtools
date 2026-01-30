@@ -56,25 +56,25 @@ device_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/devices/drivers.sh "lact" "$DISTRO" 
+            "$HOME"/.local/share/dsks-tools/devices/drivers.sh "lact" "$DISTRO" 
             ;;
 
         2)
-            "$TOOLS_FOLDER"/devices/drivers.sh "nvidia" "$DISTRO" 
+            "$HOME"/.local/share/dsks-tools/devices/drivers.sh "nvidia" "$DISTRO" 
             ;;
 
         3)
-            "$TOOLS_FOLDER"/devices/packages.sh "$DISTRO"
+            "$HOME"/.local/share/dsks-tools/devices/packages.sh "$DISTRO"
             ;;
 
         4)
-            "$TOOLS_FOLDER"/devices/desktop.sh 
-            "$TOOLS_FOLDER"/devices/system.sh
+            "$HOME"/.local/share/dsks-tools/devices/desktop.sh 
+            "$HOME"/.local/share/dsks-tools/devices/system.sh
             ;;
 
         5)
-            "$TOOLS_FOLDER"/devices/laptop.sh 
-            "$TOOLS_FOLDER"/devices/system.sh
+            "$HOME"/.local/share/dsks-tools/devices/laptop.sh 
+            "$HOME"/.local/share/dsks-tools/devices/system.sh
             ;;
 
 
@@ -106,7 +106,7 @@ fixes_menu(){
     case $input in
 
        1)
-            "$TOOLS_FOLDER"/fixes/rpmfusion.sh
+            "$HOME"/.local/share/dsks-tools/fixes/rpmfusion.sh
             ;;
 
         m | M)
@@ -142,19 +142,19 @@ containers_menu(){
     case $input in
 
         1)
-            "$TOOLS_FOLDER"/modules/containers/create.sh "tooling"
+            "$HOME"/.local/share/dsks-tools/containers/create.sh "tooling"
             ;;
 
         2)
-            "$TOOLS_FOLDER"/modules/containers/tooling.sh
+            "$HOME"/.local/share/dsks-tools/containers/tooling.sh
             ;;
 
         3)
-            "$TOOLS_FOLDER"/modules/containers/create.sh "apps" 
+            "$HOME"/.local/share/dsks-tools/containers/create.sh "apps" 
             ;;
 
         4)
-            "$TOOLS_FOLDER"/modules/containers/apps.sh
+            "$HOME"/.local/share/dsks-tools/containers/apps.sh
             ;;
 
         m | M)
