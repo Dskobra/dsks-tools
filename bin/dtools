@@ -146,7 +146,7 @@ containers_menu(){
             ;;
 
         2)
-            "$HOME"/.local/share/dsks-tools/bin/tooling
+            "$HOME"/.local/share/dsks-tools/bin/containers "tooling"
             ;;
 
         3)
@@ -154,7 +154,7 @@ containers_menu(){
             ;;
 
         4)
-            "$HOME"/.local/share/dsks-tools/bin/test "apps"
+            "$HOME"/.local/share/dsks-tools/bin/containers "apps"
             ;;
 
         m | M)
