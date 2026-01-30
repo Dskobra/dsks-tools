@@ -19,5 +19,10 @@ rpmfusion_purge(){
     sudo dnf swap -y mesa-vulkan-drivers-freeworld.i686 mesa-vulkan-drivers.i686
     sudo dnf remove -y rpmfusion*
 }
+    if [ "$DISTRO" == "fedora" ] && [ -z "$OSTREE" ]
+    then
+        rpmfusion_purge
+    else
+        echo "Only compatible with Fedora non immutable editions"
+    fi
 
-rpmfusion_purge
