@@ -7,21 +7,21 @@ configure_opensuse(){
     sudo sdbootutil set-timeout -- 12
 
 
-    touch "$TOOLS_FOLDER"/temp/zram-generator.conf
+    touch "$HOME"/.local/share/dsks-tools/temp/zram-generator.conf
     echo "[zram0]" >> zram-generator.conf
     echo "zram-size = min(ram, 8192)" >> zram-generator.conf
 
-    sudo cp "$TOOLS_FOLDER"/temp/zram-generator.conf /usr/lib/systemd/zram-generator.conf
+    sudo cp "$HOME"/.local/share/dsks-tools/temp/zram-generator.conf /usr/lib/systemd/zram-generator.conf
     sudo chown root:root /usr/lib/systemd/zram-generator.conf
 }
 
 build_cockpit_files(){
-    cd "$TOOLS_FOLDER"/temp || exit
+    cd "$HOME"/.local/share/dsks-tools/temp || exit
     git clone https://github.com/cockpit-project/cockpit-files.git
     cd "cockpit-files" || exit
     make
     sudo make install
-    rm -r -f "$TOOLS_FOLDER"/temp/cockpit-files
+    rm -r -f "$HOME"/.local/share/dsks-tools/temp/cockpit-files
 }
 ################################
 ### end section

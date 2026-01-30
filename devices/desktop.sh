@@ -22,7 +22,7 @@ configure_grub_opensuse(){
 configure_system(){
     sudo systemctl daemon-reload
     sudo mount -av
-    cp -r "$TOOLS_FOLDER"/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
+    cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
 }
 
 if [ "$DISTRO" == "fedora" ]

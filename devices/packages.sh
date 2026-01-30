@@ -11,7 +11,7 @@ install_packages_fedora(){
     dnf-plugins-core gamemode.x86_64 gamemode.i686 steam-devices xfburn
 
 
-    cd "$TOOLS_FOLDER/temp" || exit
+    cd "$HOME"/.local/share/dsks-tools/temp || exit
     if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
     then
         curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
@@ -49,7 +49,7 @@ install_packages_fedora(){
 }
 
 install_packages_opensuse(){
-    cd "$TOOLS_FOLDER/temp" || exit
+    cd "$HOME"/.local/share/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox OpenRGB cpu-x remmina steam \
     goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
     setroubleshoot-server podman i2c-tools systemd-zram-service zram-generator nextcloud-desktop \
@@ -69,7 +69,7 @@ install_packages_opensuse(){
     else
         echo "$XDG_CURRENT_DESKTOP is not supported."
     fi
-    cd "$TOOLS_FOLDER/temp" || exit
+    cd "$HOME"/.local/share/dsks-tools/temp || exit
     curl -L -o proton-mail.rpm $PROTON_MAIL
     curl -L -o proton-pass.rpm $PROTON_PASS
     curl -L -o proton-authenticator.rpm $PROTON_AUTH
