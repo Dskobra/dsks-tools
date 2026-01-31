@@ -2,7 +2,7 @@
 ################################
 ### section for opensuse
 ################################
-configure_opensuse(){
+configure(){
     sudo systemctl enable --now clamd
     sudo sdbootutil set-timeout -- 12
 
@@ -26,12 +26,6 @@ build_cockpit_files(){
 ################################
 ### end section
 ################################
-configure_fedora(){
-    sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
-    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
-    sudo grub2-editenv - unset menu_auto_hide
-}
-
 configure_system(){
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
     sudo firewall-cmd --set-default-zone=home
@@ -79,11 +73,7 @@ configure_system(){
     sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 }
 
-if [ "$DISTRO" == "fedora" ]
-then
-    configure_fedora
-    configure_system
-elif [ "$DISTRO" == "opensuse-tumbleweed" ]
+if [ "$DISTRO" == "opensuse-tumbleweed" ]
 then
     configure_opensuse
     configure_system

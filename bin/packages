@@ -1,54 +1,6 @@
 #!/usr/bin/bash
 
-install_packages_fedora(){
-    sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf install -y rpmfusion-free-release-tainted
-    sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-    wget https://mega.nz/linux/repo/Fedora_43/x86_64/megasync-Fedora_43.x86_64.rpm && sudo dnf install -y "$PWD/megasync-Fedora_43.x86_64.rpm"
-    sudo dnf install -y vim-enhanced distrobox openrgb cpu-x remmina isoimagewriter nextcloud-client steam goverlay virt-manager flatpak vlc \
-    openshot tilix brave-browser clamav clamav-update clamd firewall-applet discord cockpit cockpit-files cockpit-kdump cockpit-selinux \
-    cockpit-session-recording qemu-kvm virt-install libvirt-daemon-kvm libvirt-daemon-config-network docker-compose-switch wget curl \
-    dnf-plugins-core gamemode.x86_64 gamemode.i686 steam-devices xfburn
-
-
-    cd "$HOME"/.local/share/dsks-tools/temp || exit
-    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
-    then
-        curl -L -o dolphin-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/dolphin-megasync-5.4.0-2.1.x86_64.rpm
-    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
-    then
-        curl -L -o nautilus-megasync.rpm https://mega.nz/linux/repo/Fedora_43/x86_64/nautilus-megasync-5.4.0-1.1.x86_64.rpm
-        sudo dnf install -y gnome-shell-extension-appindicator gnome-tweaks dconf-editor file-roller \
-        i2c-tools kde-partitionmanager
-    else
-        echo "$XDG_CURRENT_DESKTOP is not supported."
-    fi
-
-    curl -L -o proton-mail.rpm $PROTON_MAIL
-    curl -L -o proton-pass.rpm $PROTON_PASS
-    curl -L -o proton-authenticator.rpm $PROTON_AUTH
-    sudo dnf install -y *.rpm
-    rm *.rpm
-
-    # codecs some stuff is taken from the below guide
-    # https://github.com/devangshekhawat/Fedora-43-Post-Install-Guide
-    sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
-    sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
-
-    sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-    sudo dnf swap -y mesa-va-drivers.i686 mesa-va-drivers-freeworld.i686
-
-    sudo dnf swap -y mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
-    sudo dnf swap -y mesa-vulkan-drivers.i686 mesa-vulkan-drivers-freeworld.i686
-
-    sudo dnf group install -y multimedia
-    sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264 libdvdcss
-    sudo dnf upgrade -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-    sudo dnf remove -y libreoffice*
-
-}
-
-install_packages_opensuse(){
+install_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox OpenRGB cpu-x remmina steam \
     goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
@@ -117,11 +69,7 @@ install_other(){
 }
 
 echo "Desktop is $XDG_CURRENT_DESKTOP"
-if [ "$DISTRO" == "fedora" ]
-then
-    install_packages_fedora
-    install_other
-elif [ "$DISTRO" == "opensuse-tumbleweed" ]
+if [ "$DISTRO" == "opensuse-tumbleweed" ]
 then
     install_packages_opensuse
     install_other

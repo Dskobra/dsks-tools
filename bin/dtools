@@ -23,7 +23,8 @@ main_menu(){
             ;;
 
         2)
-            fixes_menu
+            #fixes_menu
+            echo "No available fixes atm."
             ;;
 
         3)
@@ -195,13 +196,7 @@ gcache(){
 }
 
 update(){
-    if [ "$DISTRO" == "fedora" ] && [ -z "$OSTREE" ]
-    then
-        sudo dnf upgrade -y
-        sudo dnf autoremove -y
-        sudo flatpak update -y
-        sudo flatpak remove --unused -y
-    elif [ "$DISTRO" == "opensuse-tumbleweed" ]
+    if [ "$DISTRO" == "opensuse-tumbleweed" ]
     then
         sudo zypper -n dup --auto-agree-with-licenses
         sudo flatpak update -y
@@ -220,7 +215,8 @@ dsks_tools(){
         containers_menu
     elif [ "$1" == "--fixes" ] || [ "$1" == "-f" ] || [ "$1" == "fixes" ]
     then
-        fixes_menu
+        #fixes_menu
+        echo "No available fixes atm."
     elif [ "$1" == "--menu" ] || [ "$1" == "-m" ] || [ "$1" == "menu" ]
     then
         main_menu

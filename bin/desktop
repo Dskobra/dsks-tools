@@ -10,30 +10,16 @@ configure_drives(){
     echo "LABEL=shared                                /mnt/shared           ntfs    nofail,users,exec             0 0 " | sudo tee -a /etc/fstab > /dev/null
 }
 
-configure_grub_fedora(){
-    sudo cp /etc/default/grub /etc/default/grub-og.bak
-    sudo grubby --args="amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff rhgb quiet" --update-kernel=ALL
-}
-
-configure_grub_opensuse(){
-    echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
-}
-
 configure_system(){
     sudo systemctl daemon-reload
     sudo mount -av
     cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
 }
 
-if [ "$DISTRO" == "fedora" ]
+if [ "$DISTRO" == "opensuse-tumbleweed" ]
 then
     #configure_drives
-    configure_grub_fedora
-    configure_system
-elif [ "$DISTRO" == "opensuse-tumbleweed" ]
-then
-    #configure_drives
-    configure_grub_opensuse
+    echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
     configure_system
 else
     echo "error"
