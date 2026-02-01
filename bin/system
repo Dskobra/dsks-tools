@@ -73,11 +73,6 @@ configure_system(){
     sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 }
 
-if [ "$DISTRO" == "opensuse-tumbleweed" ]
-then
-    configure_opensuse
-    configure_system
-    build_cockpit_files
-else
-    echo "error"
-fi
+configure
+configure_system
+build_cockpit_files

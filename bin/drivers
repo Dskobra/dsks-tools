@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-install_nvidia_opensuse(){
+install_nvidia(){
     # main drivers
     sudo zypper -n install --auto-agree-with-licenses openSUSE-repos-Tumbleweed-NVIDIA
 
@@ -21,17 +21,17 @@ install_nvidia_opensuse(){
     nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
 }
 
-install_lact_opensuse(){
+install_lact(){
     sudo zypper -n install dbus-1-daemon
     sudo flatpak install -y flathub io.github.ilya_zlobintsev.LACT
 
 }
-if [ "$1" == "lact" ] && [ "$DISTRO" == "opensuse-tumbleweed" ]
+if [ "$1" == "lact" ]
 then
-    install_lact_opensuse
-elif [ "$1" == "nvidia" ] && [ "$DISTRO" == "opensuse-tumbleweed" ]
+    install_lact
+elif [ "$1" == "nvidia" ]
 then
-    install_nvidia_opensuse
+    install_nvidia
 else
     echo "error"
 fi

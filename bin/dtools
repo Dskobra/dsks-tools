@@ -57,11 +57,11 @@ device_menu(){
     case $input in
 
         1)
-            "$HOME"/.local/share/dsks-tools/bin/drivers "lact" "$DISTRO" 
+            "$HOME"/.local/share/dsks-tools/bin/drivers "lact"
             ;;
 
         2)
-            "$HOME"/.local/share/dsks-tools/bin/drivers "nvidia" "$DISTRO" 
+            "$HOME"/.local/share/dsks-tools/bin/drivers "nvidia"
             ;;
 
         3)
@@ -74,7 +74,9 @@ device_menu(){
             ;;
 
         5)
-            "$HOME"/.local/share/dsks-tools/bin/laptop 
+            echo "amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+            cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
+            sudo flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
             "$HOME"/.local/share/dsks-tools/bin/system
             ;;
 

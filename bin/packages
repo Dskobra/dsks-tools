@@ -69,11 +69,6 @@ install_other(){
 }
 
 echo "Desktop is $XDG_CURRENT_DESKTOP"
-if [ "$DISTRO" == "opensuse-tumbleweed" ]
-then
-    install_packages_opensuse
-    install_other
-else
-    echo "error"
-fi
+install_packages
+install_other
 zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
