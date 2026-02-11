@@ -1,8 +1,18 @@
 #!/usr/bin/bash
-################################
-### section for opensuse
-################################
-configure(){
+build_cockpit_files(){
+    if [ -d "/usr/share/cockpit" ]; then
+        cd "$HOME"/.local/share/dsks-tools/temp || exit
+        git clone https://github.com/cockpit-project/cockpit-files.git
+        cd "cockpit-files" || exit
+        make
+        sudo make install
+        rm -r -f "$HOME"/.local/share/dsks-tools/temp/cockpit-files
+    else
+        echo "Cockpit not found. Not installing cockpit-files."
+    fi
+}
+
+configure_system(){
     sudo systemctl enable --now clamd
     sudo sdbootutil set-timeout -- 12
 
@@ -13,20 +23,6 @@ configure(){
 
     sudo cp "$HOME"/.local/share/dsks-tools/temp/zram-generator.conf /usr/lib/systemd/zram-generator.conf
     sudo chown root:root /usr/lib/systemd/zram-generator.conf
-}
-
-build_cockpit_files(){
-    cd "$HOME"/.local/share/dsks-tools/temp || exit
-    git clone https://github.com/cockpit-project/cockpit-files.git
-    cd "cockpit-files" || exit
-    make
-    sudo make install
-    rm -r -f "$HOME"/.local/share/dsks-tools/temp/cockpit-files
-}
-################################
-### end section
-################################
-configure_system(){
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
 
     sudo sed -i '/NUMBER_LIMIT="2-10"/c NUMBER_LIMIT="5"' /etc/snapper/configs/root
@@ -84,6 +80,34 @@ configure_system(){
     sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 }
 
-configure
-configure_system
-build_cockpit_files
+configure_desktop(){
+    ## setup drive mount points/permissions
+    sudo mkdir data games vms shared
+    sudo /mnt/data /mnt/games /mnt/vms /mnt/shared
+    sudo chown "$USER":"$USER" /mnt/data /mnt/games /mnt/vms /mnt/shared -R
+    echo "LABEL=data                                  /mnt/data             btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=games                                 /mnt/games            btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=vms                                   /mnt/vms              btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=shared                                /mnt/shared           ntfs    nofail,users,exec             0 0 " | sudo tee -a /etc/fstab > /dev/null
+    sudo systemctl daemon-reload
+    sudo mount -av
+    cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
+}
+
+if [ "$1" == "DESKTOP" ]
+then
+    configure_desktop
+    configure_system
+    build_cockpit_files
+elif [ "$1" == "LAPTOP" ]
+then
+    configure_system
+    build_cockpit_files
+    cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
+    sudo flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
+elif [ "$1" == "COCKPIT-FILES" ]
+then
+    build_cockpit_files
+else
+    echo "error"
+fi

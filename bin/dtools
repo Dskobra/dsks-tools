@@ -65,19 +65,16 @@ device_menu(){
             ;;
 
         3)
-            "$HOME"/.local/share/dsks-tools/bin/packages "$DISTRO"
+            "$HOME"/.local/share/dsks-tools/bin/packages
             ;;
 
         4)
-            "$HOME"/.local/share/dsks-tools/bin/desktop 
-            "$HOME"/.local/share/dsks-tools/bin/system
+            "$HOME"/.local/share/dsks-tools/bin/system "DESKTOP"
             ;;
 
         5)
-            echo "amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
-            cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
-            sudo flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
-            "$HOME"/.local/share/dsks-tools/bin/system
+            
+            "$HOME"/.local/share/dsks-tools/bin/system "LAPTOP"
             ;;
 
 
@@ -203,6 +200,8 @@ update(){
         sudo zypper -n dup --auto-agree-with-licenses
         sudo flatpak update -y
         sudo flatpak remove --unused -y
+        "$HOME"/.local/share/dsks-tools/bin/system "COCKPIT-FILES"
+
     else
         echo ""
     fi

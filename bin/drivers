@@ -19,6 +19,8 @@ install_nvidia(){
     sudo zypper --gpg-auto-import-keys -n ref
     sudo zypper -n install --auto-agree-with-licenses dkms nvidia-settings nvidia-driver-G06-kmp-default \
     nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
+
+    echo "amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
 }
 
 install_lact(){
@@ -27,6 +29,8 @@ install_lact(){
     cp -r "$HOME"/.local/share/dsks-tools/configs/lact /etc/lact
     sudo chown root:root /etc/lact -R
     sudo usermod -aG wheel "$USER"
+    echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+
 
 }
 if [ "$1" == "lact" ]
