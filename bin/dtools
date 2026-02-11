@@ -1,0 +1,274 @@
+#!/usr/bin/bash
+
+### Main launch script which sets some variables
+main_menu(){
+    echo "------------------"   
+    echo "|   DSK's Tools  |"
+    echo "------------------" 
+    echo ""
+    echo "$COPYRIGHT"
+    echo "Released under the MIT license"
+    echo ""
+    echo ""
+    echo "(1) Devices                           (2) Various Fixes"
+    echo "(3) Containers"
+    echo "(0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            device_menu
+            ;;
+
+        2)
+            #fixes_menu
+            echo "No available fixes atm."
+            ;;
+
+        3)
+            containers_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            main_menu
+            ;;
+
+        esac
+        unset input
+        main_menu
+}
+
+device_menu(){
+    echo "(1) Install Lact                  (2) Install Nvidia Driver"
+    echo "(3) Install packages              "
+    echo "(4) Configure Desktop             (5) Configure Laptop"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            "$HOME"/.local/share/dsks-tools/bin/drivers "lact"
+            ;;
+
+        2)
+            "$HOME"/.local/share/dsks-tools/bin/drivers "nvidia"
+            ;;
+
+        3)
+            "$HOME"/.local/share/dsks-tools/bin/packages "$DISTRO"
+            ;;
+
+        4)
+            "$HOME"/.local/share/dsks-tools/bin/desktop 
+            "$HOME"/.local/share/dsks-tools/bin/system
+            ;;
+
+        5)
+            echo "amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+            cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
+            sudo flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
+            "$HOME"/.local/share/dsks-tools/bin/system
+            ;;
+
+
+        m | M )
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            device_menu
+            ;;
+
+        esac
+        unset input
+        device_menu
+}
+
+fixes_menu(){
+    echo "(1) Remove RPMFusion"
+    echo "(m) Main Menu                     (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+       1)
+            "$HOME"/.local/share/dsks-tools/bin/fixes "rpmfusion"
+            ;;
+
+        m | M)
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            fixes_menu
+            ;;
+
+        esac
+        unset input
+        fixes_menu
+}
+
+containers_menu(){
+    echo "------------------"
+    echo "|  Containers    |"
+    echo "------------------"
+    echo ""
+    echo "(1) Create dev container               (2) Install apps"
+    echo "(3) Create apps container              (4) Install apps"
+    echo "(m) Main Menu                          (0) Exit"
+    printf "Option: "
+    read -r input
+
+    case $input in
+
+        1)
+            "$HOME"/.local/share/dsks-tools/bin/create "tooling"
+            ;;
+
+        2)
+            "$HOME"/.local/share/dsks-tools/bin/containers "tooling"
+            ;;
+
+        3)
+            "$HOME"/.local/share/dsks-tools/bin/create "apps" 
+            ;;
+
+        4)
+            "$HOME"/.local/share/dsks-tools/bin/containers "apps"
+            ;;
+
+        m | M)
+            main_menu
+            ;;
+
+        0)
+            exit
+            ;;
+
+        *)
+            echo -n "Unknown entry"
+            echo ""
+            containers_menu
+            ;;
+
+        esac
+        unset input
+        containers_menu
+}
+
+gcache(){
+    # brave-browser from rpm and flatpak (user)
+    rm -r ~/.config/BraveSoftware/Brave-Browser/Default/GPUCache/
+    rm -r ~/.var/app/com.brave.Browser/config/BraveSoftware/Brave-Browser/Default/GPUCache/
+
+    # discord from rpm/tarball and flatpak (user)
+    rm -r ~/.config/discord/GPUCache/
+    rm -r ~/.var/app/com.discordapp.Discord/config/discord/GPUCache/
+
+    # wowup, raider.io and warcraft logs 3rd party world of warcraft
+    # addons/services
+    rm -r ~/.config/WowUpCf/GPUCache/
+    rm -r ~/.config/RaiderIO/GPUCache/
+    rm -r ~/.config/"Warcraft Logs Uploader"/GPUCache/
+
+
+}
+
+update(){
+    if [ "$DISTRO" == "opensuse-tumbleweed" ]
+    then
+        sudo zypper -n dup --auto-agree-with-licenses
+        sudo flatpak update -y
+        sudo flatpak remove --unused -y
+    else
+        echo ""
+    fi
+}
+
+dsks_tools(){
+    if [ "$1" == "--devices" ] || [ "$1" == "-d" ] || [ "$1" == "devices" ]
+    then
+        device_menu
+    elif [ "$1" == "--containers" ] || [ "$1" == "-c" ] || [ "$1" == "containers" ]
+    then
+        containers_menu
+    elif [ "$1" == "--fixes" ] || [ "$1" == "-f" ] || [ "$1" == "fixes" ]
+    then
+        #fixes_menu
+        echo "No available fixes atm."
+    elif [ "$1" == "--menu" ] || [ "$1" == "-m" ] || [ "$1" == "menu" ]
+    then
+        main_menu
+    elif [ "$1" == "--gcache" ] || [ "$1" == "-g" ] || [ "$1" == "gcache" ]
+    then
+        gcache
+    elif [ "$1" == "--update" ] || [ "$1" == "-u" ] || [ "$1" == "update" ]
+    then
+        update
+    elif [ "$1" == "--pull" ] || [ "$1" == "-p" ] || [ "$1" == "pull" ]
+    then
+        cd "$HOME"/.local/share/dsks-tools || exit
+        git stash && git pull
+    elif [ -z "$1" ]
+    then
+        echo "dtools: no option given"
+        echo "Usage: dtools [OPTION]"
+        echo "Try 'dtools --devices' or 'dtools --help' to see options"
+    else
+        echo "Invalid option: $1"
+        echo ""
+        dsks_tools_help
+    fi
+}
+
+dsks_tools_help(){
+    echo "dtools [args]"
+    echo ""
+    echo ""
+    echo "Examples: "
+    echo "  dtools --devices"
+    echo "  dtools --containers"
+    echo "  dtools --pull"
+    echo "  dtools --update"
+    echo ""
+    echo ""
+    echo "Available arguments:"
+    echo "  --devices, -d, devices          # opens menu for setting up my devices"
+    echo "  --containers, -c, containers    # opens menu for creating containers"
+    echo "  --fixes, -f, fixes              # opens menu for possible fixes"
+    echo "  --menu, -m, menu                # opens main menu"
+    echo "  --gcache, -g, gcache            # cleans shader caches for select electron apps"
+    echo "  --update, -u update             # update system"
+    echo "  --pull, -p, pull                # updates these tools"
+}
+
+export DISTRO
+export COPYRIGHT="Copyright (c) 2024-2026 Jordan Bottoms"
+export PROTON_MAIL="https://proton.me/download/mail/linux/1.10.1/ProtonMail-desktop-beta.rpm"
+export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.32.11-1.x86_64.rpm"
+export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"
+DISTRO=$(source /etc/os-release ; echo $ID)                                                
+dsks_tools "$1"

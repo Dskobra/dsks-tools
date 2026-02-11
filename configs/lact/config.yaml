@@ -1,0 +1,27 @@
+version: 5
+daemon:
+  log_level: info
+  admin_group: wheel
+  disable_clocks_cleanup: false
+apply_settings_timer: 5
+gpus:
+  1002:7550-1043:0618-0000:03:00.0:
+    fan_control_enabled: true
+    fan_control_settings:
+      mode: curve
+      static_speed: 0.6
+      temperature_key: edge
+      interval_ms: 500
+      curve:
+        40: 0.5
+        51: 0.6
+        60: 0.7
+        70: 0.8
+        80: 1.0
+      spindown_delay_ms: 5000
+      change_threshold: 2
+    pmfw_options:
+      zero_rpm: false
+    performance_level: auto
+current_profile: null
+auto_switch_profiles: false

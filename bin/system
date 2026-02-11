@@ -2,47 +2,43 @@
 ################################
 ### section for opensuse
 ################################
-configure_opensuse(){
-    # openSUSE patches out calling kdesu to save files as root.
-    # Workaround create shortcut for kwrite (kate doesnt work) 
-    # called by kdesu.
-    
-    # weird bug when saving if using kwrite with kdesu and kwriterc doesnt exist
-    # it will get set as root when clicking ok. Clicking cancel it'll be set
-    # as user.
-    touch "$HOME"/.config/kwriterc
-    mkdir "$HOME"/.local/share/applications
-    cp "$TOOLS_FOLDER"/modules/configs/kwrite-su.desktop "$HOME"/.local/share/applications/kwrite-su.desktop
-
+configure(){
     sudo systemctl enable --now clamd
     sudo sdbootutil set-timeout -- 12
 
-    cd "$TOOLS_FOLDER"/modules/configs/ || exit
-    sudo cp zram-generator.conf /usr/lib/systemd/zram-generator.conf
+
+    touch "$HOME"/.local/share/dsks-tools/temp/zram-generator.conf
+    echo "[zram0]" >> zram-generator.conf
+    echo "zram-size = min(ram, 8192)" >> zram-generator.conf
+
+    sudo cp "$HOME"/.local/share/dsks-tools/temp/zram-generator.conf /usr/lib/systemd/zram-generator.conf
     sudo chown root:root /usr/lib/systemd/zram-generator.conf
-
-
 }
 
 build_cockpit_files(){
-    cd "$TOOLS_FOLDER"/temp || exit
+    cd "$HOME"/.local/share/dsks-tools/temp || exit
     git clone https://github.com/cockpit-project/cockpit-files.git
     cd "cockpit-files" || exit
     make
     sudo make install
-    rm -r -f "$TOOLS_FOLDER"/temp/cockpit-files
+    rm -r -f "$HOME"/.local/share/dsks-tools/temp/cockpit-files
 }
 ################################
 ### end section
 ################################
-configure_fedora(){
-    sudo sed -i -e "/^#*LocalSocket\s/s/^#//" /etc/clamd.d/scan.conf
-    sudo systemctl enable --now clamav-freshclam.service clamd@scan.service
-    sudo grub2-editenv - unset menu_auto_hide
-}
-
 configure_system(){
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
+
+    sudo sed -i '/NUMBER_LIMIT="2-10"/c NUMBER_LIMIT="5"' /etc/snapper/configs/root
+    sudo sed -i '/NUMBER_LIMIT_IMPORTANT="4-10"/c NUMBER_LIMIT_IMPORTANT="0"' /etc/snapper/configs/root
+
+    sudo sed -i '/TIMELINE_LIMIT_HOURLY="10"/c TIMELINE_LIMIT_HOURLY="2"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_DAILY="10"/c TIMELINE_LIMIT_DAILY="2"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_WEEKLY="0"/c TIMELINE_LIMIT_WEEKLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_MONTHLY="10"/c TIMELINE_LIMIT_MONTHLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_QUARTERLY="0"/c TIMELINE_LIMIT_QUARTERLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_YEARLY="10"/c TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/root
+
     sudo firewall-cmd --set-default-zone=home
     sudo firewall-cmd --permanent --add-service=kdeconnect
     sudo firewall-cmd --permanent --add-service=cockpit
@@ -88,15 +84,6 @@ configure_system(){
     sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
 }
 
-if [ "$1" == "fedora" ]
-then
-    configure_fedora
-    configure_system
-elif [ "$1" == "opensuse" ]
-then
-    configure_opensuse
-    configure_system
-    build_cockpit_files
-else
-    echo "error"
-fi
+configure
+configure_system
+build_cockpit_files

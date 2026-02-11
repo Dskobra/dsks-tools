@@ -1,0 +1,74 @@
+#!/usr/bin/bash
+
+install_packages(){
+    cd "$HOME"/.local/share/dsks-tools/temp || exit
+    sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox OpenRGB cpu-x remmina steam \
+    goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
+    setroubleshoot-server podman i2c-tools systemd-zram-service zram-generator nextcloud-desktop \
+    v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload cockpit cockpit-selinux \
+    libvirt lutris xfburn
+
+    sudo opi -n megasync
+    sudo opi -n brave
+
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
+    then
+        sudo zypper -n install kate kate-plugins kleopatra partitionmanager
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
+    then
+        sudo zypper -n install gnome-tweaks dconf-editor file-roller snapshot yaru-icon-theme \
+        partitionmanager
+    else
+        echo "$XDG_CURRENT_DESKTOP is not supported."
+    fi
+    cd "$HOME"/.local/share/dsks-tools/temp || exit
+    curl -L -o proton-mail.rpm $PROTON_MAIL
+    curl -L -o proton-pass.rpm $PROTON_PASS
+    curl -L -o proton-authenticator.rpm $PROTON_AUTH
+    sudo zypper -n install --allow-unsigned-rpm *.rpm
+    rm *.rpm
+    
+    sudo zypper addrepo -cfp 80 'https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/' packman
+    sudo zypper addrepo -cfp 99 'https://opensuse-guide.org/repo/openSUSE_Tumbleweed/' libdvdcss
+    sudo zypper --gpg-auto-import-keys -n ref
+
+    sudo zypper -n install libdvdcss2
+    sudo zypper -n install --from packman --allow-vendor-change ffmpeg gstreamer-plugins-good \
+    gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec \
+    vlc vlc-qt vlc-codec-gstreamer vlc-codecs discord 
+
+
+    sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
+    yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
+    yast2-services-manager xscreensaver xscreensaver-data gnome-mahjongg swell-foop \
+    quadrapassel gnome-mines gnome-chess lightsoff gnome-sudoku cheese gnome-extensions \
+    totem gnome-photos xterm yast2-kdump
+    sudo zypper -n dup
+}
+
+install_other(){
+    # install nodejs
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+    source ~/.bashrc
+    nvm install lts/*
+
+    sudo flatpak install -y flathub com.github.tchx84.Flatseal io.podman_desktop.PodmanDesktop \
+    io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
+    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks info.cemu.Cemu \
+    org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO com.obsproject.Studio org.raspberrypi.rpi-imager  
+
+    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
+    then
+        echo ""
+    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
+    then
+       sudo flatpak install --user -y flathub com.mattjakeman.ExtensionManager
+    else
+        echo "$XDG_CURRENT_DESKTOP is not supported."
+    fi
+}
+
+echo "Desktop is $XDG_CURRENT_DESKTOP"
+install_packages
+install_other
+zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
