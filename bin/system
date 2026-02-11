@@ -1,33 +1,17 @@
 #!/usr/bin/bash
-build_cockpit_files(){
-    if [ -d "/usr/share/cockpit" ]; then
-        cd "$HOME"/.local/share/dsks-tools/temp || exit
-        git clone https://github.com/cockpit-project/cockpit-files.git
-        cd "cockpit-files" || exit
-        make
-        sudo make install
-        rm -r -f "$HOME"/.local/share/dsks-tools/temp/cockpit-files
-    else
-        echo "Cockpit not found. Not installing cockpit-files."
-    fi
-}
-
 configure_system(){
-    sudo systemctl enable --now clamd
+    mkdir "$HOME"/.local/share/applications/
+    npm i -g bash-language-server
+    
+    # set grub timeout and zram config
     sudo sdbootutil set-timeout -- 12
+    sudo touch /usr/lib/systemd/zram-generator.conf
+    sudo sh -c 'echo "[zram0]" >> /usr/lib/systemd/zram-generator.conf'
+    sudo sh -c 'echo "zram-size = min(ram, 8192)" >> /usr/lib/systemd/zram-generator.conf'
 
-
-    touch "$HOME"/.local/share/dsks-tools/temp/zram-generator.conf
-    echo "[zram0]" >> zram-generator.conf
-    echo "zram-size = min(ram, 8192)" >> zram-generator.conf
-
-    sudo cp "$HOME"/.local/share/dsks-tools/temp/zram-generator.conf /usr/lib/systemd/zram-generator.conf
-    sudo chown root:root /usr/lib/systemd/zram-generator.conf
-    sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
-
+    # snapper
     sudo sed -i '/NUMBER_LIMIT="2-10"/c NUMBER_LIMIT="5"' /etc/snapper/configs/root
     sudo sed -i '/NUMBER_LIMIT_IMPORTANT="4-10"/c NUMBER_LIMIT_IMPORTANT="0"' /etc/snapper/configs/root
-
     sudo sed -i '/TIMELINE_LIMIT_HOURLY="10"/c TIMELINE_LIMIT_HOURLY="2"' /etc/snapper/configs/root
     sudo sed -i '/TIMELINE_LIMIT_DAILY="10"/c TIMELINE_LIMIT_DAILY="2"' /etc/snapper/configs/root
     sudo sed -i '/TIMELINE_LIMIT_WEEKLY="0"/c TIMELINE_LIMIT_WEEKLY="0"' /etc/snapper/configs/root
@@ -35,6 +19,10 @@ configure_system(){
     sudo sed -i '/TIMELINE_LIMIT_QUARTERLY="0"/c TIMELINE_LIMIT_QUARTERLY="0"' /etc/snapper/configs/root
     sudo sed -i '/TIMELINE_LIMIT_YEARLY="10"/c TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/root
 
+    # selinux and firewall
+    sudo freshclam
+    sudo semanage boolean -m -1 antivirus_can_scan_system
+    sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
     sudo firewall-cmd --set-default-zone=home
     sudo firewall-cmd --permanent --add-service=kdeconnect
     sudo firewall-cmd --permanent --add-service=cockpit
@@ -42,26 +30,15 @@ configure_system(){
     sudo firewall-cmd --zone=home --add-port=1716-1764/udp
     sudo firewall-cmd --set-log-denied=all
     sudo firewall-cmd --reload
+
+    # enable daemons
+    sudo systemctl enable --now clamd
     sudo systemctl enable --now sshd
     sudo systemctl enable --now libvirtd
     sudo systemctl enable --now virtnetworkd
-    sudo systemctl enable --now cockpit.socket
+    sudo systemctl enable --now cockpit.socket   
 
-    sudo virsh net-start default
-    sudo virsh net-autostart default
-    
-    # setup clamav daemon
-    sudo freshclam
-    sudo semanage boolean -m -1 antivirus_can_scan_system
-
-    # Load ntsync kernel mod and set it to auto load.
-    sudo modprobe ntsync
-    sudo touch /etc/modules-load.d/ntsync.conf
-    echo "ntsync"  | sudo tee  /etc/modules-load.d/ntsync.conf > /dev/null
-
-    # OpenRGB needs a a couple kernel mods loaded
-    # for smbus access. So make sure they are
-    # automatically loaded on boot
+    # Add kernel mods for OpenRGB (smbus access)
     sudo modprobe i2c-dev
     sudo modprobe i2c-piix4
     sudo touch /etc/modules-load.d/i2c.conf
@@ -70,14 +47,10 @@ configure_system(){
     sudo i2cdetect -l
     
     # set drivers for passthrough
-    echo 'add_driver+=" vfio vfio_iommu_type1 vfio_pci vfio_virqfd "' | sudo tee /etc/dracut.conf.d/local.conf > /dev/null
-    sudo chown root:root "/etc/dracut.conf.d/local.conf"
-
     sudo usermod -aG libvirt "$USER"
-
-    mkdir "$HOME"/.local/share/applications/
-    npm i -g bash-language-server
-    sudo dracut --regenerate-all --force    # rebuild initramfs for all installed kernels
+    sudo virsh net-start default
+    sudo virsh net-autostart default
+    
 }
 
 configure_desktop(){
@@ -92,6 +65,19 @@ configure_desktop(){
     sudo systemctl daemon-reload
     sudo mount -av
     cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
+}
+
+build_cockpit_files(){
+    if [ -d "/usr/share/cockpit" ]; then
+        cd "$HOME"/.local/share/dsks-tools/temp || exit
+        git clone https://github.com/cockpit-project/cockpit-files.git
+        cd "cockpit-files" || exit
+        make
+        sudo make install
+        rm -r -f "$HOME"/.local/share/dsks-tools/temp/cockpit-files
+    else
+        echo "Cockpit not found. Not installing cockpit-files."
+    fi
 }
 
 if [ "$1" == "DESKTOP" ]
