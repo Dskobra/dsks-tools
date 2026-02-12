@@ -172,6 +172,8 @@ dsks_tools_help(){
     echo "  --gcache, -g, gcache            # cleans shader caches for select electron apps"
     echo "  --update, -u update             # update system"
     echo "  --pull, -p, pull                # updates these tools"
+    echo ""
+    echo ""
     echo "$COPYRIGHT"
     echo "Released under the MIT license"
 }
