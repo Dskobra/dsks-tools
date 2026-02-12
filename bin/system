@@ -91,7 +91,7 @@ then
     build_cockpit_files
     cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
     sudo flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
-elif [ "$1" == "COCKPIT-FILES" ]
+elif [ "$1" == "cockpit-files" ]
 then
     build_cockpit_files
 else

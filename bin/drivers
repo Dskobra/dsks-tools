@@ -33,6 +33,7 @@ install_lact(){
 
 
 }
+
 if [ "$1" == "lact" ]
 then
     install_lact

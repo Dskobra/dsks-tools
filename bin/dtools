@@ -1,56 +1,11 @@
 #!/usr/bin/bash
 
 ### Main launch script which sets some variables
-main_menu(){
-    echo "------------------"   
-    echo "|   DSK's Tools  |"
-    echo "------------------" 
-    echo ""
-    echo "$COPYRIGHT"
-    echo "Released under the MIT license"
-    echo ""
-    echo ""
-    echo "(1) Devices                           (2) Various Fixes"
-    echo "(3) Containers"
-    echo "(0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-        1)
-            device_menu
-            ;;
-
-        2)
-            #fixes_menu
-            echo "No available fixes atm."
-            ;;
-
-        3)
-            containers_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            main_menu
-            ;;
-
-        esac
-        unset input
-        main_menu
-}
-
 device_menu(){
     echo "(1) Install Lact                  (2) Install Nvidia Driver"
     echo "(3) Install packages              "
     echo "(4) Configure Desktop             (5) Configure Laptop"
-    echo "(m) Main Menu                     (0) Exit"
+    echo "(0) Exit"
     printf "Option: "
     read -r input
 
@@ -77,11 +32,6 @@ device_menu(){
             "$HOME"/.local/share/dsks-tools/bin/system "LAPTOP"
             ;;
 
-
-        m | M )
-            main_menu
-            ;;
-
         0)
             exit
             ;;
@@ -97,37 +47,6 @@ device_menu(){
         device_menu
 }
 
-fixes_menu(){
-    echo "(1) Remove RPMFusion"
-    echo "(m) Main Menu                     (0) Exit"
-    printf "Option: "
-    read -r input
-
-    case $input in
-
-       1)
-            "$HOME"/.local/share/dsks-tools/bin/fixes "rpmfusion"
-            ;;
-
-        m | M)
-            main_menu
-            ;;
-
-        0)
-            exit
-            ;;
-
-        *)
-            echo -n "Unknown entry"
-            echo ""
-            fixes_menu
-            ;;
-
-        esac
-        unset input
-        fixes_menu
-}
-
 containers_menu(){
     echo "------------------"
     echo "|  Containers    |"
@@ -135,7 +54,7 @@ containers_menu(){
     echo ""
     echo "(1) Create dev container               (2) Install apps"
     echo "(3) Create apps container              (4) Install apps"
-    echo "(m) Main Menu                          (0) Exit"
+    echo "(0) Exit"
     printf "Option: "
     read -r input
 
@@ -156,11 +75,7 @@ containers_menu(){
         4)
             "$HOME"/.local/share/dsks-tools/bin/containers "apps"
             ;;
-
-        m | M)
-            main_menu
-            ;;
-
+            
         0)
             exit
             ;;
@@ -200,7 +115,7 @@ update(){
         sudo zypper -n dup --auto-agree-with-licenses
         sudo flatpak update -y
         sudo flatpak remove --unused -y
-        "$HOME"/.local/share/dsks-tools/bin/system "COCKPIT-FILES"
+        "$HOME"/.local/share/dsks-tools/bin/system "cockpit-files"
 
     else
         echo ""
@@ -214,10 +129,6 @@ dsks_tools(){
     elif [ "$1" == "--containers" ] || [ "$1" == "-c" ] || [ "$1" == "containers" ]
     then
         containers_menu
-    elif [ "$1" == "--fixes" ] || [ "$1" == "-f" ] || [ "$1" == "fixes" ]
-    then
-        #fixes_menu
-        echo "No available fixes atm."
     elif [ "$1" == "--menu" ] || [ "$1" == "-m" ] || [ "$1" == "menu" ]
     then
         main_menu
@@ -257,11 +168,12 @@ dsks_tools_help(){
     echo "Available arguments:"
     echo "  --devices, -d, devices          # opens menu for setting up my devices"
     echo "  --containers, -c, containers    # opens menu for creating containers"
-    echo "  --fixes, -f, fixes              # opens menu for possible fixes"
     echo "  --menu, -m, menu                # opens main menu"
     echo "  --gcache, -g, gcache            # cleans shader caches for select electron apps"
     echo "  --update, -u update             # update system"
     echo "  --pull, -p, pull                # updates these tools"
+    echo "$COPYRIGHT"
+    echo "Released under the MIT license"
 }
 
 export DISTRO

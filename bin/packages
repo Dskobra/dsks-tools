@@ -6,21 +6,11 @@ install_packages(){
     goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
     setroubleshoot-server podman i2c-tools systemd-zram-service zram-generator nextcloud-desktop \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload cockpit cockpit-selinux \
-    libvirt lutris xfburn
+    libvirt lutris xfburn kate kate-plugins kleopatra partitionmanager
 
     sudo opi -n megasync
     sudo opi -n brave
 
-    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
-    then
-        sudo zypper -n install kate kate-plugins kleopatra partitionmanager
-    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
-    then
-        sudo zypper -n install gnome-tweaks dconf-editor file-roller snapshot yaru-icon-theme \
-        partitionmanager
-    else
-        echo "$XDG_CURRENT_DESKTOP is not supported."
-    fi
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     curl -L -o proton-mail.rpm $PROTON_MAIL
     curl -L -o proton-pass.rpm $PROTON_PASS
@@ -35,7 +25,7 @@ install_packages(){
     sudo zypper -n install libdvdcss2
     sudo zypper -n install --from packman --allow-vendor-change ffmpeg gstreamer-plugins-good \
     gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec \
-    vlc vlc-qt vlc-codec-gstreamer vlc-codecs discord 
+    vlc vlc-qt vlc-codec-gstreamer vlc-codecs 
 
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
@@ -55,20 +45,10 @@ install_other(){
     sudo flatpak install -y flathub com.github.tchx84.Flatseal io.podman_desktop.PodmanDesktop \
     io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks info.cemu.Cemu \
-    org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO com.obsproject.Studio org.raspberrypi.rpi-imager  
-
-    if [ "$XDG_CURRENT_DESKTOP" == "KDE" ]
-    then
-        echo ""
-    elif [ "$XDG_CURRENT_DESKTOP" == "GNOME" ]
-    then
-       sudo flatpak install --user -y flathub com.mattjakeman.ExtensionManager
-    else
-        echo "$XDG_CURRENT_DESKTOP is not supported."
-    fi
+    org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO com.obsproject.Studio org.raspberrypi.rpi-imager \
+    com.discordapp.Discord
 }
 
-echo "Desktop is $XDG_CURRENT_DESKTOP"
 install_packages
 install_other
 zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
