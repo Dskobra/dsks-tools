@@ -180,8 +180,8 @@ dsks_tools_help(){
 
 export DISTRO
 export COPYRIGHT="Copyright (c) 2024-2026 Jordan Bottoms"
-export PROTON_MAIL="https://proton.me/download/mail/linux/1.10.1/ProtonMail-desktop-beta.rpm"
-export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.32.11-1.x86_64.rpm"
+export PROTON_MAIL="https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.rpm"
+export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.34.2-1.x86_64.rpm"
 export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"
 DISTRO=$(source /etc/os-release ; echo $ID)                                                
 dsks_tools "$1"
