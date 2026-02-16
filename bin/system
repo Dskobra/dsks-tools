@@ -20,8 +20,6 @@ configure_system(){
     sudo sed -i '/TIMELINE_LIMIT_YEARLY="10"/c TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/root
 
     # selinux and firewall
-    sudo freshclam
-    sudo semanage boolean -m -1 antivirus_can_scan_system
     sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
     sudo firewall-cmd --set-default-zone=home
     sudo firewall-cmd --permanent --add-service=kdeconnect
@@ -32,7 +30,6 @@ configure_system(){
     sudo firewall-cmd --reload
 
     # enable daemons
-    sudo systemctl enable --now clamd
     sudo systemctl enable --now sshd
     sudo systemctl enable --now libvirtd
     sudo systemctl enable --now virtnetworkd
