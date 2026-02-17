@@ -46,7 +46,7 @@ install_other(){
     io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks info.cemu.Cemu \
     org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO com.obsproject.Studio org.raspberrypi.rpi-imager \
-    com.discordapp.Discord
+    com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles
 }
 
 install_packages
