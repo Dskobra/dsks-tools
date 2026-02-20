@@ -3,7 +3,7 @@
 install_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox cpu-x remmina steam \
-    goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
+    goverlay opi clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
     setroubleshoot-server podman systemd-zram-service zram-generator nextcloud-desktop \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload cockpit cockpit-selinux \
     libvirt xfburn kate kate-plugins kleopatra partitionmanager
@@ -25,14 +25,14 @@ install_packages(){
     sudo zypper -n install libdvdcss2
     sudo zypper -n install --from packman --allow-vendor-change ffmpeg gstreamer-plugins-good \
     gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec \
-    vlc vlc-qt vlc-codec-gstreamer vlc-codecs 
+    #vlc vlc-qt vlc-codec-gstreamer vlc-codecs 
 
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
     yast2-services-manager xscreensaver xscreensaver-data gnome-mahjongg swell-foop \
     quadrapassel gnome-mines gnome-chess lightsoff gnome-sudoku cheese gnome-extensions \
-    totem gnome-photos xterm yast2-kdump
+    totem gnome-photos xterm yast2-kdump vlc vlc-qt vlc-codec-gstreamer vlc-codecs 
     sudo zypper -n dup
 }
 
@@ -47,7 +47,7 @@ install_other(){
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks info.cemu.Cemu \
     org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO com.obsproject.Studio org.raspberrypi.rpi-imager \
     com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles net.lutris.Lutris \
-    org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08
+    org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine
 }
 
 install_packages
