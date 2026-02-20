@@ -25,7 +25,7 @@ install_nvidia(){
 
 install_lact(){
     sudo zypper -n install dbus-1-daemon
-    sudo flatpak install -y flathub io.github.ilya_zlobintsev.LACT
+    flatpak install --user -y flathub io.github.ilya_zlobintsev.LACT
     sudo cp -r "$HOME"/.local/share/dsks-tools/configs/lact /etc/lact
     sudo chown root:root /etc/lact -R
     sudo usermod -aG wheel "$USER"

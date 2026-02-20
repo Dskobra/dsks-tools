@@ -2,11 +2,11 @@
 
 install_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
-    sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox OpenRGB cpu-x remmina steam \
+    sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox cpu-x remmina steam \
     goverlay opi vlc clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
-    setroubleshoot-server podman i2c-tools systemd-zram-service zram-generator nextcloud-desktop \
+    setroubleshoot-server podman systemd-zram-service zram-generator nextcloud-desktop \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload cockpit cockpit-selinux \
-    libvirt lutris xfburn kate kate-plugins kleopatra partitionmanager
+    libvirt xfburn kate kate-plugins kleopatra partitionmanager
 
     sudo opi -n megasync
     sudo opi -n brave
@@ -38,15 +38,16 @@ install_packages(){
 
 install_other(){
     # install nodejs
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
     source ~/.bashrc
     nvm install lts/*
 
-    sudo flatpak install -y flathub com.github.tchx84.Flatseal io.podman_desktop.PodmanDesktop \
+    flatpak install --user -y flathub com.github.tchx84.Flatseal io.podman_desktop.PodmanDesktop \
     io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks info.cemu.Cemu \
     org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO com.obsproject.Studio org.raspberrypi.rpi-imager \
-    com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles
+    com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles net.lutris.Lutris \
+    org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08
 }
 
 install_packages

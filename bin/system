@@ -24,9 +24,6 @@ configure_system(){
     sudo firewall-cmd --set-default-zone=home
     sudo firewall-cmd --permanent --add-service=kdeconnect
     sudo firewall-cmd --permanent --add-service=cockpit
-    sudo firewall-cmd --zone=home --add-port=1716-1764/tcp
-    sudo firewall-cmd --zone=home --add-port=1716-1764/udp
-    sudo firewall-cmd --set-log-denied=all
     sudo firewall-cmd --reload
 
     # enable daemons
@@ -34,16 +31,8 @@ configure_system(){
     sudo systemctl enable --now libvirtd
     sudo systemctl enable --now virtnetworkd
     sudo systemctl enable --now cockpit.socket   
-
-    # Add kernel mods for OpenRGB (smbus access)
-    sudo modprobe i2c-dev
-    sudo modprobe i2c-piix4
-    sudo touch /etc/modules-load.d/i2c.conf
-    sudo sh -c 'echo "i2c-dev" >> /etc/modules-load.d/i2c.conf'
-    sudo sh -c 'echo "i2c-piix4" >> /etc/modules-load.d/i2c.conf'
-    sudo i2cdetect -l
     
-    # set drivers for passthrough
+    # vms
     sudo usermod -aG libvirt "$USER"
     sudo virsh net-start default
     sudo virsh net-autostart default
@@ -52,11 +41,10 @@ configure_system(){
 
 configure_desktop(){
     ## setup drive mount points/permissions
-    sudo mkdir data games vms shared
-    sudo /mnt/data /mnt/games /mnt/vms /mnt/shared
+    sudo mkdir /mnt/data /mnt/steam /mnt/vms /mnt/shared
     sudo chown "$USER":"$USER" /mnt/data /mnt/games /mnt/vms /mnt/shared -R
     echo "LABEL=data                                  /mnt/data             btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
-    echo "LABEL=games                                 /mnt/games            btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=steam                                 /mnt/steam            btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
     echo "LABEL=vms                                   /mnt/vms              btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
     echo "LABEL=shared                                /mnt/shared           ntfs    nofail,users,exec             0 0 " | sudo tee -a /etc/fstab > /dev/null
     sudo systemctl daemon-reload
