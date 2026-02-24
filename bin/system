@@ -52,18 +52,51 @@ configure_desktop(){
     cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
 }
 
+configure_server(){
+    mkdir "$HOME"/.local/share/applications/
+    npm i -g bash-language-server
+    
+    # set grub timeout and zram config
+    sudo sdbootutil set-timeout -- 12
+    sudo touch /usr/lib/systemd/zram-generator.conf
+    sudo sh -c 'echo "[zram0]" >> /usr/lib/systemd/zram-generator.conf'
+    sudo sh -c 'echo "zram-size = min(ram, 8192)" >> /usr/lib/systemd/zram-generator.conf'
+
+    # snapper
+    sudo sed -i '/NUMBER_LIMIT="2-10"/c NUMBER_LIMIT="7"' /etc/snapper/configs/root
+    sudo sed -i '/NUMBER_LIMIT_IMPORTANT="4-10"/c NUMBER_LIMIT_IMPORTANT="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_HOURLY="10"/c TIMELINE_LIMIT_HOURLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_DAILY="10"/c TIMELINE_LIMIT_DAILY="2"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_WEEKLY="0"/c TIMELINE_LIMIT_WEEKLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_MONTHLY="10"/c TIMELINE_LIMIT_MONTHLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_QUARTERLY="0"/c TIMELINE_LIMIT_QUARTERLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_YEARLY="10"/c TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/root
+
+    # selinux and firewall
+    sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
+    sudo firewall-cmd --set-default-zone=home
+    sudo firewall-cmd --permanent --add-service=cockpit
+    sudo firewall-cmd --reload
+
+    # enable daemons
+    sudo systemctl enable --now sshd
+    sudo systemctl enable --now cockpit.socket   
+    
+}
+
 if [ "$DEVICE" == "DesktopLnx" ]
 then
     configure_desktop
     configure_system
-    build_cockpit_files
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 elif [ "$DEVICE" == "LaptopLnx" ]
 then
     configure_system
-    build_cockpit_files
     cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
     flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
+elif [ "$DEVICE" == "SERVER" ]
+then
+    configure_server
 else
     echo "error"
 fi

@@ -30,20 +30,17 @@ install_lact(){
     sudo chown root:root /etc/lact -R
     sudo usermod -aG wheel "$USER"
     echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
-
-
 }
 
 install_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox cpu-x remmina steam \
-    goverlay opi clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch \
-    setroubleshoot-server podman systemd-zram-service zram-generator nextcloud-desktop \
-    v4l2loopback-kmp-default v4l2loopback-kmp-longterm v4l2loopback-autoload cockpit cockpit-selinux \
-    libvirt xfburn kate kate-plugins kleopatra partitionmanager
+    opi clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch podman \
+    setroubleshoot-server systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload \
+    v4l2loopback-kmp-default v4l2loopback-kmp-longterm cockpit cockpit-selinux libvirt xfburn kate \
+    kate-plugins kleopatra partitionmanager
 
     sudo opi -n megasync
-    sudo opi -n brave
 
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     curl -L -o proton-mail.rpm $PROTON_MAIL
@@ -53,14 +50,22 @@ install_packages(){
     rm *.rpm
     
     sudo zypper addrepo -cfp 80 'https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/' packman
-    sudo zypper addrepo -cfp 99 'https://opensuse-guide.org/repo/openSUSE_Tumbleweed/' libdvdcss
     sudo zypper --gpg-auto-import-keys -n ref
 
-    sudo zypper -n install libdvdcss2
     sudo zypper -n install --from packman --allow-vendor-change ffmpeg gstreamer-plugins-good \
     gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec \
-    #vlc vlc-qt vlc-codec-gstreamer vlc-codecs 
 
+    # install nodejs
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+    source ~/.bashrc
+    nvm install lts/*
+
+    flatpak install --user -y flathub com.github.tchx84.Flatseal io.podman_desktop.PodmanDesktop \
+    io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
+    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks info.cemu.Cemu \
+    org.DolphinEmu.dolphin-emu com.obsproject.Studio org.raspberrypi.rpi-imager com.brave.Browser \
+    com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles net.lutris.Lutris \
+    org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine 
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
@@ -70,18 +75,32 @@ install_packages(){
     sudo zypper -n dup
 }
 
-install_other(){
+install_server_packages(){
+    cd "$HOME"/.local/share/dsks-tools/temp || exit
+    sudo zypper -n install --auto-agree-with-licenses  git clamav firewall-applet \
+    setroubleshoot-server systemd-zram-service zram-generator cockpit cockpit-selinux \
+    kate kleopatra partitionmanager patterns-server-lamp_server nextcloud-apache
+
+    cd "$HOME"/.local/share/dsks-tools/temp || exit
+    curl -L -o proton-pass.rpm $PROTON_PASS
+    curl -L -o proton-authenticator.rpm $PROTON_AUTH
+    sudo zypper -n install --allow-unsigned-rpm *.rpm
+    rm *.rpm
+
     # install nodejs
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
     source ~/.bashrc
     nvm install lts/*
 
-    flatpak install --user -y flathub com.github.tchx84.Flatseal io.podman_desktop.PodmanDesktop \
-    io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
-    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks info.cemu.Cemu \
-    org.DolphinEmu.dolphin-emu com.pokemmo.PokeMMO com.obsproject.Studio org.raspberrypi.rpi-imager \
-    com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles net.lutris.Lutris \
-    org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine
+    flatpak install --user -y flathub com.github.tchx84.Flatseal io.missioncenter.MissionCenter \
+    com.brave.Browser
+
+    sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
+    yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
+    yast2-services-manager xscreensaver xscreensaver-data gnome-mahjongg swell-foop \
+    quadrapassel gnome-mines gnome-chess lightsoff gnome-sudoku cheese gnome-extensions \
+    totem gnome-photos xterm yast2-kdump vlc vlc-qt vlc-codec-gstreamer vlc-codecs 
+    sudo zypper -n dup
 }
 
 DEVICE=$(uname -n)
@@ -91,13 +110,15 @@ if [ "$DEVICE" == "DesktopLnx" ]
 then
     install_lact
     install_packages
-    install_other
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 elif [ "$DEVICE" == "LaptopLnx" ]
 then
     install_nvidia
     install_packages
-    install_other
+    zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
+elif [ "$DEVICE" == "SERVER" ]
+then
+    install_server_packages
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 else
     echo "error"
