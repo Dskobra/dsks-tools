@@ -1,4 +1,38 @@
 #!/usr/bin/bash
+install_nvidia(){
+    # main drivers
+    sudo zypper -n install --auto-agree-with-licenses openSUSE-repos-Tumbleweed-NVIDIA
+
+    sudo zypper al nvidia-open-driver-G06-signed-kmp-default
+    sudo zypper al nvidia-open-driver-G07-signed-kmp-default
+
+    sudo zypper al nvidia-open-driver-G06-signed-kmp-longterm
+    sudo zypper al nvidia-open-driver-G07-signed-kmp-longterm
+
+    sudo zypper al nvidia-open-driver-G06-signed-cuda-kmp-default
+    sudo zypper al nvidia-open-driver-G07-signed-cuda-kmp-default
+
+    # cuda drivers
+    sudo zypper al nvidia-open-driver-G06-signed-cuda-kmp-longterm
+    sudo zypper al nvidia-open-driver-G07-signed-cuda-kmp-longterm
+
+    sudo zypper --gpg-auto-import-keys -n ref
+    sudo zypper -n install --auto-agree-with-licenses dkms nvidia-settings nvidia-driver-G06-kmp-default \
+    nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
+
+    echo "amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+}
+
+install_lact(){
+    sudo zypper -n install dbus-1-daemon
+    flatpak install --user -y flathub io.github.ilya_zlobintsev.LACT
+    sudo cp -r "$HOME"/.local/share/dsks-tools/configs/lact /etc/lact
+    sudo chown root:root /etc/lact -R
+    sudo usermod -aG wheel "$USER"
+    echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+
+
+}
 
 install_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
@@ -50,6 +84,21 @@ install_other(){
     org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine
 }
 
-install_packages
-install_other
-zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
+DEVICE=$(uname -n)
+sudo flatpak remote-delete "flathub"
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+if [ "$DEVICE" == "DesktopLnx" ]
+then
+    install_lact
+    install_packages
+    install_other
+    zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
+elif [ "$DEVICE" == "LaptopLnx" ]
+then
+    install_nvidia
+    install_packages
+    install_other
+    zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
+else
+    echo "error"
+fi

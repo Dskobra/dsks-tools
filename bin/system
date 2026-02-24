@@ -10,9 +10,9 @@ configure_system(){
     sudo sh -c 'echo "zram-size = min(ram, 8192)" >> /usr/lib/systemd/zram-generator.conf'
 
     # snapper
-    sudo sed -i '/NUMBER_LIMIT="2-10"/c NUMBER_LIMIT="5"' /etc/snapper/configs/root
+    sudo sed -i '/NUMBER_LIMIT="2-10"/c NUMBER_LIMIT="7"' /etc/snapper/configs/root
     sudo sed -i '/NUMBER_LIMIT_IMPORTANT="4-10"/c NUMBER_LIMIT_IMPORTANT="0"' /etc/snapper/configs/root
-    sudo sed -i '/TIMELINE_LIMIT_HOURLY="10"/c TIMELINE_LIMIT_HOURLY="2"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_HOURLY="10"/c TIMELINE_LIMIT_HOURLY="0"' /etc/snapper/configs/root
     sudo sed -i '/TIMELINE_LIMIT_DAILY="10"/c TIMELINE_LIMIT_DAILY="2"' /etc/snapper/configs/root
     sudo sed -i '/TIMELINE_LIMIT_WEEKLY="0"/c TIMELINE_LIMIT_WEEKLY="0"' /etc/snapper/configs/root
     sudo sed -i '/TIMELINE_LIMIT_MONTHLY="10"/c TIMELINE_LIMIT_MONTHLY="0"' /etc/snapper/configs/root
@@ -52,33 +52,18 @@ configure_desktop(){
     cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
 }
 
-build_cockpit_files(){
-    if [ -d "/usr/share/cockpit" ]; then
-        cd "$HOME"/.local/share/dsks-tools/temp || exit
-        git clone https://github.com/cockpit-project/cockpit-files.git
-        cd "cockpit-files" || exit
-        make
-        sudo make install
-        rm -r -f "$HOME"/.local/share/dsks-tools/temp/cockpit-files
-    else
-        echo "Cockpit not found. Not installing cockpit-files."
-    fi
-}
-
-if [ "$1" == "DESKTOP" ]
+if [ "$DEVICE" == "DesktopLnx" ]
 then
     configure_desktop
     configure_system
     build_cockpit_files
-elif [ "$1" == "LAPTOP" ]
+    zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
+elif [ "$DEVICE" == "LaptopLnx" ]
 then
     configure_system
     build_cockpit_files
     cp -r "$HOME"/.local/share/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
-    sudo flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
-elif [ "$1" == "cockpit-files" ]
-then
-    build_cockpit_files
+    flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
 else
     echo "error"
 fi
