@@ -79,7 +79,8 @@ install_server_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git clamav firewall-applet \
     setroubleshoot-server systemd-zram-service zram-generator cockpit cockpit-selinux \
-    kate kleopatra partitionmanager patterns-server-lamp_server nextcloud-apache
+    kate kleopatra partitionmanager patterns-server-lamp_server nextcloud-apache \
+    gettext-tools
 
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     curl -L -o proton-pass.rpm $PROTON_PASS

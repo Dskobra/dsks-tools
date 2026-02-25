@@ -84,6 +84,7 @@ configure_server(){
     
 }
 
+DEVICE=$(uname -n)
 if [ "$DEVICE" == "DesktopLnx" ]
 then
     configure_desktop
