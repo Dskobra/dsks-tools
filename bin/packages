@@ -81,7 +81,7 @@ install_server_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git opi clamav firewall-applet \
     setroubleshoot-server systemd-zram-service zram-generator cockpit cockpit-selinux \
-    kate kate-plugins kleopatra partitionmanager kernel-longterm \
+    kate kate-plugins kleopatra partitionmanager kernel-longterm zenity \
     patterns-server-lamp_server nextcloud-apache 
 
     sudo opi -n brave-browser
