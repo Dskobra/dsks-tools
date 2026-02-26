@@ -81,8 +81,18 @@ install_server_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git opi clamav firewall-applet \
     setroubleshoot-server systemd-zram-service zram-generator cockpit cockpit-selinux \
-    kate kate-plugins kleopatra partitionmanager kernel-longterm zenity \
-    patterns-server-lamp_server nextcloud-apache 
+    partitionmanager kernel-longterm zenity patterns-server-lamp_server nextcloud-apache 
+
+    DESKTOP_TYPE=$XDG_CURRENT_DESKTOP
+    if [ "$DESKTOP_TYPE" == "KDE" ]
+    then
+        sudo zypper -n install kate kate-plugins kleopatra
+    elif [ "$DESKTOP_TYPE" == "GNOME" ]
+    then
+        sudo zypper -n install gnome-tweaks dconf-editor file-roller yaru-icon-theme
+    else
+        echo "$DESKTOP_TYPE is not supported."
+    fi
 
     sudo opi -n brave-browser
 
