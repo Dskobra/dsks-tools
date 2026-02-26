@@ -40,6 +40,7 @@ install_packages(){
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm cockpit cockpit-selinux libvirt xfburn kate \
     kate-plugins kleopatra partitionmanager
 
+    sudo opi -n brave-browser
     sudo opi -n megasync
 
     cd "$HOME"/.local/share/dsks-tools/temp || exit
@@ -63,9 +64,10 @@ install_packages(){
     flatpak install --user -y flathub com.github.tchx84.Flatseal io.podman_desktop.PodmanDesktop \
     io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks info.cemu.Cemu \
-    org.DolphinEmu.dolphin-emu com.obsproject.Studio org.raspberrypi.rpi-imager com.brave.Browser \
+    org.DolphinEmu.dolphin-emu com.obsproject.Studio org.raspberrypi.rpi-imager \
     com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles net.lutris.Lutris \
-    org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine 
+    org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine \
+    org.kde.isoimagewriter
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
@@ -77,10 +79,12 @@ install_packages(){
 
 install_server_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
-    sudo zypper -n install --auto-agree-with-licenses  git clamav firewall-applet \
+    sudo zypper -n install --auto-agree-with-licenses  git opi clamav firewall-applet \
     setroubleshoot-server systemd-zram-service zram-generator cockpit cockpit-selinux \
-    kate kleopatra partitionmanager patterns-server-lamp_server nextcloud-apache \
-    gettext-tools
+    kate kate-plugins kleopatra partitionmanager kernel-longterm \
+    patterns-server-lamp_server nextcloud-apache 
+
+    sudo opi -n brave-browser
 
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     curl -L -o proton-pass.rpm $PROTON_PASS
@@ -93,8 +97,7 @@ install_server_packages(){
     source ~/.bashrc
     nvm install lts/*
 
-    flatpak install --user -y flathub com.github.tchx84.Flatseal io.missioncenter.MissionCenter \
-    com.brave.Browser
+    flatpak install --user -y flathub com.github.tchx84.Flatseal io.missioncenter.MissionCenter
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
