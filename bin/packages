@@ -34,11 +34,12 @@ install_lact(){
 
 install_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
+    sudo zypper addrepo https://download.opensuse.org/repositories/systemsmanagement:cockpit/openSUSE_Tumbleweed/systemsmanagement:cockpit.repo
     sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox cpu-x remmina steam \
     opi clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch podman \
     setroubleshoot-server systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm cockpit cockpit-selinux libvirt xfburn kate \
-    kate-plugins kleopatra partitionmanager
+    kate-plugins kleopatra partitionmanager cockpit-snapshots
 
     sudo opi -n brave-browser
     sudo opi -n megasync
