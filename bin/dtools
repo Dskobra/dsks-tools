@@ -94,31 +94,6 @@ gcache(){
 
 }
 
-build_cockpit_files(){
-    if [ -d "/usr/share/cockpit" ]; then
-        cd "$HOME"/.local/share/dsks-tools/temp || exit
-        git clone https://github.com/cockpit-project/cockpit-files.git
-        cd "cockpit-files" || exit
-        make
-        sudo make install
-        rm -r -f "$HOME"/.local/share/dsks-tools/temp/cockpit-files
-    else
-        echo "Cockpit not found. Not installing cockpit-files."
-    fi
-}
-
-update(){
-    if [ "$DISTRO" == "opensuse-tumbleweed" ]
-    then
-        sudo zypper -n dup --auto-agree-with-licenses
-        flatpak update -y
-        flatpak remove --unused -y
-        build_cockpit_files
-    else
-        echo ""
-    fi
-}
-
 dsks_tools(){
     if [ "$1" == "--devices" ] || [ "$1" == "-d" ] || [ "$1" == "devices" ]
     then
@@ -130,9 +105,6 @@ dsks_tools(){
     then
         gcache
     elif [ "$1" == "--update" ] || [ "$1" == "-u" ] || [ "$1" == "update" ]
-    then
-        update
-    elif [ "$1" == "--pull" ] || [ "$1" == "-p" ] || [ "$1" == "pull" ]
     then
         cd "$HOME"/.local/share/dsks-tools || exit
         git stash && git pull
@@ -155,7 +127,6 @@ dsks_tools_help(){
     echo "Examples: "
     echo "  dtools --devices"
     echo "  dtools --containers"
-    echo "  dtools --pull"
     echo "  dtools --update"
     echo ""
     echo ""
@@ -163,8 +134,7 @@ dsks_tools_help(){
     echo "  --devices, -d, devices          # opens menu for setting up my devices"
     echo "  --containers, -c, containers    # opens menu for creating containers"
     echo "  --gcache, -g, gcache            # cleans shader caches for select electron apps"
-    echo "  --update, -u update             # update system"
-    echo "  --pull, -p, pull                # updates these tools"
+    echo "  --update, -u update             # updates these tools"
     echo ""
     echo ""
     echo "$COPYRIGHT"
