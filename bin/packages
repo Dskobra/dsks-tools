@@ -81,7 +81,7 @@ install_server_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git opi clamav firewall-applet \
     setroubleshoot-server systemd-zram-service zram-generator cockpit cockpit-selinux \
-    partitionmanager kernel-longterm zenity patterns-server-lamp_server nextcloud-apache 
+    partitionmanager zenity
 
     DESKTOP_TYPE=$XDG_CURRENT_DESKTOP
     if [ "$DESKTOP_TYPE" == "KDE" ]
@@ -106,8 +106,6 @@ install_server_packages(){
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
     source ~/.bashrc
     nvm install lts/*
-
-    flatpak install --user -y flathub com.github.tchx84.Flatseal io.missioncenter.MissionCenter
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
