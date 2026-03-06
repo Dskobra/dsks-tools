@@ -4,13 +4,10 @@ distro_commands(){
     if [ "$DISTRO" == "opensuse-tumbleweed" ]
     then
         sudo zypper -n dup --auto-agree-with-licenses
-        flatpak update -y
-        flatpak remove --unused -y
         build_cockpit_files
-    elif [ "$DISTRO" == "opensuse-leap" ]
+    elif [ "$DISTRO" == "almalinux" ]
     then
-        sudo zypper -n up
-        build_cockpit_files
+        sudo dnf update -y
     else
         echo ""
     fi
@@ -28,22 +25,20 @@ build_cockpit_files(){
         echo "Cockpit not found. Not installing cockpit-files."
     fi
 }
+
 update(){
     if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ]
     then
-        $FLATPAK_UPDATE
-        $FLATPAK_CLEANUP
+        flatpak update -y
+        flatpak remove --unused -y
     elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
     then
         distro_commands
     elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
     then
-        $FLATPAK_UPDATE
-        $FLATPAK_CLEANUP
         distro_commands
-    elif [ "$1" == "--tools" ] || [ "$1" == "-t" ] || [ "$1" == "tools" ]
-    then
-        update_tools
+        flatpak update -y
+        flatpak remove --unused -y
     elif [ -z "$1" ]
     then
         echo "update: no option given"
@@ -54,17 +49,6 @@ update(){
         echo ""
         update_help
     fi
-}
-
-update_tools(){
-    mkdir -p ~/.local/bin/update_temp
-    cd ~/.local/bin/update_temp || exit
-    git clone https://github.com/Dskobra/dsks-tools
-    cd dsks-tools/tools || exit
-    mv update ~/.local/bin/update
-    mv gcache ~/.local/bin/gcache
-    rm -r -f ~/.local/bin/update_temp
-    exit
 }
 
 update_help(){
@@ -81,7 +65,6 @@ update_help(){
     echo "  --apps, -a, apps            # update flatpaks"
     echo "  --system, -s, system        # update rpm packages"
     echo "  --all, -A, all              # update all of the above"
-    echo "  --tools, -t, tools          # updates this script and gcache"
 }
 DISTRO=$(source /etc/os-release ; echo $ID)
 update "$1"
