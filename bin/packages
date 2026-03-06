@@ -20,7 +20,7 @@ install_nvidia(){
     sudo zypper -n install --auto-agree-with-licenses dkms nvidia-settings nvidia-driver-G06-kmp-default \
     nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
 
-    echo "amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+    #echo "amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
 }
 
 install_lact(){
@@ -29,7 +29,7 @@ install_lact(){
     sudo cp -r "$HOME"/.local/share/dsks-tools/configs/lact /etc/lact
     sudo chown root:root /etc/lact -R
     sudo usermod -aG wheel "$USER"
-    echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+    #echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
 }
 
 install_packages(){
@@ -79,40 +79,26 @@ install_packages(){
 
 install_server_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
-    sudo zypper -n install --auto-agree-with-licenses  git opi clamav firewall-applet \
-    setroubleshoot-server systemd-zram-service zram-generator cockpit cockpit-selinux \
-    partitionmanager zenity
+    sudo dnf install -y clamav clamav-freshclam firewall-applet kde-partitionmanager zenity
 
     DESKTOP_TYPE=$XDG_CURRENT_DESKTOP
     if [ "$DESKTOP_TYPE" == "KDE" ]
     then
-        sudo zypper -n install kate kate-plugins kleopatra
+        sudo dnf install -y kate kate-plugins kleopatra
     elif [ "$DESKTOP_TYPE" == "GNOME" ]
     then
-        sudo zypper -n install gnome-tweaks dconf-editor file-roller yaru-icon-theme
+        sudo dnf install -y gnome-tweaks dconf-editor
     else
         echo "$DESKTOP_TYPE is not supported."
     fi
 
-    sudo opi -n brave-browser
+    curl -fsS https://dl.brave.com/install.sh | sh
 
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     curl -L -o proton-pass.rpm $PROTON_PASS
     curl -L -o proton-authenticator.rpm $PROTON_AUTH
     sudo zypper -n install --allow-unsigned-rpm *.rpm
     rm *.rpm
-
-    # install nodejs
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
-    source ~/.bashrc
-    nvm install lts/*
-
-    sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
-    yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
-    yast2-services-manager xscreensaver xscreensaver-data gnome-mahjongg swell-foop \
-    quadrapassel gnome-mines gnome-chess lightsoff gnome-sudoku cheese gnome-extensions \
-    totem gnome-photos xterm yast2-kdump vlc vlc-qt vlc-codec-gstreamer vlc-codecs 
-    sudo zypper -n dup
 }
 
 DEVICE=$(uname -n)
@@ -120,7 +106,7 @@ sudo flatpak remote-delete "flathub"
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 if [ "$DEVICE" == "DesktopLnx" ]
 then
-    install_lact
+    #install_lact
     install_packages
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 elif [ "$DEVICE" == "LaptopLnx" ]
