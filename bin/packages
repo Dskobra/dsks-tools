@@ -38,7 +38,7 @@ install_packages(){
     opi clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch podman \
     setroubleshoot-server systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm cockpit cockpit-selinux libvirt xfburn kate \
-    kate-plugins kleopatra partitionmanager
+    kate-plugins kleopatra partitionmanager gnome-keyring
 
     sudo opi -n brave-browser
     sudo opi -n megasync
@@ -101,6 +101,13 @@ install_server_packages(){
     rm *.rpm
 }
 
+install_element_desktop(){
+    cd "$HOME"/.local/share/dsks-tools/temp || exit
+    curl -L -o element-desktop.tar.gz $ELEMENT
+    tar -xvf element-desktop.tar.gz
+    mv element-desktop* "$HOME"/.local/share/element-desktop
+    ln -s "$HOME"/.local/share/element-desktop/element-desktop "$HOME"/.local/bin/element-desktop
+}
 DEVICE=$(uname -n)
 sudo flatpak remote-delete "flathub"
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -108,11 +115,13 @@ if [ "$DEVICE" == "DesktopLnx" ]
 then
     #install_lact
     install_packages
+    install_element_desktop
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 elif [ "$DEVICE" == "LaptopLnx" ]
 then
     install_nvidia
     install_packages
+    install_element_desktop
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 elif [ "$DEVICE" == "SERVER" ]
 then
