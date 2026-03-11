@@ -67,7 +67,7 @@ install_packages(){
     org.DolphinEmu.dolphin-emu com.obsproject.Studio org.raspberrypi.rpi-imager \
     com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles net.lutris.Lutris \
     org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine \
-    org.kde.isoimagewriter
+    org.kde.isoimagewriter net.waterfox.waterfox
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
