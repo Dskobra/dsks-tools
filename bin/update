@@ -1,10 +1,9 @@
 #!/usr/bin/bash
 
-distro_commands(){
+system(){
     if [ "$DISTRO" == "opensuse-tumbleweed" ]
     then
         sudo zypper -n dup --auto-agree-with-licenses
-        build_cockpit_files
     elif [ "$DISTRO" == "almalinux" ]
     then
         sudo dnf update -y
@@ -13,7 +12,16 @@ distro_commands(){
     fi
 }
 
-build_cockpit_files(){
+check_if_almalinux(){
+    if [ "$DISTRO" == "almalinux" ]
+    then
+        echo "cockpit-files is available in repos."
+    else
+        cockpit_files
+    fi
+}
+
+cockpit_files(){
     if [ -d "/usr/share/cockpit" ]; then
         cd "$HOME"/.local/share/dsks-tools/temp || exit
         git clone https://github.com/cockpit-project/cockpit-files.git
@@ -22,28 +30,41 @@ build_cockpit_files(){
         sudo make install
         rm -r -f "$HOME"/.local/share/dsks-tools/temp/cockpit-files
     else
-        echo "Cockpit not found. Not installing cockpit-files."
+        echo "Cockpit not found. Not updating it."
+    fi
+}
+
+element_desktop(){
+    if [ -d "$HOME/.local/share/element-desktop" ]; then
+        rm -r "$HOME/.local/share/element-desktop"
+        ELEMENT="https://packages.element.io/desktop/install/linux/glibc-x86-64/element-desktop.tar.gz"
+        cd "$HOME"/.local/share/dsks-tools/temp || exit
+        curl -L -o element-desktop.tar.gz $ELEMENT
+        tar -xvf element-desktop.tar.gz
+        mv element-desktop* "$HOME"/.local/share/element-desktop
+        rm "$HOME"/.local/share/dsks-tools/temp/element-desktop.tar.gz
+    else
+        echo "Element Desktop not found. Not updating it."
     fi
 }
 
 update(){
-    if [ "$1" == "--apps" ] || [ "$1" == "-a" ] || [ "$1" == "apps" ]
+    if [ "$1" == "cf" ] || [ "$1" == "-cf" ]
     then
-        flatpak update -y
-        flatpak remove --unused -y
-    elif [ "$1" == "--system" ] || [ "$1" == "-s" ] || [ "$1" == "system" ]
+        check_if_almalinux
+    elif [ "$1" == "e" ] || [ "$1" == "-e" ]
     then
-        distro_commands
-    elif [ "$1" == "--all" ] || [ "$1" == "-A" ] || [ "$1" == "all" ]
+        element_desktop
+    elif [ "$1" == "s" ] || [ "$1" == "-s" ]
     then
-        distro_commands
+        system
+    elif [ "$1" == "f" ] || [ "$1" == "-f" ]
+    then
         flatpak update -y
         flatpak remove --unused -y
     elif [ -z "$1" ]
     then
-        echo "update: no option given"
-        echo "Usage: update [OPTION]"
-        echo "Try 'update --system' or 'update --help' to see options"
+        system
     else
         echo "Invalid option: $1"
         echo ""
@@ -56,15 +77,16 @@ update_help(){
     echo ""
     echo ""
     echo "Examples: "
-    echo "  update --apps"
-    echo "  update --system"
-    echo "  update --all"
+    echo "  update -f"
+    echo "  update -e"
+    echo "  update -s"
     echo ""
     echo ""
     echo "Available arguments:"
-    echo "  --apps, -a, apps            # update flatpaks"
-    echo "  --system, -s, system        # update rpm packages"
-    echo "  --all, -A, all              # update all of the above"
+    echo "  cf, -cf                      # update cockpit-files."
+    echo "  e,  -e                       # update elment desktop"
+    echo "  f,  -f                       # update flatpaks"
+    echo "  s,  -s                       # update system packages"
 }
 DISTRO=$(source /etc/os-release ; echo $ID)
 update "$1"
