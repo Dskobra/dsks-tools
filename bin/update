@@ -23,12 +23,12 @@ check_if_almalinux(){
 
 cockpit_files(){
     if [ -d "/usr/share/cockpit" ]; then
-        cd /opt/dsks-tools/temp || exit
+        cd "$HOME"/dsks-tools/temp || exit
         git clone https://github.com/cockpit-project/cockpit-files.git
         cd "cockpit-files" || exit
         make
         sudo make install
-        rm -r -f /opt/dsks-tools/temp/cockpit-files
+        rm -r -f "$HOME"/dsks-tools/temp/cockpit-files
     else
         echo "Cockpit not found. Not updating it."
     fi
@@ -38,11 +38,11 @@ element_desktop(){
     if [ -d "$HOME/.local/share/element-desktop" ]; then
         rm -r "$HOME/.local/share/element-desktop"
         ELEMENT="https://packages.element.io/desktop/install/linux/glibc-x86-64/element-desktop.tar.gz"
-        cd /opt/dsks-tools/temp || exit
+        cd "$HOME"/dsks-tools/temp || exit
         curl -L -o element-desktop.tar.gz $ELEMENT
         tar -xvf element-desktop.tar.gz
         mv element-desktop* "$HOME"/.local/share/element-desktop
-        rm /opt/dsks-tools/temp/element-desktop.tar.gz
+        rm "$HOME"/dsks-tools/temp/element-desktop.tar.gz
     else
         echo "Element Desktop not found. Not updating it."
     fi

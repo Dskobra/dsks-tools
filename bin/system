@@ -49,7 +49,7 @@ configure_desktop(){
     echo "LABEL=shared                                /mnt/shared           ntfs    nofail,users,exec             0 0 " | sudo tee -a /etc/fstab > /dev/null
     sudo systemctl daemon-reload
     sudo mount -av
-    cp -r /opt/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
+    cp -r "$HOME"/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
 }
 
 configure_server(){
@@ -76,7 +76,7 @@ then
 elif [ "$DEVICE" == "LaptopLnx" ]
 then
     configure_system
-    cp -r /opt/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
+    cp -r "$HOME"/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
     flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
 elif [ "$DEVICE" == "SERVER" ]
 then
