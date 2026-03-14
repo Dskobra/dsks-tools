@@ -1,13 +1,14 @@
 #!/usr/bin/bash
 
-if [ -d "$HOME/.local/share/dsks-tools" ]; then
+if [ -d "/opt/dsks-tools" ]; then
       echo "dsks-tools already installed."
 else
     echo "dsks-tools not found under $HOME/.local/share."
     echo "This will be copied over and run from there"
     TOOLS_FOLDER=$(pwd)  # stores full path for dsks-tools
-    cp -r "$TOOLS_FOLDER" "$HOME"/.local/share/dsks-tools
-    ln -s "$HOME"/.local/share/dsks-tools/bin/dtools "$HOME"/.local/bin/dtools
-    ln -s "$HOME"/.local/share/dsks-tools/bin/update "$HOME"/.local/bin/update
-    mkdir "$HOME"/.local/share/dsks-tools/temp
+    cp -r "$TOOLS_FOLDER" /opt/dsks-tools
+    sudo chown "$USER":"$USER" /opt/dsks-tools
+    ln -s /opt/dsks-tools/bin/dtools "$HOME"/.local/bin/dtools
+    ln -s /opt/dsks-tools/bin/update "$HOME"/.local/bin/update
+    mkdir /opt/dsks-tools/temp
 fi
