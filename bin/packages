@@ -20,7 +20,7 @@ install_nvidia(){
     sudo zypper -n install --auto-agree-with-licenses dkms nvidia-settings nvidia-driver-G06-kmp-default \
     nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
 
-    #echo "amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+    #echo "amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core " | sudo tee -a /etc/kernel/cmdline > /dev/null
 }
 
 install_lact(){
@@ -29,18 +29,17 @@ install_lact(){
     sudo cp -r "$HOME"/.local/share/dsks-tools/configs/lact /etc/lact
     sudo chown root:root /etc/lact -R
     sudo usermod -aG wheel "$USER"
-    #echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff splash=silent mitigations=auto quiet security=selinux selinux=1" | sudo tee /etc/kernel/cmdline > /dev/null
+    echo "amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff" | sudo tee -a /etc/kernel/cmdline > /dev/null
 }
 
 install_packages(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
-    sudo zypper -n install --auto-agree-with-licenses  git git-gui distrobox cpu-x remmina steam \
-    opi clamav firewall-applet virt-manager steam-devices gamemode docker-compose-switch podman \
+    sudo zypper -n install --auto-agree-with-licenses  git git-gui git-cola gh distrobox cpu-x \
+    remmina opi clamav firewall-applet virt-manager steam-devices docker-compose-switch podman \
     setroubleshoot-server systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload \
-    v4l2loopback-kmp-default v4l2loopback-kmp-longterm cockpit cockpit-selinux libvirt xfburn kate \
-    kate-plugins kleopatra partitionmanager gnome-keyring
+    v4l2loopback-kmp-default v4l2loopback-kmp-longterm ntsync-autoload patterns-cockpit-client \
+    cockpit-snapshots libvirt xfburn kate kate-plugins kleopatra partitionmanager mangohud ShellCheck
 
-    sudo opi -n brave-browser
     sudo opi -n megasync
 
     cd "$HOME"/.local/share/dsks-tools/temp || exit
@@ -67,13 +66,13 @@ install_packages(){
     org.DolphinEmu.dolphin-emu com.obsproject.Studio org.raspberrypi.rpi-imager \
     com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles net.lutris.Lutris \
     org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine \
-    org.kde.isoimagewriter net.waterfox.waterfox
+    org.kde.isoimagewriter net.waterfox.waterfox com.valvesoftware.Steam
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
     yast2-services-manager xscreensaver xscreensaver-data gnome-mahjongg swell-foop \
     quadrapassel gnome-mines gnome-chess lightsoff gnome-sudoku cheese gnome-extensions \
-    totem gnome-photos xterm yast2-kdump vlc vlc-qt vlc-codec-gstreamer vlc-codecs 
+    totem gnome-photos xterm yast2-kdump
     sudo zypper -n dup
 }
 
@@ -105,15 +104,20 @@ install_element_desktop(){
     cd "$HOME"/.local/share/dsks-tools/temp || exit
     curl -L -o element-desktop.tar.gz $ELEMENT
     tar -xvf element-desktop.tar.gz
-    mv element-desktop* "$HOME"/.local/share/element-desktop
+    mv element-desktop-* "$HOME"/.local/share/element-desktop
     ln -s "$HOME"/.local/share/element-desktop/element-desktop "$HOME"/.local/bin/element-desktop
 }
+
+export PROTON_MAIL="https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.rpm"
+export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.34.2-1.x86_64.rpm"
+export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"
+export ELEMENT="https://packages.element.io/desktop/install/linux/glibc-x86-64/element-desktop.tar.gz"
 DEVICE=$(uname -n)
 sudo flatpak remote-delete "flathub"
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 if [ "$DEVICE" == "DesktopLnx" ]
 then
-    #install_lact
+    install_lact
     install_packages
     install_element_desktop
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
