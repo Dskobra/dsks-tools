@@ -7,4 +7,4 @@ gcache option in dtools cleans out the following GPUCache folders:
 - Discord                     (native/flatpak/tarball)
 - WoWUp                       (appimage)
 - Raider.IO                   (appimage)
-- WarcraftLogs Uplaoder       (appimage)
+- WarcraftLogs Uploader       (appimage)
