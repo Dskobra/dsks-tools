@@ -34,8 +34,8 @@ configure_system(){
     
     # vms
     sudo usermod -aG libvirt "$USER"
-    sudo virsh net-start default
-    sudo virsh net-autostart default
+    #sudo virsh net-start default
+    #sudo virsh net-autostart default
 
     flatpak override --user --socket=session-bus im.riot.Riot 
 

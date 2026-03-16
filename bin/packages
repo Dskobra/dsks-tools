@@ -31,33 +31,26 @@ install_nvidia(){
 install_lact(){
     sudo zypper -n install dbus-1-daemon
     flatpak install --user -y flathub io.github.ilya_zlobintsev.LACT
+    sudo mkdir /etc/lact
     sudo cp -r "$HOME"/dsks-tools/configs/lact /etc/lact
     sudo chown root:root /etc/lact -R
     sudo usermod -aG wheel "$USER"
 }
 
 setup_vscodium_repo(){
-sudo tee -a /etc/zypp/repos.d/vscodium.repo << 'EOF'
-[gitlab.com_paulcarroty_vscodium_repo]
-name=gitlab.com_paulcarroty_vscodium_repo
-baseurl=https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/
-enabled=1
-gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
-metadata_expire=1h
-EOF
+    sudo cp "$HOME"/dsks-tools/configs/vscodium.repo /etc/zypp/repos.d/vscodium.repo
+    sudo chown root:root /etc/zypp/repos.d/vscodium.repo
     sudo zypper --gpg-auto-import-keys ref
 }
 
 install_packages(){
     cd "$HOME"/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui git-cola gh distrobox cpu-x \
-    remmina opi clamav firewall-applet virt-manager steam-devices docker-compose-switch podman \
-    setroubleshoot-server systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload \
+    remmina opi clamav firewall-applet virt-manager steam-devices podman setroubleshoot-server \
+    systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm ntsync-autoload patterns-cockpit-client \
     cockpit-snapshots libvirt xfburn kate kate-plugins kleopatra partitionmanager mangohud ShellCheck \
-    codium
+    codium zenity
 
     sudo opi -n megasync
 
@@ -72,7 +65,8 @@ install_packages(){
     sudo zypper --gpg-auto-import-keys -n ref
 
     sudo zypper -n install --from packman --allow-vendor-change ffmpeg gstreamer-plugins-good \
-    gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec \
+    gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec vlc \
+    vlc-codecs
 
     # install nodejs
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
@@ -85,7 +79,7 @@ install_packages(){
     org.DolphinEmu.dolphin-emu com.obsproject.Studio org.raspberrypi.rpi-imager \
     com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles net.lutris.Lutris \
     org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine \
-    org.kde.isoimagewriter net.waterfox.waterfox com.valvesoftware.Steam flathub im.riot.Riot
+    org.kde.isoimagewriter net.waterfox.waterfox com.valvesoftware.Steam im.riot.Riot
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
