@@ -27,7 +27,7 @@ install_packages(){
     if [ "$1" == "tooling" ]
     then
         install_tooling
-    elif [ "$1" == "install_element" ]
+    elif [ "$1" == "element" ]
     then
         install_element
     else 
