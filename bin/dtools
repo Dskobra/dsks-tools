@@ -38,7 +38,7 @@ containers_menu(){
     echo "------------------"
     echo ""
     echo "(1) Create dev container               (2) Install apps"
-    echo "(3) Create apps container              (4) Install apps"
+    echo "(3) Create element container           (4) Install apps"
     echo "(0) Exit"
     printf "Option: "
     read -r input
@@ -54,11 +54,11 @@ containers_menu(){
             ;;
 
         3)
-            "$HOME"/dsks-tools/bin/create "apps" 
+            "$HOME"/dsks-tools/bin/create "element" 
             ;;
 
         4)
-            "$HOME"/dsks-tools/bin/containers "apps"
+            "$HOME"/dsks-tools/bin/containers "element"
             ;;
             
         0)

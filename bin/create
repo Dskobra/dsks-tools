@@ -1,4 +1,14 @@
 #!/usr/bin/bash
+
+create_container(){
+    if [ "$CONTAINER_NAME" == "element" ]
+    then
+        IMAGE="debian:13 "
+        distrobox create  --name $CONTAINER_NAME --image $IMAGE
+    else 
+        IMAGE="fedora:43 "
+        distrobox create  --name $CONTAINER_NAME --image $IMAGE
+    fi
+}
 CONTAINER_NAME=$1
-IMAGE="fedora:43 "
-distrobox create  --name $CONTAINER_NAME --image $IMAGE
+create_container
