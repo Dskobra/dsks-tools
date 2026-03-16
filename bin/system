@@ -36,6 +36,9 @@ configure_system(){
     sudo usermod -aG libvirt "$USER"
     sudo virsh net-start default
     sudo virsh net-autostart default
+
+    flatpak override --user --socket=session-bus im.riot.Riot 
+
     
 }
 
@@ -50,6 +53,7 @@ configure_desktop(){
     sudo systemctl daemon-reload
     sudo mount -av
     cp -r "$HOME"/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
+    flatpak override --user --filesystem=/mnt/games com.valvesoftware.Steam
 }
 
 configure_server(){
