@@ -66,7 +66,7 @@ install_packages(){
     org.DolphinEmu.dolphin-emu com.obsproject.Studio org.raspberrypi.rpi-imager \
     com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles net.lutris.Lutris \
     org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine \
-    org.kde.isoimagewriter net.waterfox.waterfox com.valvesoftware.Steam
+    org.kde.isoimagewriter net.waterfox.waterfox com.valvesoftware.Steam flathub im.riot.Riot
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
     yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
@@ -100,19 +100,9 @@ install_server_packages(){
     rm ./*.rpm
 }
 
-install_element_desktop(){
-    cd "$HOME"/dsks-tools/temp || exit
-    curl -L -o element-desktop.tar.gz $ELEMENT
-    tar -xvf element-desktop.tar.gz
-    sudo mv element-desktop-* /opt/element-desktop
-    sudo chown "$USER":"$USER" /opt/element-desktop -R
-    ln -s /opt/element-desktop "$HOME"/.local/bin/element-desktop
-}
-
 export PROTON_MAIL="https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.rpm"
 export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.34.2-1.x86_64.rpm"
 export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"
-export ELEMENT="https://packages.element.io/desktop/install/linux/glibc-x86-64/element-desktop.tar.gz"
 DEVICE=$(uname -n)
 sudo flatpak remote-delete "flathub"
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -120,13 +110,11 @@ if [ "$DEVICE" == "DesktopLnx" ]
 then
     install_lact
     install_packages
-    install_element_desktop
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 elif [ "$DEVICE" == "LaptopLnx" ]
 then
     install_nvidia
     install_packages
-    install_element_desktop
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 elif [ "$DEVICE" == "SERVER" ]
 then
