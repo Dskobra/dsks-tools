@@ -81,11 +81,35 @@ install_packages(){
     org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine \
     org.kde.isoimagewriter net.waterfox.waterfox com.valvesoftware.Steam im.riot.Riot
 
-    sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku icewm icewm-config-upstream \
-    yast2-firewall yast2-network yast2-country yast2-printer yast2-proxy yast2-scanner \
-    yast2-services-manager xscreensaver xscreensaver-data gnome-mahjongg swell-foop \
-    quadrapassel gnome-mines gnome-chess lightsoff gnome-sudoku cheese gnome-extensions \
-    totem gnome-photos xterm yast2-kdump
+    sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
+    yast2 yast2-core yast2-logs yast2
+    sudo zypper -n dup
+}
+
+install_minipc_packages(){
+    cd "$HOME"/dsks-tools/temp || exit
+    sudo zypper -n install --auto-agree-with-licenses  git cpu-x opi clamav firewall-applet setroubleshoot-server \
+    systemd-zram-service zram-generator nextcloud-desktop patterns-cockpit-client cockpit-snapshots kate
+
+    sudo opi -n megasync
+    sudo opi -n codecs
+
+    cd "$HOME"/dsks-tools/temp || exit
+    curl -L -o proton-pass.rpm $PROTON_PASS
+    curl -L -o proton-authenticator.rpm $PROTON_AUTH
+    sudo zypper -n install --allow-unsigned-rpm ./*.rpm
+    rm ./*.rpm
+
+    # install nodejs
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+    source ~/.bashrc
+    nvm install lts/*
+
+    flatpak install --user -y flathub com.github.tchx84.Flatseal io.missioncenter.MissionCenter \
+    org.gtkhash.gtkhash org.kde.kaffeine net.waterfox.waterfox
+
+    sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
+    yast2 yast2-core yast2-logs yast2
     sudo zypper -n dup
 }
 
@@ -136,6 +160,9 @@ then
     install_nvidia
     install_packages
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
+elif [ "$DEVICE" == "MINIPC" ]
+then
+    install_minipc_package
 elif [ "$DEVICE" == "SERVER" ]
 then
     install_server_packages

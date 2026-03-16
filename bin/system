@@ -3,8 +3,7 @@ configure_system(){
     mkdir "$HOME"/.local/share/applications/
     npm i -g bash-language-server
     
-    # set grub timeout and zram config
-    sudo sdbootutil set-timeout -- 12
+    #setup zram config
     sudo touch /usr/lib/systemd/zram-generator.conf
     sudo sh -c 'echo "[zram0]" >> /usr/lib/systemd/zram-generator.conf'
     sudo sh -c 'echo "zram-size = min(ram, 8192)" >> /usr/lib/systemd/zram-generator.conf'
@@ -19,8 +18,7 @@ configure_system(){
     sudo sed -i '/TIMELINE_LIMIT_QUARTERLY="0"/c TIMELINE_LIMIT_QUARTERLY="0"' /etc/snapper/configs/root
     sudo sed -i '/TIMELINE_LIMIT_YEARLY="10"/c TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/root
 
-    # selinux and firewall
-    #sudo sed -i '/SELINUX=enforcing/c SELINUX=permissive' /etc/selinux/config
+    # firewall
     sudo firewall-cmd --set-default-zone=home
     sudo firewall-cmd --permanent --add-service=kdeconnect
     sudo firewall-cmd --permanent --add-service=cockpit
@@ -34,8 +32,6 @@ configure_system(){
     
     # vms
     sudo usermod -aG libvirt "$USER"
-    #sudo virsh net-start default
-    #sudo virsh net-autostart default
 
     flatpak override --user --socket=session-bus im.riot.Riot 
 
@@ -54,6 +50,31 @@ configure_desktop(){
     sudo mount -av
     cp -r "$HOME"/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
     flatpak override --user --filesystem=/mnt/games com.valvesoftware.Steam
+}
+
+configure_minipc(){
+    sudo touch /usr/lib/systemd/zram-generator.conf
+    sudo sh -c 'echo "[zram0]" >> /usr/lib/systemd/zram-generator.conf'
+    sudo sh -c 'echo "zram-size = min(ram, 8192)" >> /usr/lib/systemd/zram-generator.conf'
+
+    # snapper
+    sudo sed -i '/NUMBER_LIMIT="2-10"/c NUMBER_LIMIT="7"' /etc/snapper/configs/root
+    sudo sed -i '/NUMBER_LIMIT_IMPORTANT="4-10"/c NUMBER_LIMIT_IMPORTANT="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_HOURLY="10"/c TIMELINE_LIMIT_HOURLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_DAILY="10"/c TIMELINE_LIMIT_DAILY="2"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_WEEKLY="0"/c TIMELINE_LIMIT_WEEKLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_MONTHLY="10"/c TIMELINE_LIMIT_MONTHLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_QUARTERLY="0"/c TIMELINE_LIMIT_QUARTERLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_YEARLY="10"/c TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/root
+
+    sudo firewall-cmd --set-default-zone=home
+    sudo firewall-cmd --permanent --add-service=kdeconnect
+    sudo firewall-cmd --permanent --add-service=cockpit
+    sudo firewall-cmd --reload
+
+    # enable daemons
+    sudo systemctl enable --now sshd
+    sudo systemctl enable --now cockpit.socket       
 }
 
 configure_server(){
@@ -82,6 +103,9 @@ then
     configure_system
     cp -r "$HOME"/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
     flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
+elif [ "$DEVICE" == "MINIPC" ]
+then
+    echo ""
 elif [ "$DEVICE" == "SERVER" ]
 then
     configure_server
