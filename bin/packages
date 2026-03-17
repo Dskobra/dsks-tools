@@ -47,7 +47,7 @@ install_packages(){
     cd "$HOME"/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui git-cola gh distrobox cpu-x \
     remmina opi clamav firewall-applet virt-manager steam-devices podman setroubleshoot-server \
-    systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload \
+    systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload kdeconnect \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm ntsync-autoload patterns-cockpit-client \
     cockpit-snapshots libvirt xfburn kate kate-plugins kleopatra partitionmanager mangohud ShellCheck \
     codium zenity
