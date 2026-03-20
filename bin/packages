@@ -52,7 +52,7 @@ general_packages(){
     cd "$HOME"/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui git-cola gh distrobox cpu-x \
     remmina opi clamav firewall-applet virt-manager steam-devices podman setroubleshoot-server \
-    systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload kdeconnect \
+    systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload kdeconnect-kde \
     v4l2loopback-kmp-default v4l2loopback-kmp-longterm ntsync-autoload patterns-cockpit-client \
     cockpit-snapshots libvirt xfburn kate kate-plugins kleopatra partitionmanager mangohud ShellCheck \
     codium zenity
@@ -89,7 +89,7 @@ general_packages(){
 minipc_packages(){
     cd "$HOME"/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git cpu-x opi clamav firewall-applet \
-    setroubleshoot-server systemd-zram-service zram-generator nextcloud-desktop kdeconnect \
+    setroubleshoot-server systemd-zram-service zram-generator nextcloud-desktop kdeconnect-kde \
     patterns-cockpit-client cockpit-snapshots xfburn kate kate-plugins zenity
 
     sudo opi -n megasync
