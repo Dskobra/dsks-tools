@@ -43,8 +43,8 @@ update(){
         system
     elif [ "$1" == "f" ] || [ "$1" == "-f" ]
     then
-        flatpak update -y
-        flatpak remove --unused -y
+        sudo flatpak update -y
+        sudo flatpak remove --unused -y
     elif [ -z "$1" ]
     then
         system
