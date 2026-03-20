@@ -58,6 +58,7 @@ general_packages(){
     codium zenity
 
     sudo opi -n megasync
+    #sudo opi -n codecs
 
     cd "$HOME"/dsks-tools/temp || exit
     curl -L -o proton-mail.rpm $PROTON_MAIL
@@ -65,13 +66,6 @@ general_packages(){
     curl -L -o proton-authenticator.rpm $PROTON_AUTH
     sudo zypper -n install --allow-unsigned-rpm ./*.rpm
     rm ./*.rpm
-    
-    sudo zypper addrepo -cfp 80 'https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/' packman
-    sudo zypper --gpg-auto-import-keys -n ref
-
-    sudo zypper -n install --from packman --allow-vendor-change ffmpeg gstreamer-plugins-good \
-    gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav libavcodec vlc \
-    vlc-codecs
 
     # install nodejs
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
@@ -94,11 +88,12 @@ general_packages(){
 
 minipc_packages(){
     cd "$HOME"/dsks-tools/temp || exit
-    sudo zypper -n install --auto-agree-with-licenses  git cpu-x opi clamav firewall-applet setroubleshoot-server \
-    systemd-zram-service zram-generator nextcloud-desktop patterns-cockpit-client cockpit-snapshots kate
+    sudo zypper -n install --auto-agree-with-licenses  git cpu-x opi clamav firewall-applet \
+    setroubleshoot-server systemd-zram-service zram-generator nextcloud-desktop kdeconnect \
+    patterns-cockpit-client cockpit-snapshots xfburn kate kate-plugins zenity
 
     sudo opi -n megasync
-    sudo opi -n codecs
+    #sudo opi -n codecs
 
     cd "$HOME"/dsks-tools/temp || exit
     curl -L -o proton-pass.rpm $PROTON_PASS
@@ -111,11 +106,12 @@ minipc_packages(){
     source ~/.bashrc
     nvm install lts/*
 
-    flatpak install --user -y flathub com.github.tchx84.Flatseal io.missioncenter.MissionCenter \
-    org.gtkhash.gtkhash org.kde.kaffeine net.waterfox.waterfox
+    sudo flatpak install -y flathub com.github.tchx84.Flatseal io.missioncenter.MissionCenter \
+    io.github.arunsivaramanneo.GPUViewer org.gtkhash.gtkhash org.kde.kaffeine net.waterfox.waterfox \
+    io.github.kolunmi.Bazaar io.github.flattool.Warehouse
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
-    yast2 yast2-core yast2-logs yast2
+    yast2 yast2-core yast2-logs yast2 discover6
     sudo zypper -n dup
 }
 
