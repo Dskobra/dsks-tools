@@ -160,7 +160,7 @@ then
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 elif [ "$DEVICE" == "MINIPC" ]
 then
-    install_minipc_package
+    minipc_packages
 elif [ "$DEVICE" == "SERVER" ]
 then
     server_packages
