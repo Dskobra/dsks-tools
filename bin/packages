@@ -51,11 +51,10 @@ vscodium_repo(){
 general_packages(){
     cd "$HOME"/dsks-tools/temp || exit
     sudo zypper -n install --auto-agree-with-licenses  git git-gui git-cola gh distrobox cpu-x \
-    remmina opi clamav firewall-applet virt-manager steam-devices podman setroubleshoot-server \
-    systemd-zram-service zram-generator nextcloud-desktop v4l2loopback-autoload kdeconnect-kde \
-    v4l2loopback-kmp-default v4l2loopback-kmp-longterm ntsync-autoload patterns-cockpit-client \
-    cockpit-snapshots libvirt xfburn kate kate-plugins kleopatra partitionmanager mangohud ShellCheck \
-    codium zenity
+    remmina opi clamav virt-manager steam-devices podman setroubleshoot-server kdeconnect-kde \
+    systemd-zram-service zram-generator nextcloud-desktop  ntsync-autoload codium zenity \
+    patterns-cockpit-client cockpit-snapshots libvirt xfburn kate kate-plugins kleopatra \
+    partitionmanager mangohud ShellCheck 
 
     sudo opi -n megasync
     #sudo opi -n codecs
@@ -74,12 +73,11 @@ general_packages(){
 
     sudo flatpak install -y flathub com.github.tchx84.Flatseal io.podman_desktop.PodmanDesktop \
     io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
-    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.github.Matoking.protontricks info.cemu.Cemu \
-    org.DolphinEmu.dolphin-emu com.obsproject.Studio org.raspberrypi.rpi-imager \
-    com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles net.lutris.Lutris \
-    org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 org.kde.kaffeine \
-    org.kde.isoimagewriter net.waterfox.waterfox com.valvesoftware.Steam im.riot.Riot \
-    io.github.kolunmi.Bazaar io.github.flattool.Warehouse
+    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.obsproject.Studio org.raspberrypi.rpi-imager \
+    com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles org.kde.kaffeine \
+    net.waterfox.waterfox org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 \
+    org.kde.isoimagewriter com.valvesoftware.Steam im.riot.Riot io.github.kolunmi.Bazaar \
+    io.github.flattool.Warehouse
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
     yast2 yast2-core yast2-logs yast2 discover6
