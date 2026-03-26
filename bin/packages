@@ -80,7 +80,8 @@ general_packages(){
     io.github.flattool.Warehouse
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
-    yast2 yast2-core yast2-logs yast2 discover6
+    discover6 libyui-ncurses-pkg16 yast2*
+    sudo zypper al libyui-ncurses-pkg16 yast2*
     sudo zypper -n dup
 }
 
