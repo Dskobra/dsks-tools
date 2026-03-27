@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+flatpaks(){
+    sudo flatpak install -y flathub com.github.tchx84.Flatseal io.podman_desktop.PodmanDesktop \
+    io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
+    org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.obsproject.Studio org.raspberrypi.rpi-imager \
+    com.discordapp.Discord com.usebottles.bottles net.waterfox.waterfox im.riot.Riot \
+    org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 io.github.DenysMb.Kontainer \
+    org.kde.isoimagewriter io.github.kolunmi.Bazaar io.github.flattool.Warehouse \
+    
+}
+
+flatpaks

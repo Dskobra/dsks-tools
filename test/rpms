@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+
+packages(){
+    cd "$HOME"/dsks-tools/temp || exit
+    sudo zypper -n install --auto-agree-with-licenses  git git-gui git-cola gh distrobox cpu-x \
+    remmina opi clamav virt-manager steam steam-devices podman setroubleshoot-server kdeconnect-kde \
+    systemd-zram-service zram-generator ntsync-autoload codium zenity patterns-cockpit-client \
+    cockpit-snapshots libvirt xfburn kate kate-plugins kleopatra partitionmanager mangohud \
+    ShellCheck breeze6-wallpapers ucode-amd libvulkan_radeon libvulkan_radeon-32bit dbus-1-daemon
+
+
+    sudo opi -n megasync
+    sudo opi -n codecs
+
+    cd "$HOME"/dsks-tools/temp || exit
+    curl -L -o proton-mail.rpm $PROTON_MAIL
+    curl -L -o proton-pass.rpm $PROTON_PASS
+    curl -L -o proton-authenticator.rpm $PROTON_AUTH
+    sudo zypper -n install --allow-unsigned-rpm ./*.rpm
+    rm ./*.rpm
+
+    sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
+    discover6 libyui-ncurses-pkg16 yast2*
+    sudo zypper al libyui-ncurses-pkg16 yast2*
+    sudo zypper -n dup
+}
+export PROTON_MAIL="https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.rpm"
+export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.35.0-1.x86_64.rpm"
+export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"
+packages
