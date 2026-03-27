@@ -9,14 +9,14 @@ configure_system(){
     sudo sh -c 'echo "zram-size = min(ram, 8192)" >> /usr/lib/systemd/zram-generator.conf'
 
     # snapper
-    #sudo sed -i '/NUMBER_LIMIT="2-10"/c NUMBER_LIMIT="2-4"' /etc/snapper/configs/root
-    #sudo sed -i '/NUMBER_LIMIT_IMPORTANT="4-10"/c NUMBER_LIMIT_IMPORTANT="2-3"' /etc/snapper/configs/root
-    #sudo sed -i '/TIMELINE_LIMIT_HOURLY="10"/c TIMELINE_LIMIT_HOURLY="3"' /etc/snapper/configs/root
-    #sudo sed -i '/TIMELINE_LIMIT_DAILY="10"/c TIMELINE_LIMIT_DAILY="2"' /etc/snapper/configs/root
-    #sudo sed -i '/TIMELINE_LIMIT_WEEKLY="0"/c TIMELINE_LIMIT_WEEKLY="0"' /etc/snapper/configs/root
-    #sudo sed -i '/TIMELINE_LIMIT_MONTHLY="10"/c TIMELINE_LIMIT_MONTHLY="0"' /etc/snapper/configs/root
-    #sudo sed -i '/TIMELINE_LIMIT_QUARTERLY="0"/c TIMELINE_LIMIT_QUARTERLY="0"' /etc/snapper/configs/root
-    #sudo sed -i '/TIMELINE_LIMIT_YEARLY="10"/c TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/NUMBER_LIMIT="2-10"/c NUMBER_LIMIT="5"' /etc/snapper/configs/root
+    sudo sed -i '/NUMBER_LIMIT_IMPORTANT="4-10"/c NUMBER_LIMIT_IMPORTANT="5"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_HOURLY="10"/c TIMELINE_LIMIT_HOURLY="3"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_DAILY="10"/c TIMELINE_LIMIT_DAILY="2"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_WEEKLY="0"/c TIMELINE_LIMIT_WEEKLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_MONTHLY="10"/c TIMELINE_LIMIT_MONTHLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_QUARTERLY="0"/c TIMELINE_LIMIT_QUARTERLY="0"' /etc/snapper/configs/root
+    sudo sed -i '/TIMELINE_LIMIT_YEARLY="10"/c TIMELINE_LIMIT_YEARLY="0"' /etc/snapper/configs/root
 
     # firewall
     sudo firewall-cmd --set-default-zone=home
@@ -30,8 +30,9 @@ configure_system(){
     sudo systemctl enable --now virtnetworkd
     sudo systemctl enable --now cockpit.socket   
     
-    # vms
+    # groups
     sudo usermod -aG libvirt "$USER"
+    sudo usermod -aG wheel "$USER"
 
     flatpak override --user --socket=session-bus im.riot.Riot
     flatpak override --user --filesystem=home im.riot.Riot
@@ -43,7 +44,7 @@ configure_system(){
 configure_desktop(){
     ## setup drive mount points/permissions
     sudo mkdir /mnt/data /mnt/games /mnt/vms /mnt/shared
-    sudo chown "$USER":"$USER" /mnt/data /mnt/games   /mnt/vms /mnt/shared -R
+    sudo chown "$USER":"$USER" /mnt/data /mnt/games /mnt/vms /mnt/shared -R
     echo "LABEL=data                                  /mnt/data             btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
     echo "LABEL=games                                 /mnt/games            btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
     echo "LABEL=vms                                   /mnt/vms              btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null

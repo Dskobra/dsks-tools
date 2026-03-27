@@ -28,18 +28,12 @@ nvidia_drivers(){
     nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
 }
 
-desktop_fan_controls(){
-    sudo zypper -n install dbus-1-daemon
-    sudo flatpak install -y flathub io.github.ilya_zlobintsev.LACT
-    sudo mkdir /etc/lact
-    sudo cp -r "$HOME"/dsks-tools/configs/lact /etc/lact
-    sudo chown root:root /etc/lact -R
-    sudo usermod -aG wheel "$USER"
-
+desktop_specifics(){
     sudo zypper addrepo https://download.opensuse.org/repositories/home:codifryed/openSUSE_Tumbleweed/home:codifryed.repo
     sudo zypper --gpg-auto-import-keys -n ref
-    sudo zypper -n install coolercontrol
+    sudo zypper -n install coolercontrol python-liquidctl-udev-rules lact 
     sudo systemctl enable --now coolercontrold
+    sudo usermod -aG lact "$USER"
 }
 
 vscodium_repo(){
@@ -54,7 +48,8 @@ general_packages(){
     remmina opi clamav virt-manager steam steam-devices podman setroubleshoot-server kdeconnect-kde \
     systemd-zram-service zram-generator ntsync-autoload codium zenity patterns-cockpit-client \
     cockpit-snapshots libvirt xfburn kate kate-plugins kleopatra partitionmanager mangohud \
-    ShellCheck python-liquidctl-udev-rules
+    ShellCheck breeze6-wallpapers ucode-amd libvulkan_radeon libvulkan_radeon-32bit dbus-1-daemon
+
 
     sudo opi -n megasync
     sudo opi -n codecs
@@ -74,10 +69,10 @@ general_packages(){
     sudo flatpak install -y flathub com.github.tchx84.Flatseal io.podman_desktop.PodmanDesktop \
     io.missioncenter.MissionCenter it.mijorus.gearlever io.github.arunsivaramanneo.GPUViewer \
     org.gtkhash.gtkhash com.vysp3r.ProtonPlus com.obsproject.Studio org.raspberrypi.rpi-imager \
-    com.discordapp.Discord dev.goats.xivlauncher com.usebottles.bottles org.kde.kaffeine \
+    com.discordapp.Discord com.usebottles.bottles org.kde.kaffeine \
     net.waterfox.waterfox org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 \
-    org.kde.isoimagewriter im.riot.Riot io.github.kolunmi.Bazaar \
-    io.github.flattool.Warehouse
+    org.kde.isoimagewriter im.riot.Riot io.github.kolunmi.Bazaar io.github.flattool.Warehouse \
+    io.github.DenysMb.Kontainer
 
     sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
     discover6 libyui-ncurses-pkg16 yast2*
@@ -146,7 +141,7 @@ then
     DEVICE_BOOT_ARGS=" amd_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff"
     update_boot_args
     vscodium_repo
-    desktop_fan_controls
+    desktop_specifics
     general_packages
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 elif [ "$DEVICE" == "LaptopLnx" ]
