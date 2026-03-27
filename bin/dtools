@@ -135,7 +135,9 @@ dsks_tools_help(){
     echo "Released under the MIT license"
 }
 
-export DISTRO
 export COPYRIGHT="Copyright (c) 2024-2026 Jordan Bottoms"
+export DISTRO
+export ARG_ONE
+export ARG_TWO
 DISTRO=$(source /etc/os-release ; echo $ID)
 dsks_tools "$1"

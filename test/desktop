@@ -1,0 +1,37 @@
+#!/usr/bin/bash
+desktop_specifics(){
+    sudo zypper addrepo https://download.opensuse.org/repositories/home:codifryed/openSUSE_Tumbleweed/home:codifryed.repo
+    sudo zypper --gpg-auto-import-keys -n ref
+    sudo zypper -n install coolercontrol python-liquidctl-udev-rules lact 
+    sudo systemctl enable --now coolercontrold
+    sudo usermod -aG lact "$USER"
+}
+configure_desktop(){
+    ## setup drive mount points/permissions
+    sudo mkdir /mnt/data /mnt/games /mnt/vms /mnt/shared
+    sudo chown "$USER":"$USER" /mnt/data /mnt/games /mnt/vms /mnt/shared -R
+    echo "LABEL=data                                  /mnt/data             btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=games                                 /mnt/games            btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=vms                                   /mnt/vms              btrfs   nofail,users,exec             0 0"  | sudo tee -a /etc/fstab > /dev/null
+    echo "LABEL=shared                                /mnt/shared           ntfs    nofail,users,exec             0 0 " | sudo tee -a /etc/fstab > /dev/null
+    sudo systemctl daemon-reload
+    sudo mount -av
+    cp -r "$HOME"/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
+    #flatpak override --user --filesystem=/mnt/games com.valvesoftware.Steam
+    flatpak override --user --filesystem=/mnt/games com.usebottles.bottles
+    flatpak override --user --filesystem=/mnt/games net.lutris.Lutris
+}
+desktop_test(){
+    if [ "$ARG_TWO" == "packages" ]
+    then
+       desktop_specifics
+    elif [ "$ARG_ONE" == "configure" ]
+    then
+        configure_desktop
+    else
+        echo "Invalid option: $ARG_TWO"
+        echo "Only accepts 'packages' or 'configure'"
+    fi
+}
+
+desktop_test
