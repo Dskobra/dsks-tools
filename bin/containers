@@ -14,11 +14,13 @@ install_tooling(){
 }
 
 install_element(){
+    # note some kde/qt libraries are needed for screen sharing portal to work correctly
+    # so just pull in a min kde env
     sudo apt install -y wget apt-transport-https
     sudo wget -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.element.io/debian/element-io-archive-keyring.gpg
     echo "deb [signed-by=/usr/share/keyrings/element-io-archive-keyring.gpg] https://packages.element.io/debian/ default main" | sudo tee /etc/apt/sources.list.d/element-io.list
     sudo apt update
-    sudo apt install ffmpeg libavcodec-extra element-desktop
+    sudo apt install -y plasma-desktop ffmpeg libavcodec-extra element-desktop
 
     distrobox-export --app element-desktop
 }
