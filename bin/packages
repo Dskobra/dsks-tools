@@ -48,7 +48,8 @@ general_packages(){
     remmina opi clamav virt-manager steam steam-devices podman setroubleshoot-server kdeconnect-kde \
     systemd-zram-service zram-generator ntsync-autoload codium zenity patterns-cockpit-client \
     cockpit-snapshots libvirt xfburn kate kate-plugins kleopatra partitionmanager mangohud \
-    ShellCheck breeze6-wallpapers ucode-amd libvulkan_radeon libvulkan_radeon-32bit dbus-1-daemon
+    ShellCheck breeze6-wallpapers ucode-amd libvulkan_radeon libvulkan_radeon-32bit dbus-1-daemon \
+    nextcloud-desktop
 
 
     sudo opi -n megasync
