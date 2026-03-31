@@ -51,7 +51,6 @@ general_packages(){
     ShellCheck breeze6-wallpapers ucode-amd libvulkan_radeon libvulkan_radeon-32bit dbus-1-daemon \
     nextcloud-desktop
 
-
     sudo opi -n megasync
     sudo opi -n codecs
 
@@ -74,10 +73,11 @@ general_packages(){
     org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 io.github.kolunmi.Bazaar \
     io.github.flattool.Warehouse io.github.DenysMb.Kontainer 
 
-    sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
-    discover6 libyui-ncurses-pkg16 yast2*
-    sudo zypper al libyui-ncurses-pkg16 yast2*
-    sudo zypper -n dup
+   sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
+   discover6 libyui-ncurses-pkg16 yast2* icewm icewm-theme-branding plasma6-session-x11 \
+   kwin6-x11
+   sudo zypper al libyui-ncurses-pkg16 yast2*
+   sudo zypper -n dup
 }
 
 minipc_packages(){

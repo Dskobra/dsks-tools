@@ -54,7 +54,6 @@ configure_desktop(){
     cp -r "$HOME"/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
     #flatpak override --user --filesystem=/mnt/games com.valvesoftware.Steam
     flatpak override --user --filesystem=/mnt/games com.usebottles.bottles
-    flatpak override --user --filesystem=/mnt/games net.lutris.Lutris
 }
 
 configure_minipc(){
