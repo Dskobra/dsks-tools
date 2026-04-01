@@ -9,23 +9,12 @@ update_boot_args(){
 nvidia_drivers(){
     # main drivers
     sudo zypper -n install --auto-agree-with-licenses openSUSE-repos-Tumbleweed-NVIDIA
-
-    sudo zypper al nvidia-open-driver-G06-signed-kmp-default
-    sudo zypper al nvidia-open-driver-G07-signed-kmp-default
-
-    sudo zypper al nvidia-open-driver-G06-signed-kmp-longterm
-    sudo zypper al nvidia-open-driver-G07-signed-kmp-longterm
-
-    sudo zypper al nvidia-open-driver-G06-signed-cuda-kmp-default
-    sudo zypper al nvidia-open-driver-G07-signed-cuda-kmp-default
-
-    # cuda drivers
-    sudo zypper al nvidia-open-driver-G06-signed-cuda-kmp-longterm
-    sudo zypper al nvidia-open-driver-G07-signed-cuda-kmp-longterm
-
     sudo zypper --gpg-auto-import-keys -n ref
-    sudo zypper -n install --auto-agree-with-licenses dkms nvidia-settings nvidia-driver-G06-kmp-default \
-    nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
+    #sudo zypper -n install --auto-agree-with-licenses dkms nvidia-settings nvidia-driver-G06-kmp-default \
+    #nvidia-driver-G06-kmp-longterm nvidia-userspace-meta-G06
+
+    sudo zypper -n install --auto-agree-with-licenses nvidia-open-driver-G07-signed-kmp-default \
+    nvidia-open-driver-G07-signed-kmp-longterm nvidia-settings
 }
 
 desktop_specifics(){
@@ -74,9 +63,9 @@ general_packages(){
     io.github.flattool.Warehouse io.github.DenysMb.Kontainer 
 
    sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
-   discover6 libyui-ncurses-pkg16 yast2* icewm icewm-theme-branding plasma6-session-x11 \
+   discover6 libyui-ncurses-pkg16 icewm icewm-theme-branding plasma6-session-x11 yast2* \
    kwin6-x11
-   sudo zypper al libyui-ncurses-pkg16 yast2*
+   sudo zypper al libyui-ncurses-pkg16 plasma6-session-x11 kwin6-x11 yast2*
    sudo zypper -n dup
 }
 
@@ -146,7 +135,8 @@ then
     zenity --warning --text="Reminder to restart terminal so it sees nodejs to install bash lsp"
 elif [ "$DEVICE" == "LaptopLnx" ]
 then
-    DEVICE_BOOT_ARGS=" amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core"
+    #DEVICE_BOOT_ARGS=" amd_iommu=on iommu=pt rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core"
+    DEVICE_BOOT_ARGS=" amd_iommu=on iommu=pt"
     update_boot_args
     vscodium_repo    
     nvidia_drivers

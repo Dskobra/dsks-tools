@@ -106,7 +106,7 @@ elif [ "$DEVICE" == "LaptopLnx" ]
 then
     configure_system
     cp -r "$HOME"/dsks-tools/configs/game-profiles/LAPTOP "$HOME"/.config/MangoHud/
-    flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
+    sudo flatpak update -y       #flatpak nvidia drivers needs to match system so do an update
 elif [ "$DEVICE" == "MINIPC" ]
 then
     configure_minipc
