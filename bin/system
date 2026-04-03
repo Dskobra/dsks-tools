@@ -38,6 +38,9 @@ configure_system(){
     flatpak override --user --filesystem=home im.riot.Riot
     flatpak override --user --filesystem=home com.discordapp.Discord 
 
+
+    cp "$HOME/dsks-tools/configs/MangoXIV.desktop" "$HOME/.local/share/applications/MangoXIV.desktop"
+
     
 }
 
@@ -52,8 +55,8 @@ configure_desktop(){
     sudo systemctl daemon-reload
     sudo mount -av
     cp -r "$HOME"/dsks-tools/configs/game-profiles/DESKTOP "$HOME"/.config/MangoHud/
-    #flatpak override --user --filesystem=/mnt/games com.valvesoftware.Steam
-    flatpak override --user --filesystem=/mnt/games com.usebottles.bottles
+    flatpak override --user --filesystem=/mnt/games net.lutris.Lutris
+    flatpak override --user --filesystem=xdg-config/MangoHud:ro dev.goats.xivlauncher
 }
 
 configure_minipc(){

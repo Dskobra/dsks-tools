@@ -6,8 +6,10 @@ else
     echo "dsks-tools not found under $HOME/dsks-tools/"
     echo "This will be copied over and run from there"
     TOOLS_FOLDER=$(pwd)
-    cp -r "$TOOLS_FOLDER" "$HOME"/dsks-tools/
-    ln -s "$HOME"/dsks-tools/bin/dtools "$HOME"/.local/bin/dtools
-    ln -s "$HOME"/dsks-tools/bin/update "$HOME"/.local/bin/update
+    cp -r "$TOOLS_FOLDER" "$HOME/dsks-tools/"
+    ln -s "$HOME/dsks-tools/bin/dtools" "$HOME/.local/bin/dtools"
+    ln -s "$HOME/dsks-tools/bin/update" "$HOME/.local/bin/update"
+    ln -s "$HOME/dsks-tools/bin/winekill" "$HOME/.local/bin/winekill"
+    ln -s "$HOME/dsks-tools/bin/winekill" "$HOME/Desktop/winekill"
     mkdir "$HOME"/dsks-tools/temp
 fi
