@@ -60,7 +60,7 @@ general_packages(){
     com.vysp3r.ProtonPlus com.obsproject.Studio org.raspberrypi.rpi-imager  \
     com.usebottles.bottles net.waterfox.waterfox org.kde.isoimagewriter com.discordapp.Discord \
     org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 io.github.kolunmi.Bazaar \
-    io.github.flattool.Warehouse io.github.DenysMb.Kontainer 
+    dev.goats.xivlauncher io.github.DenysMb.Kontainer
 
    sudo zypper -n rm lftp kmahjongg kmines kreversi ksudoku xscreensaver xscreensaver-data xterm \
    discover6 libyui-ncurses-pkg16 icewm icewm-theme-branding plasma6-session-x11 yast2* \
@@ -121,7 +121,7 @@ server_packages(){
 }
 
 export PROTON_MAIL="https://proton.me/download/mail/linux/1.12.1/ProtonMail-desktop-beta.rpm"
-export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.35.0-1.x86_64.rpm"
+export PROTON_PASS="https://proton.me/download/pass/linux/proton-pass-1.36.0-1.x86_64.rpm"
 export PROTON_AUTH="https://proton.me/download/authenticator/linux/ProtonAuthenticator-1.1.4-1.x86_64.rpm"
 DEVICE_BOOT_ARGS=""
 DEVICE=$(uname -n)
