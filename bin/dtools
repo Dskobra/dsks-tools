@@ -76,18 +76,6 @@ containers_menu(){
         containers_menu
 }
 
-gcache(){
-    # discord from rpm/tarball and flatpak (user)
-    rm -r ~/.config/discord/GPUCache/
-    rm -r ~/.var/app/com.discordapp.Discord/config/discord/GPUCache/
-
-    # wowup, raider.io and warcraft logs 3rd party world of warcraft
-    # addons/services
-    rm -r ~/.config/WowUpCf/GPUCache/
-    rm -r ~/.config/RaiderIO/GPUCache/
-    rm -r ~/.config/"Warcraft Logs Uploader"/GPUCache/
-}
-
 dsks_tools(){
     if [ "$1" == "--devices" ] || [ "$1" == "-d" ] || [ "$1" == "devices" ]
     then
@@ -95,9 +83,6 @@ dsks_tools(){
     elif [ "$1" == "--containers" ] || [ "$1" == "-c" ] || [ "$1" == "containers" ]
     then
         containers_menu
-    elif [ "$1" == "--gcache" ] || [ "$1" == "-g" ] || [ "$1" == "gcache" ]
-    then
-        gcache
     elif [ "$1" == "--update" ] || [ "$1" == "-u" ] || [ "$1" == "update" ]
     then
         cd "$HOME"/dsks-tools/ || exit
@@ -127,7 +112,6 @@ dsks_tools_help(){
     echo "Available arguments:"
     echo "  --devices, -d, devices          # opens menu for setting up my devices"
     echo "  --containers, -c, containers    # opens menu for creating containers"
-    echo "  --gcache, -g, gcache            # cleans shader caches for select electron apps"
     echo "  --update, -u update             # updates these tools"
     echo ""
     echo ""
