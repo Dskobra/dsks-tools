@@ -1,10 +1,4 @@
 # dsks-tools
-Collection of scripts for automating the setup of my computers or whatever I'm feeling atm. :P
+Further code changes are now on codeberg.
 
-# gcache
-Sometimes apps built with electron/chromium will fail to render or display garbled windows
-gcache option in dtools cleans out the following GPUCache folders:
-- Discord                     (native/flatpak/tarball)
-- WoWUp                       (appimage)
-- Raider.IO                   (appimage)
-- WarcraftLogs Uploader       (appimage)
+https://codeberg.org/dskobra/dsks-tools
